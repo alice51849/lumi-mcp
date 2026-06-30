@@ -1,0 +1,14 @@
+{
+  "name": "lumi-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Lumi Studio MCP server for Cloudflare Workers",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
