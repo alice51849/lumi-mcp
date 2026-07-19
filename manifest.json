@@ -1,0 +1,64 @@
+{
+  "manifest_version": "0.3",
+  "name": "lumi-app-finder",
+  "display_name": "Lumi App Finder",
+  "version": "1.0.0",
+  "description": "Find matching iPhone and iPad apps by task, buyer need, and locale, with direct App Store links.",
+  "long_description": "A transparent first-party discovery tool for 28 verified live Lumi Studio iOS apps across all 50 Apple locales. It matches a user's task to publisher-authored, editorially localized use cases and returns the relevant App Store and detailed guide links. Results are text-relevance matches, not measured search volume, independent reviews, rankings, or user endorsements.",
+  "author": {
+    "name": "Lumi Studio",
+    "url": "https://alice51849.github.io/ios-app-guide/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alice51849/lumi-mcp.git"
+  },
+  "homepage": "https://alice51849.github.io/ios-app-guide/",
+  "documentation": "https://github.com/alice51849/lumi-mcp#readme",
+  "support": "https://github.com/alice51849/lumi-mcp/issues",
+  "privacy_policies": [
+    "https://github.com/alice51849/lumi-mcp/blob/main/PRIVACY.md"
+  ],
+  "localization": {
+    "resources": "mcpb-resources/${locale}.json",
+    "default_locale": "en-US"
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.mjs"
+      ],
+      "env": {}
+    }
+  },
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Search the first-party catalog for iOS apps matching a task or buyer need, then return localized context and direct App Store links."
+    }
+  ],
+  "keywords": [
+    "iOS apps",
+    "iPhone",
+    "iPad",
+    "App Store",
+    "app finder",
+    "pay once",
+    "lifetime unlock",
+    "localized apps"
+  ],
+  "license": "MIT",
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  }
+}

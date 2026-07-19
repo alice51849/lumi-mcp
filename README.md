@@ -1,80 +1,76 @@
-# Lumi MCP
+# Lumi App Finder MCP
 
-A production-ready, dependency-free Cloudflare Worker MCP (Model Context Protocol) server for Lumi Studio apps. It exposes useful AI-assistant tools over Streamable HTTP JSON-RPC at `POST /mcp`, and every tool result includes the relevant App Store link.
+Lumi App Finder gives AI assistants one read-only tool for matching a user's
+task or buyer need to a verified live Lumi Studio iOS app.
 
-## Tools
+It covers **28 apps × all 50 Apple locales**. Every result includes
+editorially localized context, the purchase model, a detailed guide, and a
+direct App Store link for the matching storefront.
 
-- `ats_resume_score` — ATS resume scoring and fixes, powered by CV Desk.
-- `price_to_work_hours` — convert a price into work hours, powered by HoursTag.
-- `passport_photo_spec` — passport/ID photo specs for common countries, powered by Snapport.
-- `real_cost_abroad` — travel currency cost formula and tips, powered by G+Money.
+> **First-party disclosure:** Lumi Studio develops every listed app. Results
+> are transparent publisher-authored text matches, not measured search volume,
+> independent rankings, reviews, or user endorsements.
 
-## Run locally
+## Tool
+
+### `find_ios_apps`
+
+Inputs:
+
+- `query` — task, app name, or buyer need in any supported language.
+- `locale` — one of Apple's 50 supported locale codes; defaults to `en-US`.
+- `limit` — 1–10 matches; defaults to 5.
+
+The server reads the current public catalog when online and falls back to the
+bundled 1,400-record snapshot. User query text never leaves the local MCP
+process.
+
+## Install
+
+Find `io.github.alice51849/lumi-app-finder` in clients or registries that use
+the official MCP Registry, or install the `lumi-app-finder.mcpb` asset from the
+[latest GitHub release](https://github.com/alice51849/lumi-mcp/releases/latest).
+
+The MCPB uses Node's stdio transport and needs no account, API key, or manual
+configuration.
+
+## 50-locale coverage
+
+`ar-SA`, `bn-BD`, `ca`, `cs`, `da`, `de-DE`, `el`, `en-AU`, `en-CA`,
+`en-GB`, `en-US`, `es-ES`, `es-MX`, `fi`, `fr-CA`, `fr-FR`, `gu-IN`, `he`,
+`hi`, `hr`, `hu`, `id`, `it`, `ja`, `kn-IN`, `ko`, `ml-IN`, `mr-IN`, `ms`,
+`nl-NL`, `no`, `or-IN`, `pa-IN`, `pl`, `pt-BR`, `pt-PT`, `ro`, `ru`, `sk`,
+`sl-SI`, `sv`, `ta-IN`, `te-IN`, `th`, `tr`, `uk`, `ur-PK`, `vi`,
+`zh-Hans`, `zh-Hant`.
+
+MCPB display metadata and the catalog output both use these localized
+resources.
+
+## Development
 
 ```bash
-npm run dev
+npm ci
+npm test
+npm run validate
+npm run pack:mcpb
 ```
 
-Then send JSON-RPC 2.0 requests to:
-
-```text
-http://127.0.0.1:8787/mcp
-```
-
-Example:
+Refresh the bundled catalog and 50 locale resources from the public
+`ios-app-guide` source:
 
 ```bash
-curl -s http://127.0.0.1:8787/mcp \
-  -H 'content-type: application/json' \
-  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+npm run sync:catalog
 ```
 
-## Deploy to Cloudflare Workers
+Version tags publish the bundle as a GitHub release and register it through
+GitHub OIDC, without long-lived registry credentials.
 
-### One-time setup for GitHub Actions
+## Privacy
 
-1. Create a Cloudflare API token with Workers deploy permissions.
-2. Add these repository secrets in GitHub: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
-3. Push to `main`; `.github/workflows/deploy.yml` runs `npx wrangler deploy` automatically.
+See [PRIVACY.md](./PRIVACY.md). The tool has no analytics or tracking, and
+never sends user queries to the catalog host.
 
-### Manual deploy
+## License
 
-```bash
-export CLOUDFLARE_API_TOKEN=your_token
-export CLOUDFLARE_ACCOUNT_ID=your_account_id
-npm run deploy
-```
-
-After deploy, the MCP endpoint is:
-
-```text
-https://lumi-mcp.<your-workers-subdomain>.workers.dev/mcp
-```
-
-## Add as an MCP connector
-
-Use the deployed `/mcp` URL as a remote MCP / Streamable HTTP connector endpoint:
-
-- ChatGPT: add the URL as a custom connector when MCP connectors are enabled for your workspace/account.
-- Claude: add a remote MCP server/connector using the Streamable HTTP endpoint.
-- Cursor: add an MCP server with transport `http` / Streamable HTTP and URL `https://.../mcp`.
-
-No API key is required by this Worker today. If you later add private tools, protect `/mcp` with an `Authorization` header secret stored in Cloudflare/GitHub secrets.
-
-## Protocol notes
-
-Implemented JSON-RPC 2.0 methods:
-
-- `initialize`
-- `notifications/initialized` (returns HTTP 202 with no body)
-- `tools/list`
-- `tools/call`
-- `ping`
-
-Responses use MCP tool result shape:
-
-```json
-{"content":[{"type":"text","text":"..."}]}
-```
-
-This can later be expanded into a ChatGPT app through the OpenAI Apps SDK while reusing the same tool concepts and App Store distribution strategy.
+MIT. Third-party language-data notices are in
+[THIRD_PARTY_NOTICES.txt](./THIRD_PARTY_NOTICES.txt).

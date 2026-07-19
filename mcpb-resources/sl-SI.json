@@ -1,0 +1,19 @@
+{
+  "display_name": "Katalog iskalnih namenov založnika Lumi Studio",
+  "description": "Katalog prve roke, ki opisuje, za koga je vsaka aplikacija namenjena, katero nalogo poskuša uporabnik opraviti in neposredno pot do App Store.",
+  "long_description": "Katalog prve roke, ki opisuje, za koga je vsaka aplikacija namenjena, katero nalogo poskuša uporabnik opraviti in neposredno pot do App Store. To je gradivo prve roke, ki ga je objavil Lumi Studio, razvijalec vseh navedenih aplikacij. Poizvedbe so uredniški opisi predvidenih primerov uporabe, ne pa podatki o obsegu iskanja, uvrstitve, neodvisne ocene ali priporočila uporabnikov.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Katalog prve roke, ki opisuje, za koga je vsaka aplikacija namenjena, katero nalogo poskuša uporabnik opraviti in neposredno pot do App Store."
+    }
+  ],
+  "keywords": [
+    "Aplikacija",
+    "Poizvedba založnika",
+    "Kontekst odločitve",
+    "Model nakupa",
+    "Vodnik",
+    "Lokalizacija"
+  ]
+}

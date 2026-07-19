@@ -1,0 +1,19 @@
+{
+  "display_name": "Catalogul de intenții de căutare Lumi Studio al editorului",
+  "description": "O listă de primă parte a destinatarilor fiecărei aplicații, a sarcinii pe care încearcă să o îndeplinească și a traseului direct către App Store.",
+  "long_description": "O listă de primă parte a destinatarilor fiecărei aplicații, a sarcinii pe care încearcă să o îndeplinească și a traseului direct către App Store. Acesta este material de primă parte publicat de Lumi Studio, dezvoltatorul fiecărei aplicații listate. Interogările sunt descrieri editoriale ale cazurilor de utilizare intenționate, nu date măsurate despre volumul căutărilor, clasamente, recenzii independente sau recomandări ale utilizatorilor.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "O listă de primă parte a destinatarilor fiecărei aplicații, a sarcinii pe care încearcă să o îndeplinească și a traseului direct către App Store."
+    }
+  ],
+  "keywords": [
+    "Aplicație",
+    "Interogare editor",
+    "Situație decizională",
+    "Model de achiziție",
+    "Ghid",
+    "Localizare"
+  ]
+}

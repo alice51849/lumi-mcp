@@ -1,0 +1,19 @@
+{
+  "display_name": "Danh mục ý định tìm kiếm của nhà phát hành Lumi Studio",
+  "description": "Danh mục do chính nhà phát triển công bố, cho biết từng ứng dụng dành cho ai, nhiệm vụ họ muốn hoàn thành và lối truy cập trực tiếp đến App Store.",
+  "long_description": "Danh mục do chính nhà phát triển công bố, cho biết từng ứng dụng dành cho ai, nhiệm vụ họ muốn hoàn thành và lối truy cập trực tiếp đến App Store. Tài liệu này do Lumi Studio trực tiếp công bố; Lumi Studio là nhà phát triển của tất cả ứng dụng được liệt kê. Các truy vấn là phần mô tả biên tập về trường hợp sử dụng dự kiến, không phải dữ liệu lượng tìm kiếm đã đo, bảng xếp hạng, đánh giá độc lập hay lời chứng thực của người dùng.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Danh mục do chính nhà phát triển công bố, cho biết từng ứng dụng dành cho ai, nhiệm vụ họ muốn hoàn thành và lối truy cập trực tiếp đến App Store."
+    }
+  ],
+  "keywords": [
+    "Ứng dụng",
+    "Truy vấn của nhà phát hành",
+    "Bối cảnh quyết định",
+    "Mô hình mua hàng",
+    "Hướng dẫn",
+    "Vùng"
+  ]
+}

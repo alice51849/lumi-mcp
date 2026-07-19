@@ -1,0 +1,19 @@
+{
+  "display_name": "Lumi Studio Utgiver Søkeintensjonskatalog",
+  "description": "En førsteparts katalog over hvem hver app er laget for, oppgaven de prøver å fullføre, og den direkte App Store-stien.",
+  "long_description": "En førsteparts katalog over hvem hver app er laget for, oppgaven de prøver å fullføre, og den direkte App Store-stien. Dette er førsteparts materiale publisert av Lumi Studio, utvikleren av hver oppført app. Spørringene er redaksjonelle beskrivelser av tiltenkte bruksområder, ikke målte søkevolumdata, rangeringer, uavhengige anmeldelser eller brukeranbefalinger.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "En førsteparts katalog over hvem hver app er laget for, oppgaven de prøver å fullføre, og den direkte App Store-stien."
+    }
+  ],
+  "keywords": [
+    "App",
+    "Utgiver-spørring",
+    "Beslutningskontekst",
+    "Kjøpsmodell",
+    "Guide",
+    "Lokale"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "display_name": "Katalog Niat Pencarian Penerbit Lumi Studio",
+  "description": "Katalog yang diterbitkan langsung oleh pengembang untuk menjelaskan sasaran setiap aplikasi, tugas yang ingin diselesaikan, dan akses langsung ke App Store.",
+  "long_description": "Katalog yang diterbitkan langsung oleh pengembang untuk menjelaskan sasaran setiap aplikasi, tugas yang ingin diselesaikan, dan akses langsung ke App Store. Materi ini diterbitkan langsung oleh Lumi Studio, pengembang semua aplikasi yang tercantum. Kueri ini adalah deskripsi editorial tentang penggunaan yang dimaksudkan, bukan data volume pencarian yang diukur, peringkat, ulasan independen, atau rekomendasi pengguna.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Katalog yang diterbitkan langsung oleh pengembang untuk menjelaskan sasaran setiap aplikasi, tugas yang ingin diselesaikan, dan akses langsung ke App Store."
+    }
+  ],
+  "keywords": [
+    "Aplikasi",
+    "Kueri penerbit",
+    "Konteks keputusan",
+    "Model pembelian",
+    "Panduan",
+    "Wilayah"
+  ]
+}

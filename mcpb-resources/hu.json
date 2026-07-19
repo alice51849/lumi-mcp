@@ -1,0 +1,19 @@
+{
+  "display_name": "Lumi Studio Kiadói Keresési Szándék Katalógus",
+  "description": "Egy első kézből származó katalógus arról, hogy az egyes alkalmazások kinek készültek, milyen feladatot próbálnak megoldani, és a közvetlen App Store útvonal.",
+  "long_description": "Egy első kézből származó katalógus arról, hogy az egyes alkalmazások kinek készültek, milyen feladatot próbálnak megoldani, és a közvetlen App Store útvonal. Ez első kézből származó anyag, amelyet a Lumi Studio tett közzé, az összes felsorolt alkalmazás fejlesztője. A lekérdezések szerkesztői leírások a tervezett használati esetekről, nem mérhető keresési mennyiségi adatok, rangsorok, független értékelések vagy felhasználói ajánlások.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Egy első kézből származó katalógus arról, hogy az egyes alkalmazások kinek készültek, milyen feladatot próbálnak megoldani, és a közvetlen App Store útvonal."
+    }
+  ],
+  "keywords": [
+    "Alkalmazás",
+    "Kiadói lekérdezés",
+    "Döntési kontextus",
+    "Vásárlási modell",
+    "Útmutató",
+    "Lokáció"
+  ]
+}

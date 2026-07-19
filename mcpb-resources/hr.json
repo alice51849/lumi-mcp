@@ -1,0 +1,19 @@
+{
+  "display_name": "Katalog namjera pretraživanja izdavača Lumi Studio",
+  "description": "Katalog iz prve ruke o tome za koga je svaka aplikacija namijenjena, koji zadatak žele izvršiti i izravnom putu do App Storea.",
+  "long_description": "Katalog iz prve ruke o tome za koga je svaka aplikacija namijenjena, koji zadatak žele izvršiti i izravnom putu do App Storea. Ovo je materijal iz prve ruke koji je objavio Lumi Studio, razvojni tim svake navedene aplikacije. Upiti su urednički opisi predviđenih slučajeva korištenja, a ne podaci o volumenu pretraživanja, rangiranju, neovisnim recenzijama ili korisničkim preporukama.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Katalog iz prve ruke o tome za koga je svaka aplikacija namijenjena, koji zadatak žele izvršiti i izravnom putu do App Storea."
+    }
+  ],
+  "keywords": [
+    "Aplikacija",
+    "Upit izdavača",
+    "Kontekst odluke",
+    "Model kupnje",
+    "Vodič",
+    "Lokalitet"
+  ]
+}

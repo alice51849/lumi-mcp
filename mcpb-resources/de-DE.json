@@ -1,0 +1,19 @@
+{
+  "display_name": "Lumi Studio – Katalog der Suchintentionen des Herausgebers",
+  "description": "Ein direkt vom Entwickler veröffentlichter Katalog, der zeigt, für wen jede App entwickelt wurde, welche Aufgabe die jeweilige Person erledigen möchte und wie sie direkt zum App Store gelangt.",
+  "long_description": "Ein direkt vom Entwickler veröffentlichter Katalog, der zeigt, für wen jede App entwickelt wurde, welche Aufgabe die jeweilige Person erledigen möchte und wie sie direkt zum App Store gelangt. Dieses Material wird direkt von Lumi Studio veröffentlicht, dem Entwickler aller aufgeführten Apps. Die Suchanfragen sind redaktionelle Beschreibungen der vorgesehenen Anwendungsfälle und keine gemessenen Suchvolumendaten, Ranglisten, unabhängigen Bewertungen oder Nutzerempfehlungen.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Ein direkt vom Entwickler veröffentlichter Katalog, der zeigt, für wen jede App entwickelt wurde, welche Aufgabe die jeweilige Person erledigen möchte und wie sie direkt zum App Store gelangt."
+    }
+  ],
+  "keywords": [
+    "App",
+    "Suchanfrage des Herausgebers",
+    "Entscheidungskontext",
+    "Kaufmodell",
+    "Leitfaden",
+    "Sprachregion"
+  ]
+}

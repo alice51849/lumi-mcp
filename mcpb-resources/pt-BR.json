@@ -1,0 +1,19 @@
+{
+  "display_name": "Catálogo de intenções de busca da publicadora Lumi Studio",
+  "description": "Um catálogo publicado diretamente pela desenvolvedora que mostra para quem cada app foi criado, a tarefa que a pessoa quer concluir e o acesso direto à App Store.",
+  "long_description": "Um catálogo publicado diretamente pela desenvolvedora que mostra para quem cada app foi criado, a tarefa que a pessoa quer concluir e o acesso direto à App Store. Este conteúdo é publicado diretamente pela Lumi Studio, desenvolvedora de todos os apps apresentados. As consultas são descrições editoriais dos usos previstos, não dados medidos de volume de busca, classificações, avaliações independentes nem recomendações de usuários.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Um catálogo publicado diretamente pela desenvolvedora que mostra para quem cada app foi criado, a tarefa que a pessoa quer concluir e o acesso direto à App Store."
+    }
+  ],
+  "keywords": [
+    "App",
+    "Consulta do editor",
+    "Contexto de decisão",
+    "Modelo de compra",
+    "Guia",
+    "Localidade"
+  ]
+}

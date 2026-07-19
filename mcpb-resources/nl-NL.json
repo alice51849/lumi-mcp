@@ -1,0 +1,19 @@
+{
+  "display_name": "Lumi Studio Uitgever Zoekintentiecatalogus",
+  "description": "Een catalogus van de eerste partij met informatie over voor wie elke app is ontworpen, welke taak ze proberen te voltooien en het directe App Store-pad.",
+  "long_description": "Een catalogus van de eerste partij met informatie over voor wie elke app is ontworpen, welke taak ze proberen te voltooien en het directe App Store-pad. Dit is materiaal van de eerste partij, gepubliceerd door Lumi Studio, de ontwikkelaar van elke vermelde app. De zoekopdrachten zijn redactionele beschrijvingen van beoogde gebruikssituaties, geen gemeten zoekvolumegegevens, ranglijsten, onafhankelijke beoordelingen of gebruikersaanbevelingen.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Een catalogus van de eerste partij met informatie over voor wie elke app is ontworpen, welke taak ze proberen te voltooien en het directe App Store-pad."
+    }
+  ],
+  "keywords": [
+    "App",
+    "Uitgeverszoekopdracht",
+    "Beslissingscontext",
+    "Aankoopmodel",
+    "Gids",
+    "Regio"
+  ]
+}

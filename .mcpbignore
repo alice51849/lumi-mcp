@@ -1,0 +1,11 @@
+.git/
+.github/
+.wrangler/
+dist/
+node_modules/
+scripts/
+test/
+.dev.vars
+.DS_Store
+package-lock.json
+server.json

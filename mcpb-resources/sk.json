@@ -1,0 +1,19 @@
+{
+  "display_name": "Katalóg zámerov vyhľadávania vydavateľa Lumi Studio",
+  "description": "Katalóg prvej strany, ktorý uvádza, pre koho je každá aplikácia určená, aký úkon sa snaží používateľ dokončiť a priamu cestu do App Store.",
+  "long_description": "Katalóg prvej strany, ktorý uvádza, pre koho je každá aplikácia určená, aký úkon sa snaží používateľ dokončiť a priamu cestu do App Store. Toto je materiál prvej strany publikovaný Lumi Studio, vývojárom každej uvedenej aplikácie. Dopyty sú redakčné popisy zamýšľaných prípadov použitia, nie údaje o meranom objeme vyhľadávania, rebríčky, nezávislé recenzie alebo odporúčania používateľov.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Katalóg prvej strany, ktorý uvádza, pre koho je každá aplikácia určená, aký úkon sa snaží používateľ dokončiť a priamu cestu do App Store."
+    }
+  ],
+  "keywords": [
+    "Aplikácia",
+    "Dopyt vydavateľa",
+    "Kontext rozhodovania",
+    "Model nákupu",
+    "Sprievodca",
+    "Lokalita"
+  ]
+}

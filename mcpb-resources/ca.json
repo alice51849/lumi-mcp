@@ -1,0 +1,19 @@
+{
+  "display_name": "Catàleg d'intencions de cerca de Lumi Studio Editor",
+  "description": "Catàleg de primera mà que mostra per a qui està dissenyada cada app, la tasca que volen completar i el camí directe a l'App Store.",
+  "long_description": "Catàleg de primera mà que mostra per a qui està dissenyada cada app, la tasca que volen completar i el camí directe a l'App Store. Aquest és material de primera mà publicat per Lumi Studio, el desenvolupador de totes les apps llistades. Les consultes són descripcions editorials dels casos d'ús previstos, no dades de volum de cerca mesurat, classificacions, ressenyes independents ni recomanacions d'usuaris.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Catàleg de primera mà que mostra per a qui està dissenyada cada app, la tasca que volen completar i el camí directe a l'App Store."
+    }
+  ],
+  "keywords": [
+    "App",
+    "Consulta del publicador",
+    "Situació de decisió",
+    "Model de compra",
+    "Guia",
+    "Local"
+  ]
+}

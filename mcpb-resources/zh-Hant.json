@@ -1,0 +1,19 @@
+{
+  "display_name": "Lumi Studio 開發者搜尋意圖目錄",
+  "description": "第一方目錄，說明每款 App 的適合對象、想完成的任務，以及 App Store 下載入口。",
+  "long_description": "第一方目錄，說明每款 App 的適合對象、想完成的任務，以及 App Store 下載入口。 這是由 Lumi Studio 發布的第一方資料；Lumi Studio 是每款列出 App 的開發者。 這些查詢是針對預期使用情境撰寫的編輯描述，並非實測搜尋量資料、排名、獨立評測或使用者推薦。",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "第一方目錄，說明每款 App 的適合對象、想完成的任務，以及 App Store 下載入口。"
+    }
+  ],
+  "keywords": [
+    "App",
+    "開發者查詢",
+    "決策情境",
+    "付費模式",
+    "指南",
+    "地區語系"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "display_name": "Lumi Studio Yayıncı Arama Niyeti Kataloğu",
+  "description": "Her uygulamanın kimler için tasarlandığını, tamamlamaya çalıştıkları görevi ve doğrudan App Store yolunu gösteren bir birinci taraf katalog.",
+  "long_description": "Her uygulamanın kimler için tasarlandığını, tamamlamaya çalıştıkları görevi ve doğrudan App Store yolunu gösteren bir birinci taraf katalog. Bu, listelenen her uygulamanın geliştiricisi Lumi Studio tarafından yayımlanan birinci taraf materyaldir. Sorgular, amaçlanan kullanım durumlarının editoryal açıklamalarıdır; ölçülmüş arama hacmi verileri, sıralamalar, bağımsız incelemeler veya kullanıcı onayları değildir.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Her uygulamanın kimler için tasarlandığını, tamamlamaya çalıştıkları görevi ve doğrudan App Store yolunu gösteren bir birinci taraf katalog."
+    }
+  ],
+  "keywords": [
+    "Uygulama",
+    "Yayıncı sorgusu",
+    "Karar bağlamı",
+    "Satın alma modeli",
+    "Rehber",
+    "Yerel"
+  ]
+}

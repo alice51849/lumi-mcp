@@ -1,0 +1,76 @@
+name: Publish MCP Registry release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Test and validate
+        run: |
+          npm test
+          npm run validate
+      - name: Build release bundle
+        run: |
+          npm run pack:mcpb
+          node scripts/set-server-hash.mjs \
+            dist/lumi-app-finder.mcpb \
+            server.json \
+            "${GITHUB_REF_NAME#v}"
+      - name: Publish GitHub release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" \
+              dist/lumi-app-finder.mcpb --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" \
+              dist/lumi-app-finder.mcpb \
+              --title "Lumi App Finder $GITHUB_REF_NAME" \
+              --notes "First-party AI app discovery for 28 verified iOS apps across all 50 Apple locales. Includes direct App Store links and no subscription claims."
+          fi
+      - name: Install MCP Registry publisher
+        run: |
+          set -euo pipefail
+          version=1.8.0
+          base="https://github.com/modelcontextprotocol/registry/releases/download/v${version}"
+          curl --fail --location --retry 4 --retry-all-errors \
+            --output mcp-publisher_linux_amd64.tar.gz \
+            "${base}/mcp-publisher_linux_amd64.tar.gz"
+          curl --fail --location --retry 4 --retry-all-errors \
+            --output checksums.txt \
+            "${base}/registry_${version}_checksums.txt"
+          grep '  mcp-publisher_linux_amd64.tar.gz$' checksums.txt \
+            > mcp-publisher.sha256
+          sha256sum --check mcp-publisher.sha256
+          tar -xzf mcp-publisher_linux_amd64.tar.gz mcp-publisher
+          chmod +x mcp-publisher
+      - name: Authenticate with GitHub OIDC
+        run: ./mcp-publisher login github-oidc
+      - name: Publish to the official MCP Registry
+        run: |
+          for attempt in 1 2 3 4; do
+            if ./mcp-publisher publish; then
+              exit 0
+            fi
+            if test "$attempt" -eq 4; then
+              exit 1
+            fi
+            sleep $((attempt * 15))
+          done

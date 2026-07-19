@@ -1,0 +1,19 @@
+{
+  "display_name": "Katalog vyhledávacích záměrů vydavatele Lumi Studio",
+  "description": "Katalog od první strany, který uvádí, pro koho je každá aplikace určena, jaký úkol má splnit a přímou cestu do App Store.",
+  "long_description": "Katalog od první strany, který uvádí, pro koho je každá aplikace určena, jaký úkol má splnit a přímou cestu do App Store. Toto je materiál od první strany publikovaný Lumi Studio, vývojářem všech uvedených aplikací. Dotazy jsou redakční popisy zamýšlených použití, nikoli měřená data o objemu vyhledávání, žebříčky, nezávislé recenze ani uživatelská doporučení.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Katalog od první strany, který uvádí, pro koho je každá aplikace určena, jaký úkol má splnit a přímou cestu do App Store."
+    }
+  ],
+  "keywords": [
+    "Aplikace",
+    "Dotaz vydavatele",
+    "Kontext rozhodování",
+    "Model nákupu",
+    "Průvodce",
+    "Lokalita"
+  ]
+}

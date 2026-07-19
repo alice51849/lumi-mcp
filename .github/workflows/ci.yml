@@ -1,0 +1,38 @@
+name: Validate MCP bundle
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Test server and catalog
+        run: npm test
+      - name: Validate MCPB manifest
+        run: npm run validate
+      - name: Pack and inspect MCPB
+        run: |
+          npm run pack:mcpb
+          first="$(sha256sum dist/lumi-app-finder.mcpb | cut -d' ' -f1)"
+          npm run pack:mcpb
+          second="$(sha256sum dist/lumi-app-finder.mcpb | cut -d' ' -f1)"
+          test "$first" = "$second"
+          node scripts/set-server-hash.mjs \
+            dist/lumi-app-finder.mcpb server.json
+          git diff --exit-code -- server.json
+          npx mcpb info dist/lumi-app-finder.mcpb

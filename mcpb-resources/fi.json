@@ -1,0 +1,19 @@
+{
+  "display_name": "Lumi Studio Julkaisijan Hakutarkoitusluettelo",
+  "description": "Ensimmäisen osapuolen luettelo siitä, kenelle kukin sovellus on suunniteltu, mitä tehtävää he pyrkivät suorittamaan ja suora App Store -polku.",
+  "long_description": "Ensimmäisen osapuolen luettelo siitä, kenelle kukin sovellus on suunniteltu, mitä tehtävää he pyrkivät suorittamaan ja suora App Store -polku. Tämä on Lumi Studion, jokaisen listatun sovelluksen kehittäjän, julkaisema ensimmäisen osapuolen materiaali. Kyselyt ovat toimituksellisia kuvauksia suunnitelluista käyttötapauksista, eivät mitattua hakumäärää, sijoituksia, itsenäisiä arvosteluja tai käyttäjien suosituksia.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Ensimmäisen osapuolen luettelo siitä, kenelle kukin sovellus on suunniteltu, mitä tehtävää he pyrkivät suorittamaan ja suora App Store -polku."
+    }
+  ],
+  "keywords": [
+    "Sovellus",
+    "Julkaisijan hakukysely",
+    "Päätöskonteksti",
+    "Ostomalli",
+    "Opas",
+    "Lokaali"
+  ]
+}

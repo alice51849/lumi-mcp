@@ -1,0 +1,19 @@
+{
+  "display_name": "Katalog zamiarów wyszukiwania wydawcy Lumi Studio",
+  "description": "Pierwotny katalog określający, dla kogo jest przeznaczona każda aplikacja, jakie zadanie ma wykonać oraz bezpośrednią ścieżkę do App Store.",
+  "long_description": "Pierwotny katalog określający, dla kogo jest przeznaczona każda aplikacja, jakie zadanie ma wykonać oraz bezpośrednią ścieżkę do App Store. Materiał pierwszorzędny opublikowany przez Lumi Studio, twórcę każdej wymienionej aplikacji. Zapytania to redakcyjne opisy zamierzonych zastosowań, a nie dane o mierzonej liczbie wyszukiwań, rankingi, niezależne recenzje ani rekomendacje użytkowników.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Pierwotny katalog określający, dla kogo jest przeznaczona każda aplikacja, jakie zadanie ma wykonać oraz bezpośrednią ścieżkę do App Store."
+    }
+  ],
+  "keywords": [
+    "Aplikacja",
+    "Zapytanie wydawcy",
+    "Kontekst decyzji",
+    "Model zakupu",
+    "Przewodnik",
+    "Lokalizacja"
+  ]
+}

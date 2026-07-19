@@ -1,0 +1,19 @@
+{
+  "display_name": "Katalog Niat Carian Penerbit Lumi Studio",
+  "description": "Katalog yang diterbitkan terus oleh pembangun untuk menerangkan sasaran setiap aplikasi, tugasan yang mahu diselesaikan dan akses terus ke App Store.",
+  "long_description": "Katalog yang diterbitkan terus oleh pembangun untuk menerangkan sasaran setiap aplikasi, tugasan yang mahu diselesaikan dan akses terus ke App Store. Bahan ini diterbitkan terus oleh Lumi Studio, pembangun semua aplikasi yang disenaraikan. Pertanyaan ialah penerangan editorial tentang kegunaan yang dimaksudkan, bukan data volum carian yang diukur, kedudukan, ulasan bebas atau saranan pengguna.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Katalog yang diterbitkan terus oleh pembangun untuk menerangkan sasaran setiap aplikasi, tugasan yang mahu diselesaikan dan akses terus ke App Store."
+    }
+  ],
+  "keywords": [
+    "Aplikasi",
+    "Pertanyaan penerbit",
+    "Konteks keputusan",
+    "Model pembelian",
+    "Panduan",
+    "Wilayah"
+  ]
+}

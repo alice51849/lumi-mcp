@@ -1,0 +1,19 @@
+{
+  "display_name": "Lumi Studio Publisher Search Intent Catalogue",
+  "description": "A first-party catalogue of who each app is designed for, the task they are trying to complete, and the direct App Store path.",
+  "long_description": "A first-party catalogue of who each app is designed for, the task they are trying to complete, and the direct App Store path. This is first-party material published by Lumi Studio, the developer of every listed app. The queries are editorial descriptions of intended use cases, not measured search-volume data, rankings, independent reviews, or user endorsements.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "A first-party catalogue of who each app is designed for, the task they are trying to complete, and the direct App Store path."
+    }
+  ],
+  "keywords": [
+    "App",
+    "Publisher query",
+    "Decision context",
+    "Purchase model",
+    "Guide",
+    "Locale"
+  ]
+}

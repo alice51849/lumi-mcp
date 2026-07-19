@@ -1,17 +1,20 @@
 {
-  "name": "lumi-mcp",
+  "name": "lumi-app-finder-mcp",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Lumi Studio MCP server for Cloudflare Workers",
+  "description": "First-party MCP app finder for 28 Lumi Studio iOS apps across 50 Apple locales",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "sync:catalog": "node scripts/sync-catalog.mjs",
+    "test": "node --test",
+    "validate": "mcpb validate manifest.json",
+    "pack:mcpb": "mcpb validate manifest.json && python3 scripts/pack_bundle.py"
   },
   "engines": {
     "node": ">=20"
   },
   "devDependencies": {
-    "wrangler": "^4.105.0"
+    "@anthropic-ai/mcpb": "2.1.2",
+    "stopword": "3.1.5"
   }
 }

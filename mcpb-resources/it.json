@@ -1,0 +1,19 @@
+{
+  "display_name": "Catalogo degli intenti di ricerca dell'editore Lumi Studio",
+  "description": "Un catalogo pubblicato direttamente dallo sviluppatore che indica a chi è destinata ogni app, l'attività da completare e l'accesso diretto all'App Store.",
+  "long_description": "Un catalogo pubblicato direttamente dallo sviluppatore che indica a chi è destinata ogni app, l'attività da completare e l'accesso diretto all'App Store. Questo contenuto è pubblicato direttamente da Lumi Studio, lo sviluppatore di tutte le app elencate. Le richieste di ricerca sono descrizioni editoriali degli usi previsti, non dati misurati sul volume di ricerca, classifiche, recensioni indipendenti o approvazioni degli utenti.",
+  "tools": [
+    {
+      "name": "find_ios_apps",
+      "description": "Un catalogo pubblicato direttamente dallo sviluppatore che indica a chi è destinata ogni app, l'attività da completare e l'accesso diretto all'App Store."
+    }
+  ],
+  "keywords": [
+    "App",
+    "Richiesta di ricerca dell'editore",
+    "Contesto decisionale",
+    "Modello di acquisto",
+    "Guida",
+    "Lingua e area geografica"
+  ]
+}
