@@ -15,6 +15,21 @@ Other hosts receive the same complete text and structured-data fallback.
 > are transparent publisher-authored text matches, not measured search volume,
 > independent rankings, reviews, or user endorsements.
 
+## Agent Skill
+
+AI hosts that support the open Agent Skills specification can install the same
+50-locale, first-party catalog as an offline, progressively loaded skill:
+
+```bash
+gh skill install alice51849/lumi-mcp lumi-app-finder@v1.1.0 --scope user
+```
+
+GitHub CLI 2.90 or newer installs to GitHub Copilot by default. Add
+`--agent claude-code`, `--agent cursor`, `--agent codex`, or
+`--agent gemini-cli` for another supported host. The installed skill reads only
+the requested locale's 28-record snapshot and requires no account, API key,
+network request, or executable script at runtime.
+
 ## Tool
 
 ### `find_ios_apps`
@@ -34,12 +49,12 @@ process.
 Find `io.github.alice51849/lumi-app-finder` in clients or registries that use
 the official MCP Registry, or use a version-pinned installer:
 
-[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_MCP_Server-0098FF?logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522lumi-app-finder%2522%252C%2522type%2522%253A%2522stdio%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522https%253A%252F%252Fgithub.com%252Falice51849%252Flumi-mcp%252Freleases%252Fdownload%252Fv1.0.3%252Flumi-app-finder-npx.tgz%2522%255D%257D)
-[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=lumi-app-finder&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImh0dHBzOi8vZ2l0aHViLmNvbS9hbGljZTUxODQ5L2x1bWktbWNwL3JlbGVhc2VzL2Rvd25sb2FkL3YxLjAuMy9sdW1pLWFwcC1maW5kZXItbnB4LnRneiJdfQ%3D%3D)
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_MCP_Server-0098FF?logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522lumi-app-finder%2522%252C%2522type%2522%253A%2522stdio%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522https%253A%252F%252Fgithub.com%252Falice51849%252Flumi-mcp%252Freleases%252Fdownload%252Fv1.1.0%252Flumi-app-finder-npx.tgz%2522%255D%257D)
+[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=lumi-app-finder&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImh0dHBzOi8vZ2l0aHViLmNvbS9hbGljZTUxODQ5L2x1bWktbWNwL3JlbGVhc2VzL2Rvd25sb2FkL3YxLjEuMC9sdW1pLWFwcC1maW5kZXItbnB4LnRneiJdfQ%3D%3D)
 [![Download for Claude Desktop](https://img.shields.io/badge/Claude_Desktop-Download_MCPB-D97757)](https://github.com/alice51849/lumi-mcp/releases/latest/download/lumi-app-finder.mcpb)
 
 The VS Code and Cursor links run the zero-dependency server from the pinned
-public `v1.0.3` GitHub release through `npx`; Node.js 20 or newer is required.
+public `v1.1.0` GitHub release through `npx`; Node.js 20 or newer is required.
 The same pinned configuration can be added manually:
 
 ```json
@@ -50,7 +65,7 @@ The same pinned configuration can be added manually:
       "command": "npx",
       "args": [
         "-y",
-        "https://github.com/alice51849/lumi-mcp/releases/download/v1.0.3/lumi-app-finder-npx.tgz"
+        "https://github.com/alice51849/lumi-mcp/releases/download/v1.1.0/lumi-app-finder-npx.tgz"
       ]
     }
   }
@@ -77,6 +92,7 @@ resources.
 ```bash
 npm ci
 npm run build:ui
+npm run build:skill
 npm test
 npm run validate
 npm run pack:mcpb

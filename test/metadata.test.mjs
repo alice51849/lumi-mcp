@@ -51,6 +51,77 @@ test("snapshot covers 28 apps across all 50 Apple locales", async () => {
   }
 });
 
+test("Agent Skill ships an offline 28-app catalog for every locale", async () => {
+  const [catalog, packageJson, skill, locales, referenceFiles, readme] =
+    await Promise.all([
+      json("server/catalog.json"),
+      json("package.json"),
+      readFile(new URL("skills/lumi-app-finder/SKILL.md", root), "utf8"),
+      readFile(
+        new URL("skills/lumi-app-finder/references/LOCALES.md", root),
+        "utf8",
+      ),
+      readdir(new URL("skills/lumi-app-finder/references/", root)),
+      readFile(new URL("README.md", root), "utf8"),
+    ]);
+  assert.match(skill, /^---\nname: lumi-app-finder\n/mu);
+  assert.match(skill, /all 50 Apple locales/u);
+  assert.match(skill, /not an independent ranking/u);
+  assert.match(skill, new RegExp(`version: "${packageJson.version}"`, "u"));
+  assert.doesNotMatch(skill, /^allowed-tools:/mu);
+  assert.equal(
+    readme.includes(
+      `gh skill install alice51849/lumi-mcp lumi-app-finder@v${packageJson.version} --scope user`,
+    ),
+    true,
+  );
+
+  const jsonFiles = referenceFiles
+    .filter((file) => file.endsWith(".json"))
+    .sort();
+  assert.deepEqual(
+    jsonFiles,
+    catalog.locales.map((locale) => `${locale}.json`).sort(),
+  );
+  for (const locale of catalog.locales) {
+    assert.match(locales, new RegExp(`\\| \`${locale}\` \\|`, "u"));
+    const reference = await json(
+      `skills/lumi-app-finder/references/${locale}.json`,
+    );
+    const source = catalog.records
+      .filter((record) => record.locale === locale)
+      .sort((left, right) => left.app_key.localeCompare(right.app_key));
+    assert.equal(reference.locale, locale);
+    assert.equal(reference.app_count, 28);
+    assert.equal(reference.apps.length, 28);
+    assert.equal(reference.publisher_disclosure, catalog.ui[locale].disclosure);
+    assert.equal(
+      reference.non_ranking_disclosure,
+      catalog.ui[locale].non_measured,
+    );
+    assert.equal(reference.measured_search_volume, false);
+    assert.equal(reference.is_ranking, false);
+    assert.deepEqual(
+      reference.apps.map((app) => app.app_key),
+      source.map((record) => record.app_key),
+    );
+    for (const [index, app] of reference.apps.entries()) {
+      const record = source[index];
+      assert.equal(app.app_name, record.app_name);
+      assert.equal(app.publisher_query, record.publisher_query);
+      assert.equal(app.source_persona_query, record.source_persona_query);
+      assert.equal(app.decision_context, record.decision_context);
+      assert.equal(app.purchase_model, record.purchase_model);
+      assert.equal(app.purchase_label, record.purchase_label);
+      assert.equal(app.verified_live, true);
+      assert.equal(app.guide_url, record.canonical_guide_url);
+      assert.equal(app.app_store_url, record.app_store_url);
+      assert.equal(app.app_store_cta_label, record.app_store_cta_label);
+      assert.equal(/[\r\n\u2028\u2029]/u.test(JSON.stringify(app)), false);
+    }
+  }
+});
+
 test("MCPB metadata and resources expose every official locale", async () => {
   const [
     catalog,

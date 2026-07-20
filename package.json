@@ -1,6 +1,6 @@
 {
   "name": "lumi-app-finder-mcp",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "description": "First-party MCP app finder for 28 Lumi Studio iOS apps across 50 Apple locales",
@@ -14,8 +14,9 @@
   ],
   "scripts": {
     "build:ui": "node scripts/build-ui.mjs",
-    "sync:catalog": "node scripts/sync-catalog.mjs",
-    "test": "node scripts/build-ui.mjs --check && node --test",
+    "build:skill": "node scripts/build-skill-catalog.mjs",
+    "sync:catalog": "node scripts/sync-catalog.mjs && node scripts/build-skill-catalog.mjs",
+    "test": "node scripts/build-skill-catalog.mjs --check && node scripts/build-ui.mjs --check && node --test",
     "validate": "mcpb validate manifest.json",
     "pack:mcpb": "node scripts/build-ui.mjs --check && mcpb validate manifest.json && python3 scripts/pack_bundle.py"
   },
