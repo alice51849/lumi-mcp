@@ -75,6 +75,13 @@ test("Agent Skill ships an offline 28-app catalog for every locale", async () =>
     ),
     true,
   );
+  assert.equal(
+    readme.includes(
+      `npx -y skills@1.5.19 add https://github.com/alice51849/lumi-mcp/tree/v${packageJson.version}/skills/lumi-app-finder --skill lumi-app-finder -g -y`,
+    ),
+    true,
+  );
+  assert.match(readme, /anonymous installation telemetry/u);
 
   const jsonFiles = referenceFiles
     .filter((file) => file.endsWith(".json"))

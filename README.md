@@ -30,6 +30,17 @@ GitHub CLI 2.90 or newer installs to GitHub Copilot by default. Add
 the requested locale's 28-record snapshot and requires no account, API key,
 network request, or executable script at runtime.
 
+The version-pinned skill also works with the Vercel Skills CLI and its supported
+agents:
+
+```bash
+npx -y skills@1.5.19 add https://github.com/alice51849/lumi-mcp/tree/v1.1.0/skills/lumi-app-finder --skill lumi-app-finder -g -y
+```
+
+The third-party installer reports anonymous installation telemetry by default
+under the [skills.sh CLI policy](https://skills.sh/docs/cli). The installed Lumi
+App Finder skill itself remains offline and contains no analytics.
+
 ## Tool
 
 ### `find_ios_apps`
