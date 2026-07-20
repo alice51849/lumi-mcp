@@ -32,6 +32,8 @@ test("snapshot covers 28 apps across all 50 Apple locales", async () => {
       store.pathname.endsWith(`/id${record.app_store_id}`),
       true,
     );
+    assert.equal(store.search, "");
+    assert.equal(store.hash, "");
   }
   for (const locale of catalog.locales) {
     assert.equal(catalog.stopwords[locale].length > 0, true);

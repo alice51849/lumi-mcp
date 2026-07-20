@@ -121,7 +121,7 @@ test("Traditional Chinese intent returns localized direct App Store links", asyn
     for (const record of output.results) {
       const url = new URL(record.app_store_url);
       assert.equal(url.hostname, "apps.apple.com");
-      assert.equal(url.searchParams.get("ct"), "lumi_mcp_zh_hant");
+      assert.equal(url.search, "");
       assert.equal(record.guide_url.includes("/zh-Hant/answers/"), true);
     }
   });
@@ -171,6 +171,13 @@ test("native publisher intent resolves correctly in all 50 locales", async () =>
       assert.equal(
         response.result.structuredContent.results[0]?.app_key,
         expected.app_key,
+        locale,
+      );
+      assert.equal(
+        new URL(
+          response.result.structuredContent.results[0].app_store_url,
+        ).search,
+        "",
         locale,
       );
     }

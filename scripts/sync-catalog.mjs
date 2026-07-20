@@ -165,6 +165,34 @@ function localized(mapping, source) {
   return value.trim();
 }
 
+function validateStoreUrl(value, appId) {
+  const url = new URL(value);
+  const params = [...url.searchParams.entries()];
+  const keys = new Set(params.map(([key]) => key));
+  const isClean = params.length === 0;
+  const isFullyAttributed =
+    params.length === 3 &&
+    keys.size === 3 &&
+    keys.has("pt") &&
+    keys.has("ct") &&
+    keys.has("mt") &&
+    /^\d{1,20}$/.test(url.searchParams.get("pt") ?? "") &&
+    /^[A-Za-z0-9/_]{1,30}$/.test(url.searchParams.get("ct") ?? "") &&
+    url.searchParams.get("mt") === "8";
+  if (
+    url.protocol !== "https:" ||
+    url.hostname !== "apps.apple.com" ||
+    url.port ||
+    url.username ||
+    url.password ||
+    url.hash ||
+    !new RegExp(`^/(?:[a-z]{2}/)?app/id${appId}$`).test(url.pathname) ||
+    (!isClean && !isFullyAttributed)
+  ) {
+    throw new Error(`Invalid App Store route for ${appId}.`);
+  }
+}
+
 function validateInputs(catalog, i18n) {
   if (
     catalog?.app_count !== 28 ||
@@ -197,6 +225,7 @@ function validateInputs(catalog, i18n) {
       record.measured_search_volume !== false ||
       record.is_ranking !== false ||
       !OFFICIAL_LOCALES.includes(record.locale) ||
+      !/^\d{9,12}$/.test(record.app_store_id) ||
       !Object.hasOwn(PURCHASE_LABELS, record.purchase_model)
     ) {
       throw new Error(
@@ -207,12 +236,9 @@ function validateInputs(catalog, i18n) {
     if (pairs.has(pair)) throw new Error(`Duplicate pair '${pair}'.`);
     pairs.add(pair);
     appKeys.add(record.app_key);
-    const store = new URL(record.app_store_url);
-    if (
-      store.protocol !== "https:" ||
-      store.hostname !== "apps.apple.com" ||
-      !store.pathname.endsWith(`/id${record.app_store_id}`)
-    ) {
+    try {
+      validateStoreUrl(record.app_store_url, record.app_store_id);
+    } catch {
       throw new Error(`Invalid App Store URL for '${pair}'.`);
     }
   }

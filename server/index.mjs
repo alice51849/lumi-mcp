@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import readline from "node:readline";
 
 const SERVER_NAME = "lumi-app-finder";
-const SERVER_VERSION = "1.0.0";
+const SERVER_VERSION = "1.0.1";
 const LATEST_PROTOCOL = "2025-06-18";
 const SUPPORTED_PROTOCOLS = new Set([
   "2025-06-18",
@@ -181,13 +181,31 @@ function independentMatchCount(queryTerms, matchedTokens) {
 
 function validateStoreUrl(value, appId) {
   const url = new URL(value);
+  const params = [...url.searchParams.entries()];
+  const keys = new Set(params.map(([key]) => key));
+  const isClean = params.length === 0;
+  const isFullyAttributed =
+    params.length === 3 &&
+    keys.size === 3 &&
+    keys.has("pt") &&
+    keys.has("ct") &&
+    keys.has("mt") &&
+    /^\d{1,20}$/.test(url.searchParams.get("pt") ?? "") &&
+    /^[A-Za-z0-9/_]{1,30}$/.test(url.searchParams.get("ct") ?? "") &&
+    url.searchParams.get("mt") === "8";
   if (
     url.protocol !== "https:" ||
     url.hostname !== "apps.apple.com" ||
-    !url.pathname.endsWith(`/id${appId}`)
+    url.port ||
+    url.username ||
+    url.password ||
+    url.hash ||
+    !new RegExp(`^/(?:[a-z]{2}/)?app/id${appId}$`).test(url.pathname) ||
+    (!isClean && !isFullyAttributed)
   ) {
     throw new Error(`Invalid App Store route for ${appId}.`);
   }
+  return url;
 }
 
 function validateCatalog(payload) {
@@ -481,14 +499,20 @@ function relevance(query, locale, localized, english, queryTerms) {
 }
 
 function attributedStoreUrl(record) {
-  const url = new URL(record.app_store_url);
+  const url = validateStoreUrl(record.app_store_url, record.app_store_id);
+  const providerToken = url.searchParams.get("pt");
   const campaign = `lumi_mcp_${record.locale
     .replaceAll("-", "_")
     .toLocaleLowerCase("en-US")}`;
   if (!/^[a-z0-9_]{1,30}$/.test(campaign)) {
     throw new Error(`Invalid campaign token '${campaign}'.`);
   }
-  url.searchParams.set("ct", campaign);
+  url.search = "";
+  if (providerToken) {
+    url.searchParams.set("pt", providerToken);
+    url.searchParams.set("ct", campaign);
+    url.searchParams.set("mt", "8");
+  }
   validateStoreUrl(url.toString(), record.app_store_id);
   return url.toString();
 }
