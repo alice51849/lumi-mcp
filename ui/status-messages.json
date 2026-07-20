@@ -1,0 +1,202 @@
+{
+  "ar-SA": {
+    "error": "تعذّر تحميل النتائج.",
+    "cancelled": "أُلغي البحث."
+  },
+  "bn-BD": {
+    "error": "ফলাফল লোড করা যায়নি।",
+    "cancelled": "অনুসন্ধান বাতিল করা হয়েছে।"
+  },
+  "ca": {
+    "error": "No s'han pogut carregar els resultats.",
+    "cancelled": "S'ha cancel·lat la cerca."
+  },
+  "cs": {
+    "error": "Výsledky se nepodařilo načíst.",
+    "cancelled": "Hledání bylo zrušeno."
+  },
+  "da": {
+    "error": "Resultaterne kunne ikke indlæses.",
+    "cancelled": "Søgningen blev annulleret."
+  },
+  "de-DE": {
+    "error": "Die Ergebnisse konnten nicht geladen werden.",
+    "cancelled": "Die Suche wurde abgebrochen."
+  },
+  "el": {
+    "error": "Δεν ήταν δυνατή η φόρτωση των αποτελεσμάτων.",
+    "cancelled": "Η αναζήτηση ακυρώθηκε."
+  },
+  "en-AU": {
+    "error": "Unable to load results.",
+    "cancelled": "Search cancelled."
+  },
+  "en-CA": {
+    "error": "Unable to load results.",
+    "cancelled": "Search cancelled."
+  },
+  "en-GB": {
+    "error": "Unable to load results.",
+    "cancelled": "Search cancelled."
+  },
+  "en-US": {
+    "error": "Unable to load results.",
+    "cancelled": "Search canceled."
+  },
+  "es-ES": {
+    "error": "No se pudieron cargar los resultados.",
+    "cancelled": "Se canceló la búsqueda."
+  },
+  "es-MX": {
+    "error": "No se pudieron cargar los resultados.",
+    "cancelled": "Se canceló la búsqueda."
+  },
+  "fi": {
+    "error": "Tuloksia ei voitu ladata.",
+    "cancelled": "Haku peruutettiin."
+  },
+  "fr-CA": {
+    "error": "Impossible de charger les résultats.",
+    "cancelled": "La recherche a été annulée."
+  },
+  "fr-FR": {
+    "error": "Impossible de charger les résultats.",
+    "cancelled": "La recherche a été annulée."
+  },
+  "gu-IN": {
+    "error": "પરિણામો લોડ થઈ શક્યાં નથી.",
+    "cancelled": "શોધ રદ કરવામાં આવી."
+  },
+  "he": {
+    "error": "לא ניתן לטעון את התוצאות.",
+    "cancelled": "החיפוש בוטל."
+  },
+  "hi": {
+    "error": "नतीजे लोड नहीं किए जा सके।",
+    "cancelled": "खोज रद्द कर दी गई।"
+  },
+  "hr": {
+    "error": "Rezultati se nisu mogli učitati.",
+    "cancelled": "Pretraživanje je otkazano."
+  },
+  "hu": {
+    "error": "Nem sikerült betölteni a találatokat.",
+    "cancelled": "A keresés megszakadt."
+  },
+  "id": {
+    "error": "Hasil tidak dapat dimuat.",
+    "cancelled": "Pencarian dibatalkan."
+  },
+  "it": {
+    "error": "Impossibile caricare i risultati.",
+    "cancelled": "La ricerca è stata annullata."
+  },
+  "ja": {
+    "error": "結果を読み込めませんでした。",
+    "cancelled": "検索はキャンセルされました。"
+  },
+  "kn-IN": {
+    "error": "ಫಲಿತಾಂಶಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
+    "cancelled": "ಹುಡುಕಾಟವನ್ನು ರದ್ದುಪಡಿಸಲಾಗಿದೆ."
+  },
+  "ko": {
+    "error": "결과를 불러올 수 없습니다.",
+    "cancelled": "검색이 취소되었습니다."
+  },
+  "ml-IN": {
+    "error": "ഫലങ്ങൾ ലോഡ് ചെയ്യാനായില്ല.",
+    "cancelled": "തിരയൽ റദ്ദാക്കി."
+  },
+  "mr-IN": {
+    "error": "निकाल लोड करता आले नाहीत.",
+    "cancelled": "शोध रद्द करण्यात आला."
+  },
+  "ms": {
+    "error": "Hasil tidak dapat dimuatkan.",
+    "cancelled": "Carian dibatalkan."
+  },
+  "nl-NL": {
+    "error": "De resultaten konden niet worden geladen.",
+    "cancelled": "De zoekopdracht is geannuleerd."
+  },
+  "no": {
+    "error": "Resultatene kunne ikke lastes inn.",
+    "cancelled": "Søket ble avbrutt."
+  },
+  "or-IN": {
+    "error": "ଫଳାଫଳ ଲୋଡ୍ ହୋଇପାରିଲା ନାହିଁ।",
+    "cancelled": "ସନ୍ଧାନ ବାତିଲ କରାଯାଇଛି।"
+  },
+  "pa-IN": {
+    "error": "ਨਤੀਜੇ ਲੋਡ ਨਹੀਂ ਕੀਤੇ ਜਾ ਸਕੇ।",
+    "cancelled": "ਖੋਜ ਰੱਦ ਕਰ ਦਿੱਤੀ ਗਈ।"
+  },
+  "pl": {
+    "error": "Nie udało się wczytać wyników.",
+    "cancelled": "Wyszukiwanie zostało anulowane."
+  },
+  "pt-BR": {
+    "error": "Não foi possível carregar os resultados.",
+    "cancelled": "A busca foi cancelada."
+  },
+  "pt-PT": {
+    "error": "Não foi possível carregar os resultados.",
+    "cancelled": "A pesquisa foi cancelada."
+  },
+  "ro": {
+    "error": "Rezultatele nu au putut fi încărcate.",
+    "cancelled": "Căutarea a fost anulată."
+  },
+  "ru": {
+    "error": "Не удалось загрузить результаты.",
+    "cancelled": "Поиск отменён."
+  },
+  "sk": {
+    "error": "Výsledky sa nepodarilo načítať.",
+    "cancelled": "Vyhľadávanie bolo zrušené."
+  },
+  "sl-SI": {
+    "error": "Rezultatov ni bilo mogoče naložiti.",
+    "cancelled": "Iskanje je bilo preklicano."
+  },
+  "sv": {
+    "error": "Resultaten kunde inte läsas in.",
+    "cancelled": "Sökningen avbröts."
+  },
+  "ta-IN": {
+    "error": "முடிவுகளை ஏற்ற முடியவில்லை.",
+    "cancelled": "தேடல் ரத்துசெய்யப்பட்டது."
+  },
+  "te-IN": {
+    "error": "ఫలితాలను లోడ్ చేయలేకపోయాం.",
+    "cancelled": "శోధన రద్దు చేయబడింది."
+  },
+  "th": {
+    "error": "ไม่สามารถโหลดผลลัพธ์ได้",
+    "cancelled": "ยกเลิกการค้นหาแล้ว"
+  },
+  "tr": {
+    "error": "Sonuçlar yüklenemedi.",
+    "cancelled": "Arama iptal edildi."
+  },
+  "uk": {
+    "error": "Не вдалося завантажити результати.",
+    "cancelled": "Пошук скасовано."
+  },
+  "ur-PK": {
+    "error": "نتائج لوڈ نہیں ہو سکے۔",
+    "cancelled": "تلاش منسوخ کر دی گئی۔"
+  },
+  "vi": {
+    "error": "Không thể tải kết quả.",
+    "cancelled": "Đã hủy tìm kiếm."
+  },
+  "zh-Hans": {
+    "error": "无法载入结果。",
+    "cancelled": "搜索已取消。"
+  },
+  "zh-Hant": {
+    "error": "無法載入結果。",
+    "cancelled": "搜尋已取消。"
+  }
+}

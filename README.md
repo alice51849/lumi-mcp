@@ -7,6 +7,10 @@ It covers **28 apps × all 50 Apple locales**. Every result includes
 editorially localized context, the purchase model, a detailed guide, and a
 direct App Store link for the matching storefront.
 
+Hosts that support the stable MCP Apps extension render the matches as
+interactive, localized cards with one-click App Store and guide actions.
+Other hosts receive the same complete text and structured-data fallback.
+
 > **First-party disclosure:** Lumi Studio develops every listed app. Results
 > are transparent publisher-authored text matches, not measured search volume,
 > independent rankings, reviews, or user endorsements.
@@ -31,8 +35,8 @@ Find `io.github.alice51849/lumi-app-finder` in clients or registries that use
 the official MCP Registry, or install the `lumi-app-finder.mcpb` asset from the
 [latest GitHub release](https://github.com/alice51849/lumi-mcp/releases/latest).
 
-The MCPB uses Node's stdio transport and needs no account, API key, or manual
-configuration.
+The MCPB uses Node's stdio transport and needs no account, API key, external UI
+runtime, or manual configuration.
 
 ## 50-locale coverage
 
@@ -50,6 +54,7 @@ resources.
 
 ```bash
 npm ci
+npm run build:ui
 npm test
 npm run validate
 npm run pack:mcpb
@@ -73,4 +78,5 @@ never sends user queries to the catalog host.
 ## License
 
 MIT. Third-party language-data notices are in
-[THIRD_PARTY_NOTICES.txt](./THIRD_PARTY_NOTICES.txt).
+[THIRD_PARTY_NOTICES.txt](./THIRD_PARTY_NOTICES.txt); bundled MCP App library
+licenses are in [MCP_APP_NOTICES.txt](./MCP_APP_NOTICES.txt).

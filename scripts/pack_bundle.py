@@ -13,11 +13,13 @@ FIXED_TIMESTAMP = (2026, 1, 1, 0, 0, 0)
 BASE_FILES = (
     "LICENSE",
     "manifest.json",
+    "MCP_APP_NOTICES.txt",
     "PRIVACY.md",
     "README.md",
     "server/catalog.json",
     "server/index.mjs",
     "THIRD_PARTY_NOTICES.txt",
+    "ui/app-finder.html",
 )
 
 

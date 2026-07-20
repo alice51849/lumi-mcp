@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>Lumi App Finder Results</title>
+    <style>
+      :root {
+        --surface: var(--color-background-primary, #f6f7fb);
+        --card: var(--color-background-secondary, #ffffff);
+        --text: var(--color-text-primary, #151922);
+        --muted: var(--color-text-secondary, #667085);
+        --border: var(--color-border-secondary, rgba(21, 25, 34, .1));
+        --primary: #171a23;
+        --primary-text: #ffffff;
+        --safe-top: 0px;
+        --safe-right: 0px;
+        --safe-bottom: 0px;
+        --safe-left: 0px;
+        font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+        color: var(--text);
+        background: transparent;
+      }
+      :root[data-theme="dark"] {
+        --surface: var(--color-background-primary, #111318);
+        --card: var(--color-background-secondary, #1b1e26);
+        --text: var(--color-text-primary, #f5f6f8);
+        --muted: var(--color-text-secondary, #a8afbf);
+        --border: var(--color-border-secondary, rgba(255, 255, 255, .11));
+        --primary: #f5f6f8;
+        --primary-text: #151922;
+      }
+      * { box-sizing: border-box; }
+      [hidden] { display: none !important; }
+      html, body { margin: 0; min-width: 0; background: transparent; }
+      body { overflow-x: hidden; }
+      main {
+        min-width: 0;
+        padding: calc(16px + var(--safe-top)) calc(16px + var(--safe-right))
+          calc(16px + var(--safe-bottom)) calc(16px + var(--safe-left));
+        border-radius: var(--border-radius-xl, 22px);
+        background:
+          radial-gradient(circle at 8% -20%, rgba(124, 92, 255, .18), transparent 42%),
+          radial-gradient(circle at 92% 0%, rgba(50, 190, 172, .13), transparent 36%),
+          var(--surface);
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 0 0 14px;
+      }
+      h1 {
+        margin: 0;
+        overflow: hidden;
+        font-size: var(--font-heading-sm-size, 18px);
+        font-weight: var(--font-weight-bold, 740);
+        letter-spacing: -.02em;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .locale {
+        flex: none;
+        padding: 6px 10px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        color: var(--muted);
+        background: color-mix(in srgb, var(--card) 88%, transparent);
+        font: var(--font-weight-semibold, 650) var(--font-text-xs-size, 11px) /
+          1 var(--font-mono, ui-monospace, monospace);
+        letter-spacing: .04em;
+        white-space: nowrap;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+        gap: 12px;
+      }
+      .card {
+        min-width: 0;
+        padding: 16px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: var(--border-radius-lg, 18px);
+        background: color-mix(in srgb, var(--card) 94%, transparent);
+        box-shadow: var(--shadow-sm, 0 8px 24px rgba(20, 24, 36, .06));
+      }
+      .identity { display: flex; align-items: center; gap: 11px; min-width: 0; }
+      .mark {
+        display: grid;
+        flex: 0 0 42px;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        overflow: hidden;
+        border-radius: 13px;
+        color: #fff;
+        background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 72%, white), var(--accent));
+        box-shadow: inset 0 1px rgba(255, 255, 255, .35), 0 6px 16px color-mix(in srgb, var(--accent) 25%, transparent);
+        font-size: 18px;
+        font-weight: 760;
+        white-space: nowrap;
+      }
+      .heading { min-width: 0; }
+      .name {
+        margin: 0 0 4px;
+        overflow: hidden;
+        font-size: var(--font-heading-xs-size, 15px);
+        font-weight: var(--font-weight-bold, 720);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .purchase {
+        display: block;
+        overflow: hidden;
+        color: var(--muted);
+        font-size: var(--font-text-xs-size, 11px);
+        font-weight: var(--font-weight-medium, 560);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .intent, .context {
+        margin: 13px 0 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .intent {
+        font-size: var(--font-text-sm-size, 13px);
+        font-weight: var(--font-weight-semibold, 650);
+      }
+      .context {
+        color: var(--muted);
+        font-size: var(--font-text-xs-size, 12px);
+      }
+      .actions { display: flex; gap: 8px; margin-top: 15px; min-width: 0; }
+      .action {
+        min-width: 0;
+        height: 38px;
+        padding: 0 14px;
+        overflow: hidden;
+        border-radius: 11px;
+        font: var(--font-weight-semibold, 680) var(--font-text-sm-size, 12px) /
+          1 var(--font-sans, -apple-system, sans-serif);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .action:disabled { cursor: wait; opacity: .58; }
+      .store {
+        flex: 1 1 62%;
+        border: 1px solid var(--primary);
+        color: var(--primary-text);
+        background: var(--primary);
+      }
+      .guide {
+        flex: 1 1 38%;
+        border: 1px solid var(--border);
+        color: var(--text);
+        background: transparent;
+      }
+      .action:focus-visible {
+        outline: 3px solid var(--color-ring-info, #7c5cff);
+        outline-offset: 2px;
+      }
+      .fallback {
+        display: block;
+        margin-top: 10px;
+        overflow-x: auto;
+        color: var(--muted);
+        font-size: 10px;
+        white-space: nowrap;
+      }
+      .empty {
+        margin: 0;
+        padding: 22px;
+        overflow-x: auto;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--card);
+        white-space: nowrap;
+      }
+      .state {
+        margin: 0;
+        padding: 22px;
+        overflow: hidden;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--card);
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      footer { margin-top: 13px; overflow: hidden; }
+      footer p {
+        margin: 4px 0 0;
+        overflow: hidden;
+        color: var(--muted);
+        font-size: 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .skeleton {
+        height: 138px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: linear-gradient(100deg, transparent 30%, color-mix(in srgb, var(--card) 82%, transparent) 50%, transparent 70%) var(--card);
+        background-size: 220% 100%;
+        animation: shimmer 1.45s ease-in-out infinite;
+      }
+      main[data-ready="true"] .skeleton { display: none; }
+      main[data-error="true"] .skeleton { animation: none; opacity: .5; }
+      @keyframes shimmer { to { background-position-x: -220%; } }
+      @media (prefers-reduced-motion: reduce) {
+        .skeleton { animation: none; }
+      }
+      @media (max-width: 360px) {
+        main {
+          padding-right: calc(12px + var(--safe-right));
+          padding-left: calc(12px + var(--safe-left));
+        }
+        .card { padding: 14px; }
+        .actions { gap: 6px; }
+        .action { padding-inline: 10px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main aria-busy="true">
+      <header hidden>
+        <h1>Lumi App Finder</h1>
+        <span class="locale" id="locale"></span>
+      </header>
+      <div class="skeleton" aria-hidden="true"></div>
+      <p class="state" id="state" hidden></p>
+      <section class="grid" id="results"></section>
+      <footer hidden></footer>
+    </main>
+    <script>/*__LUMI_APP_BUNDLE__*/</script>
+  </body>
+</html>

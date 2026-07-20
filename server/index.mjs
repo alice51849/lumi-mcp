@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import readline from "node:readline";
 
 const SERVER_NAME = "lumi-app-finder";
-const SERVER_VERSION = "1.0.1";
+const SERVER_VERSION = "1.0.2";
 const LATEST_PROTOCOL = "2025-06-18";
 const SUPPORTED_PROTOCOLS = new Set([
   "2025-06-18",
@@ -18,6 +18,13 @@ const CATALOG_URL =
 const CATALOG_PATH = fileURLToPath(
   new URL("./catalog.json", import.meta.url),
 );
+const UI_EXTENSION = "io.modelcontextprotocol/ui";
+const UI_MIME_TYPE = "text/html;profile=mcp-app";
+const UI_RESOURCE_URI = "ui://lumi-app-finder/results.html";
+const UI_PATH = fileURLToPath(
+  new URL("../ui/app-finder.html", import.meta.url),
+);
+const MAX_UI_BYTES = 1_000_000;
 const CACHE_TTL_MS = 15 * 60 * 1000;
 const OFFICIAL_LOCALES = Object.freeze([
   "ar-SA", "bn-BD", "ca", "cs", "da", "de-DE", "el", "en-AU",
@@ -68,7 +75,9 @@ const MIN_ABSOLUTE_RELEVANCE = 4;
 const MIN_RELATIVE_RELEVANCE = 0.35;
 
 let bundledCatalogPromise;
+let bundledUiPromise;
 let liveCache;
+let uiEnabled = false;
 const segmenters = new Map();
 
 class InvalidParamsError extends Error {}
@@ -580,6 +589,7 @@ async function findIosApps(input) {
     );
   const relevanceFloor =
     (ranked[0]?.score ?? 0) * MIN_RELATIVE_RELEVANCE;
+  const localizedUi = catalog.ui?.[locale] ?? catalog.ui?.["en-US"] ?? {};
   const matches = ranked
     .filter(({ score }) => score >= relevanceFloor)
     .slice(0, limit)
@@ -592,11 +602,11 @@ async function findIosApps(input) {
       purchase_model: record.purchase_model,
       purchase_label: record.purchase_label,
       guide_url: record.canonical_guide_url,
+      guide_label: localizedUi.guide_label ?? "Guide",
       app_store_url: attributedStoreUrl(record),
       app_store_cta_label: record.app_store_cta_label,
     }));
 
-  const localizedUi = catalog.ui?.[locale] ?? catalog.ui?.["en-US"] ?? {};
   const disclosure =
     localizedUi.disclosure ??
     "This is first-party material published by Lumi Studio.";
@@ -719,6 +729,59 @@ const TOOL = Object.freeze({
   },
 });
 
+const UI_META = Object.freeze({
+  ui: Object.freeze({
+    resourceUri: UI_RESOURCE_URI,
+    visibility: Object.freeze(["model", "app"]),
+  }),
+  "ui/resourceUri": UI_RESOURCE_URI,
+});
+
+const UI_RESOURCE_META = Object.freeze({
+  ui: Object.freeze({
+    csp: Object.freeze({
+      connectDomains: Object.freeze([]),
+      resourceDomains: Object.freeze([]),
+      frameDomains: Object.freeze([]),
+    }),
+    prefersBorder: true,
+  }),
+});
+
+const UI_RESOURCE = Object.freeze({
+  uri: UI_RESOURCE_URI,
+  name: "Lumi App Finder results",
+  title: "Lumi App Finder results",
+  description:
+    "Interactive localized iOS app cards with direct App Store and guide links.",
+  mimeType: UI_MIME_TYPE,
+  _meta: UI_RESOURCE_META,
+});
+
+function supportsUi(capabilities) {
+  const mimeTypes = capabilities?.extensions?.[UI_EXTENSION]?.mimeTypes;
+  return Array.isArray(mimeTypes) && mimeTypes.includes(UI_MIME_TYPE);
+}
+
+function listedTool() {
+  return uiEnabled ? { ...TOOL, _meta: UI_META } : TOOL;
+}
+
+async function bundledUi() {
+  if (!bundledUiPromise) {
+    bundledUiPromise = readFile(UI_PATH, "utf8").then((source) => {
+      if (
+        !source.includes("<title>Lumi App Finder Results</title>") ||
+        Buffer.byteLength(source, "utf8") > MAX_UI_BYTES
+      ) {
+        throw new Error("Bundled MCP App UI is invalid.");
+      }
+      return source;
+    });
+  }
+  return bundledUiPromise;
+}
+
 function result(id, value) {
   return { jsonrpc: "2.0", id: id ?? null, result: value };
 }
@@ -750,9 +813,20 @@ async function handleMessage(message) {
       const protocolVersion = SUPPORTED_PROTOCOLS.has(requested)
         ? requested
         : LATEST_PROTOCOL;
+      uiEnabled = supportsUi(message.params?.capabilities);
+      const capabilities = { tools: { listChanged: false } };
+      if (uiEnabled) {
+        capabilities.resources = {
+          subscribe: false,
+          listChanged: false,
+        };
+        capabilities.extensions = {
+          [UI_EXTENSION]: { mimeTypes: [UI_MIME_TYPE] },
+        };
+      }
       return result(message.id, {
         protocolVersion,
-        capabilities: { tools: { listChanged: false } },
+        capabilities,
         serverInfo: {
           name: SERVER_NAME,
           title: "Lumi App Finder",
@@ -760,13 +834,50 @@ async function handleMessage(message) {
         },
         instructions:
           "Use find_ios_apps when a user asks which iPhone or iPad app " +
-          "fits a task. Preserve the first-party and non-ranking disclosure.",
+          "fits a task. Preserve the first-party and non-ranking disclosure. " +
+          "Render the interactive cards when MCP Apps are supported.",
       });
     }
     case "ping":
       return result(message.id, {});
     case "tools/list":
-      return result(message.id, { tools: [TOOL] });
+      return result(message.id, { tools: [listedTool()] });
+    case "resources/list":
+      if (!uiEnabled) {
+        return rpcError(message.id, -32601, "UI resources were not negotiated.");
+      }
+      return result(message.id, { resources: [UI_RESOURCE] });
+    case "resources/read": {
+      if (!uiEnabled) {
+        return rpcError(message.id, -32601, "UI resources were not negotiated.");
+      }
+      if (message.params?.uri !== UI_RESOURCE_URI) {
+        return rpcError(message.id, -32602, "Unknown UI resource URI.");
+      }
+      try {
+        return result(message.id, {
+          contents: [
+            {
+              uri: UI_RESOURCE_URI,
+              mimeType: UI_MIME_TYPE,
+              text: await bundledUi(),
+              _meta: UI_RESOURCE_META,
+            },
+          ],
+        });
+      } catch (error) {
+        console.error(
+          `Lumi App Finder UI error: ${
+            error instanceof Error ? error.stack : String(error)
+          }`,
+        );
+        return rpcError(
+          message.id,
+          -32603,
+          "Internal error while reading the interactive app cards.",
+        );
+      }
+    }
     case "tools/call": {
       if (message.params?.name !== TOOL.name) {
         return rpcError(

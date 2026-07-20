@@ -81,12 +81,76 @@ test("server negotiates MCP and exposes one read-only discovery tool", async () 
     });
     assert.equal(initialized.result.protocolVersion, "2025-06-18");
     assert.equal(initialized.result.serverInfo.name, "lumi-app-finder");
+    assert.equal(
+      Object.hasOwn(initialized.result.capabilities, "resources"),
+      false,
+    );
 
     const listed = await client.request("tools/list");
     assert.equal(listed.result.tools.length, 1);
     assert.equal(listed.result.tools[0].name, "find_ios_apps");
     assert.equal(listed.result.tools[0].annotations.readOnlyHint, true);
     assert.equal(listed.result.tools[0].inputSchema.properties.locale.enum.length, 50);
+    assert.equal(Object.hasOwn(listed.result.tools[0], "_meta"), false);
+  });
+});
+
+test("MCP Apps clients receive self-contained interactive result cards", async () => {
+  await withClient(async (client) => {
+    const initialized = await client.request("initialize", {
+      protocolVersion: "2025-06-18",
+      capabilities: {
+        extensions: {
+          "io.modelcontextprotocol/ui": {
+            mimeTypes: ["text/html;profile=mcp-app"],
+          },
+        },
+      },
+      clientInfo: { name: "mcp-app-test", version: "1.0.0" },
+    });
+    assert.deepEqual(initialized.result.capabilities.resources, {
+      subscribe: false,
+      listChanged: false,
+    });
+    assert.deepEqual(
+      initialized.result.capabilities.extensions[
+        "io.modelcontextprotocol/ui"
+      ],
+      { mimeTypes: ["text/html;profile=mcp-app"] },
+    );
+
+    const listedTools = await client.request("tools/list");
+    const tool = listedTools.result.tools[0];
+    assert.equal(
+      tool._meta.ui.resourceUri,
+      "ui://lumi-app-finder/results.html",
+    );
+    assert.deepEqual(tool._meta.ui.visibility, ["model", "app"]);
+    assert.equal(
+      tool._meta["ui/resourceUri"],
+      "ui://lumi-app-finder/results.html",
+    );
+
+    const listedResources = await client.request("resources/list");
+    assert.equal(listedResources.result.resources.length, 1);
+    const resource = listedResources.result.resources[0];
+    assert.equal(resource.uri, "ui://lumi-app-finder/results.html");
+    assert.equal(resource.mimeType, "text/html;profile=mcp-app");
+    assert.deepEqual(resource._meta.ui.csp.resourceDomains, []);
+    assert.equal(resource._meta.ui.prefersBorder, true);
+
+    const read = await client.request("resources/read", {
+      uri: resource.uri,
+    });
+    assert.equal(read.result.contents.length, 1);
+    assert.equal(read.result.contents[0].mimeType, resource.mimeType);
+    assert.match(read.result.contents[0].text, /Lumi App Finder Results/);
+    assert.doesNotMatch(read.result.contents[0].text, /<script[^>]+src=/iu);
+
+    const unknown = await client.request("resources/read", {
+      uri: "ui://lumi-app-finder/unknown.html",
+    });
+    assert.equal(unknown.error.code, -32602);
   });
 });
 
@@ -123,6 +187,7 @@ test("Traditional Chinese intent returns localized direct App Store links", asyn
       assert.equal(url.hostname, "apps.apple.com");
       assert.equal(url.search, "");
       assert.equal(record.guide_url.includes("/zh-Hant/answers/"), true);
+      assert.equal(record.guide_label.length > 0, true);
     }
   });
 });

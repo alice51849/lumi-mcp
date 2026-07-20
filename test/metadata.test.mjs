@@ -52,11 +52,22 @@ test("snapshot covers 28 apps across all 50 Apple locales", async () => {
 });
 
 test("MCPB metadata and resources expose every official locale", async () => {
-  const [catalog, manifest, server, resourceFiles] = await Promise.all([
+  const [
+    catalog,
+    manifest,
+    server,
+    resourceFiles,
+    appHtml,
+    appNotices,
+    statusMessages,
+  ] = await Promise.all([
     json("server/catalog.json"),
     json("manifest.json"),
     json("server.json"),
     readdir(new URL("mcpb-resources/", root)),
+    readFile(new URL("ui/app-finder.html", root), "utf8"),
+    readFile(new URL("MCP_APP_NOTICES.txt", root), "utf8"),
+    json("ui/status-messages.json"),
   ]);
   assert.equal(manifest.manifest_version, "0.3");
   assert.equal(manifest.version, server.version);
@@ -84,4 +95,22 @@ test("MCPB metadata and resources expose every official locale", async () => {
     "https://github.com/alice51849/lumi-mcp/releases/download/" +
       `v${server.version}/lumi-app-finder.mcpb`,
   );
+  assert.equal(Buffer.byteLength(appHtml, "utf8") < 1_000_000, true);
+  assert.match(appHtml, /<title>Lumi App Finder Results<\/title>/);
+  assert.doesNotMatch(appHtml, /<script[^>]+src=/iu);
+  assert.doesNotMatch(appHtml, /https:\/\/unpkg\.com/iu);
+  assert.deepEqual(Object.keys(statusMessages), catalog.locales);
+  for (const messages of Object.values(statusMessages)) {
+    assert.equal(messages.error.length > 0, true);
+    assert.equal(messages.cancelled.length > 0, true);
+    assert.equal(/[\r\n]/u.test(messages.error + messages.cancelled), false);
+  }
+  for (const dependency of [
+    "@modelcontextprotocol/ext-apps",
+    "@modelcontextprotocol/sdk",
+    "zod",
+    "zod-to-json-schema",
+  ]) {
+    assert.match(appNotices, new RegExp(`^${dependency}$`, "mu"));
+  }
 });
