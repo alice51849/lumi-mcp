@@ -36,3 +36,20 @@ jobs:
             dist/lumi-app-finder.mcpb server.json
           git diff --exit-code -- server.json
           npx mcpb info dist/lumi-app-finder.mcpb
+          version="$(node -p "require('./package.json').version")"
+          npm pack --pack-destination dist >/dev/null
+          mv "dist/lumi-app-finder-mcp-${version}.tgz" \
+            dist/lumi-app-finder-npx.tgz
+          first_npx="$(sha256sum dist/lumi-app-finder-npx.tgz | cut -d' ' -f1)"
+          rm dist/lumi-app-finder-npx.tgz
+          npm pack --pack-destination dist >/dev/null
+          mv "dist/lumi-app-finder-mcp-${version}.tgz" \
+            dist/lumi-app-finder-npx.tgz
+          second_npx="$(sha256sum dist/lumi-app-finder-npx.tgz | cut -d' ' -f1)"
+          test "$first_npx" = "$second_npx"
+          request='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"npx-probe","version":"1.0.0"}}}'
+          response="$(printf '%s\n' "$request" | npx --yes ./dist/lumi-app-finder-npx.tgz)"
+          node -e '
+            const result = JSON.parse(process.argv[1]).result;
+            if (result?.serverInfo?.version !== process.argv[2]) process.exit(1);
+          ' "$response" "$version"

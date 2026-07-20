@@ -32,18 +32,38 @@ jobs:
             dist/lumi-app-finder.mcpb \
             server.json \
             "${GITHUB_REF_NAME#v}"
+          version="${GITHUB_REF_NAME#v}"
+          npm pack --pack-destination dist >/dev/null
+          mv "dist/lumi-app-finder-mcp-${version}.tgz" \
+            dist/lumi-app-finder-npx.tgz
+          request='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"npx-probe","version":"1.0.0"}}}'
+          response="$(printf '%s\n' "$request" | npx --yes ./dist/lumi-app-finder-npx.tgz)"
+          node -e '
+            const result = JSON.parse(process.argv[1]).result;
+            if (result?.serverInfo?.version !== process.argv[2]) process.exit(1);
+          ' "$response" "$version"
+          (
+            cd dist
+            sha256sum lumi-app-finder.mcpb lumi-app-finder-npx.tgz \
+              > SHA256SUMS
+          )
       - name: Publish GitHub release asset
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
             gh release upload "$GITHUB_REF_NAME" \
-              dist/lumi-app-finder.mcpb --clobber
+              dist/lumi-app-finder.mcpb \
+              dist/lumi-app-finder-npx.tgz \
+              dist/SHA256SUMS \
+              --clobber
           else
             gh release create "$GITHUB_REF_NAME" \
               dist/lumi-app-finder.mcpb \
+              dist/lumi-app-finder-npx.tgz \
+              dist/SHA256SUMS \
               --title "Lumi App Finder $GITHUB_REF_NAME" \
-              --notes "First-party AI app discovery for 28 verified iOS apps across all 50 Apple locales. Includes direct App Store links and no subscription claims."
+              --notes "First-party AI app discovery for 28 verified iOS apps across all 50 Apple locales. Includes direct App Store links, MCP Apps cards, and version-pinned VS Code and Cursor installers."
           fi
       - name: Install MCP Registry publisher
         run: |

@@ -114,3 +114,61 @@ test("MCPB metadata and resources expose every official locale", async () => {
     assert.match(appNotices, new RegExp(`^${dependency}$`, "mu"));
   }
 });
+
+test("host installers stay version-pinned to the zero-dependency launcher", async () => {
+  const [packageJson, packageLock, manifest, server, readme, serverSource] =
+    await Promise.all([
+      json("package.json"),
+      json("package-lock.json"),
+      json("manifest.json"),
+      json("server.json"),
+      readFile(new URL("README.md", root), "utf8"),
+      readFile(new URL("server/index.mjs", root), "utf8"),
+    ]);
+  const version = packageJson.version;
+  const source =
+    "https://github.com/alice51849/lumi-mcp/releases/download/" +
+    `v${version}/lumi-app-finder-npx.tgz`;
+  const vscodeConfig = {
+    name: "lumi-app-finder",
+    type: "stdio",
+    command: "npx",
+    args: ["-y", source],
+  };
+  const vscodeUri =
+    `vscode:mcp/install?${encodeURIComponent(JSON.stringify(vscodeConfig))}`;
+  const vscodeUrl =
+    `https://vscode.dev/redirect?url=${encodeURIComponent(vscodeUri)}`;
+  const cursorConfig = {
+    command: "npx",
+    args: ["-y", source],
+  };
+  const cursorUrl =
+    "https://cursor.com/en/install-mcp" +
+    "?name=lumi-app-finder&config=" +
+    encodeURIComponent(
+      Buffer.from(JSON.stringify(cursorConfig)).toString("base64"),
+    );
+
+  assert.equal(packageJson.private, true);
+  assert.deepEqual(packageJson.bin, {
+    "lumi-app-finder": "server/index.mjs",
+  });
+  assert.deepEqual(packageLock.packages[""].bin, packageJson.bin);
+  assert.equal(packageLock.version, version);
+  assert.equal(packageLock.packages[""].version, version);
+  assert.equal(manifest.version, version);
+  assert.equal(server.version, version);
+  for (const lifecycle of ["preinstall", "install", "postinstall", "prepare"]) {
+    assert.equal(Object.hasOwn(packageJson.scripts, lifecycle), false);
+  }
+  assert.equal(serverSource.startsWith("#!/usr/bin/env node\n"), true);
+  const imports = [
+    ...serverSource.matchAll(/^import .* from ["']([^"']+)["'];$/gmu),
+  ].map((match) => match[1]);
+  assert.equal(imports.length > 0, true);
+  assert.equal(imports.every((specifier) => specifier.startsWith("node:")), true);
+  assert.equal(readme.includes(`](${vscodeUrl})`), true);
+  assert.equal(readme.includes(`](${cursorUrl})`), true);
+  assert.equal(readme.includes(`"${source}"`), true);
+});

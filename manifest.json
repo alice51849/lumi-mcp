@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "lumi-app-finder",
   "display_name": "Lumi App Finder",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Find matching iPhone and iPad apps by task, buyer need, and locale, with direct App Store links.",
   "long_description": "A transparent first-party discovery tool for 28 verified live Lumi Studio iOS apps across all 50 Apple locales. It matches a user's task to publisher-authored, editorially localized use cases and returns the relevant App Store and detailed guide links. Compatible hosts render interactive MCP App result cards; every host retains the complete text fallback. Results are text-relevance matches, not measured search volume, independent reviews, rankings, or user endorsements.",
   "author": {

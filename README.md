@@ -32,8 +32,30 @@ process.
 ## Install
 
 Find `io.github.alice51849/lumi-app-finder` in clients or registries that use
-the official MCP Registry, or install the `lumi-app-finder.mcpb` asset from the
-[latest GitHub release](https://github.com/alice51849/lumi-mcp/releases/latest).
+the official MCP Registry, or use a version-pinned installer:
+
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_MCP_Server-0098FF?logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522lumi-app-finder%2522%252C%2522type%2522%253A%2522stdio%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522https%253A%252F%252Fgithub.com%252Falice51849%252Flumi-mcp%252Freleases%252Fdownload%252Fv1.0.3%252Flumi-app-finder-npx.tgz%2522%255D%257D)
+[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=lumi-app-finder&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImh0dHBzOi8vZ2l0aHViLmNvbS9hbGljZTUxODQ5L2x1bWktbWNwL3JlbGVhc2VzL2Rvd25sb2FkL3YxLjAuMy9sdW1pLWFwcC1maW5kZXItbnB4LnRneiJdfQ%3D%3D)
+[![Download for Claude Desktop](https://img.shields.io/badge/Claude_Desktop-Download_MCPB-D97757)](https://github.com/alice51849/lumi-mcp/releases/latest/download/lumi-app-finder.mcpb)
+
+The VS Code and Cursor links run the zero-dependency server from the pinned
+public `v1.0.3` GitHub release through `npx`; Node.js 20 or newer is required.
+The same pinned configuration can be added manually:
+
+```json
+{
+  "servers": {
+    "lumi-app-finder": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "https://github.com/alice51849/lumi-mcp/releases/download/v1.0.3/lumi-app-finder-npx.tgz"
+      ]
+    }
+  }
+}
+```
 
 The MCPB uses Node's stdio transport and needs no account, API key, external UI
 runtime, or manual configuration.

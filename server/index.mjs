@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import readline from "node:readline";
 
 const SERVER_NAME = "lumi-app-finder";
-const SERVER_VERSION = "1.0.2";
+const SERVER_VERSION = "1.0.3";
 const LATEST_PROTOCOL = "2025-06-18";
 const SUPPORTED_PROTOCOLS = new Set([
   "2025-06-18",
