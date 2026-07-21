@@ -124,6 +124,11 @@ GitHub OIDC, without long-lived registry credentials.
 See [PRIVACY.md](./PRIVACY.md). The tool has no analytics or tracking, and
 never sends user queries to the catalog host.
 
+## Security
+
+Report vulnerabilities privately through the
+[security policy](./SECURITY.md), not through a public issue.
+
 ## License
 
 MIT. Third-party language-data notices are in
