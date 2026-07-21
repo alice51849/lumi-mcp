@@ -134,6 +134,7 @@ test("MCPB metadata and resources expose every official locale", async () => {
     catalog,
     manifest,
     server,
+    glama,
     resourceFiles,
     appHtml,
     appNotices,
@@ -142,6 +143,7 @@ test("MCPB metadata and resources expose every official locale", async () => {
     json("server/catalog.json"),
     json("manifest.json"),
     json("server.json"),
+    json("glama.json"),
     readdir(new URL("mcpb-resources/", root)),
     readFile(new URL("ui/app-finder.html", root), "utf8"),
     readFile(new URL("MCP_APP_NOTICES.txt", root), "utf8"),
@@ -151,6 +153,10 @@ test("MCPB metadata and resources expose every official locale", async () => {
   assert.equal(manifest.version, server.version);
   assert.equal(manifest.tools.length, 1);
   assert.equal(manifest.tools[0].name, "find_ios_apps");
+  assert.deepEqual(glama, {
+    $schema: "https://glama.ai/mcp/schemas/server.json",
+    maintainers: ["alice51849"],
+  });
   assert.deepEqual(
     resourceFiles.filter((file) => file.endsWith(".json")).sort(),
     catalog.locales.map((locale) => `${locale}.json`).sort(),
