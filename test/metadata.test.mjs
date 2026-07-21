@@ -199,6 +199,30 @@ test("MCPB metadata and resources expose every official locale", async () => {
   }
 });
 
+test("container runs the zero-dependency stdio server as a non-root user", async () => {
+  const [dockerfile, dockerignore] = await Promise.all([
+    readFile(new URL("Dockerfile", root), "utf8"),
+    readFile(new URL(".dockerignore", root), "utf8"),
+  ]);
+  assert.match(dockerfile, /^FROM node:20-alpine$/mu);
+  assert.match(dockerfile, /^COPY --chown=node:node server\/ \.\/server\/$/mu);
+  assert.match(dockerfile, /^COPY --chown=node:node ui\/ \.\/ui\/$/mu);
+  assert.match(dockerfile, /^USER node$/mu);
+  assert.match(
+    dockerfile,
+    /^ENTRYPOINT \["node", "server\/index\.mjs"\]$/mu,
+  );
+  for (const path of [
+    "!server/**",
+    "!ui/**",
+    "!LICENSE",
+    "!MCP_APP_NOTICES.txt",
+    "!THIRD_PARTY_NOTICES.txt",
+  ]) {
+    assert.equal(dockerignore.includes(path), true);
+  }
+});
+
 test("host installers stay version-pinned to the zero-dependency launcher", async () => {
   const [packageJson, packageLock, manifest, server, readme, serverSource] =
     await Promise.all([

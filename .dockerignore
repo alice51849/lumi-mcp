@@ -1,0 +1,8 @@
+*
+!server/
+!server/**
+!ui/
+!ui/**
+!LICENSE
+!MCP_APP_NOTICES.txt
+!THIRD_PARTY_NOTICES.txt
