@@ -8,12 +8,12 @@
     "url": "https://github.com/alice51849/lumi-mcp",
     "source": "github"
   },
-  "version": "1.1.1",
+  "version": "1.1.2",
   "packages": [
     {
       "registryType": "mcpb",
-      "identifier": "https://github.com/alice51849/lumi-mcp/releases/download/v1.1.1/lumi-app-finder.mcpb",
-      "fileSha256": "d34670480aa2ba63a67514c66b03b430ffc5ec1d440bf690a525324441a02bb5",
+      "identifier": "https://github.com/alice51849/lumi-mcp/releases/download/v1.1.2/lumi-app-finder.mcpb",
+      "fileSha256": "43602c821059a298168cb0fd2560b9f7b906aa91db4f40f6718bdd4c7c1ba82c",
       "transport": {
         "type": "stdio"
       }
