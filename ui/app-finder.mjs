@@ -18,7 +18,7 @@ let activeLocale = resolveLocale(navigator.language);
 let resultLocale;
 
 const app = new App(
-  { name: "Lumi App Finder Results", version: "1.1.0" },
+  { name: "Lumi App Finder Results", version: "1.1.1" },
   { availableDisplayModes: ["inline", "fullscreen"] },
   { autoResize: true, strict: true },
 );
