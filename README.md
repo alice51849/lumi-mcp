@@ -94,6 +94,9 @@ The same pinned configuration can be added manually:
 The MCPB uses Node's stdio transport and needs no account, API key, external UI
 runtime, or manual configuration.
 
+For Cline, use the exact configuration and verification steps in
+[llms-install.md](https://github.com/alice51849/lumi-mcp/blob/main/llms-install.md).
+
 ## 50-locale coverage
 
 `ar-SA`, `bn-BD`, `ca`, `cs`, `da`, `de-DE`, `el`, `en-AU`, `en-CA`,
