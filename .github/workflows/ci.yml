@@ -32,9 +32,14 @@ jobs:
           npm run pack:mcpb
           second="$(sha256sum dist/lumi-app-finder.mcpb | cut -d' ' -f1)"
           test "$first" = "$second"
-          node scripts/set-server-hash.mjs \
-            dist/lumi-app-finder.mcpb server.json
-          git diff --exit-code -- server.json
+          published_url="$(node -p \
+            "require('./server.json').packages.find((entry) => entry.registryType === 'mcpb').identifier")"
+          expected_hash="$(node -p \
+            "require('./server.json').packages.find((entry) => entry.registryType === 'mcpb').fileSha256")"
+          curl --fail --location --retry 4 --retry-all-errors \
+            --output dist/published.mcpb "$published_url"
+          published_hash="$(sha256sum dist/published.mcpb | cut -d' ' -f1)"
+          test "$published_hash" = "$expected_hash"
           npx mcpb info dist/lumi-app-finder.mcpb
           version="$(node -p "require('./package.json').version")"
           npm pack --pack-destination dist >/dev/null
