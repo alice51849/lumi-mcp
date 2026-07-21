@@ -41,6 +41,10 @@ The third-party installer reports anonymous installation telemetry by default
 under the [skills.sh CLI policy](https://skills.sh/docs/cli). The installed Lumi
 App Finder skill itself remains offline and contains no analytics.
 
+Lumi App Finder is also listed in the independently maintained
+[Awesome Skills directory](https://github.com/intellectronica/awesome-skills/blob/main/skills.yaml),
+which links to the immutable `v1.1.0` skill files.
+
 ## Tool
 
 ### `find_ios_apps`
