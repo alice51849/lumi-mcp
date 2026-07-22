@@ -16,6 +16,9 @@ const CATALOG_SOURCE =
   "https://alice51849.github.io/ios-app-guide/data/" +
   "lumi-studio-publisher-search-intent-catalog.json";
 const CHECK = process.argv.includes("--check");
+const EXPECTED_APP_COUNT = 29;
+const EXPECTED_LOCALE_COUNT = 50;
+const EXPECTED_RECORD_COUNT = EXPECTED_APP_COUNT * EXPECTED_LOCALE_COUNT;
 const REQUIRED_FIELDS = Object.freeze([
   "app_key",
   "app_name",
@@ -75,8 +78,15 @@ function validateStoreUrl(value, appId) {
   }
 }
 
-function validateGuideUrl(value, locale) {
+function validateGuideUrl(value, locale, appKey) {
   const url = new URL(value);
+  const answerPrefix = `/ios-app-guide/${locale}/answers/`;
+  const answerSlug = url.pathname.slice(answerPrefix.length);
+  const isAnswer =
+    url.pathname.startsWith(answerPrefix) &&
+    /^[a-z0-9-]+\.html$/u.test(answerSlug);
+  const isOwnedProduct =
+    url.pathname === `/ios-app-guide/${locale}/${appKey}.html`;
   if (
     url.protocol !== "https:" ||
     url.hostname !== "alice51849.github.io" ||
@@ -85,10 +95,9 @@ function validateGuideUrl(value, locale) {
     url.password ||
     url.search ||
     url.hash ||
-    !url.pathname.startsWith(`/ios-app-guide/${locale}/answers/`) ||
-    !url.pathname.endsWith(".html")
+    (!isAnswer && !isOwnedProduct)
   ) {
-    throw new Error(`Invalid guide route for ${locale}.`);
+    throw new Error(`Invalid guide route for ${appKey}/${locale}.`);
   }
 }
 
@@ -100,7 +109,11 @@ function skillRecord(record) {
     throw new Error(`Invalid App Store ID for '${record.app_key}'.`);
   }
   validateStoreUrl(record.app_store_url, record.app_store_id);
-  validateGuideUrl(record.canonical_guide_url, record.locale);
+  validateGuideUrl(
+    record.canonical_guide_url,
+    record.locale,
+    record.app_key,
+  );
   return {
     app_key: record.app_key,
     app_name: record.app_name,
@@ -120,15 +133,18 @@ function skillRecord(record) {
 async function expectedReferences() {
   const catalog = JSON.parse(await readFile(CATALOG_PATH, "utf8"));
   if (
-    catalog?.app_count !== 28 ||
-    catalog?.locale_count !== 50 ||
-    catalog?.record_count !== 1400 ||
+    catalog?.app_count !== EXPECTED_APP_COUNT ||
+    catalog?.locale_count !== EXPECTED_LOCALE_COUNT ||
+    catalog?.record_count !== EXPECTED_RECORD_COUNT ||
     !Array.isArray(catalog.locales) ||
-    catalog.locales.length !== 50 ||
+    catalog.locales.length !== EXPECTED_LOCALE_COUNT ||
     !Array.isArray(catalog.records) ||
-    catalog.records.length !== 1400
+    catalog.records.length !== EXPECTED_RECORD_COUNT
   ) {
-    throw new Error("Skill source catalog coverage is not 28 x 50.");
+    throw new Error(
+      `Skill source catalog coverage is not ${EXPECTED_APP_COUNT} x ` +
+        `${EXPECTED_LOCALE_COUNT}.`,
+    );
   }
 
   const expected = new Map();
@@ -138,8 +154,14 @@ async function expectedReferences() {
       .filter((record) => record.locale === locale)
       .sort((left, right) => left.app_key.localeCompare(right.app_key))
       .map(skillRecord);
-    if (apps.length !== 28 || new Set(apps.map((app) => app.app_key)).size !== 28) {
-      throw new Error(`Skill locale '${locale}' does not cover 28 apps.`);
+    if (
+      apps.length !== EXPECTED_APP_COUNT ||
+      new Set(apps.map((app) => app.app_key)).size !== EXPECTED_APP_COUNT
+    ) {
+      throw new Error(
+        `Skill locale '${locale}' does not cover ` +
+          `${EXPECTED_APP_COUNT} apps.`,
+      );
     }
     const payload = {
       schema_version: "1.0",

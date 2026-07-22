@@ -1,6 +1,6 @@
 # Install Lumi App Finder in Cline
 
-Use this guide to add the stable Lumi App Finder `v1.1.2` stdio server to
+Use this guide to add the stable Lumi App Finder `v1.1.3` stdio server to
 Cline. It requires Node.js 20 or newer. It needs no account, API key, secret,
 or environment variable.
 
@@ -9,7 +9,7 @@ or environment variable.
 For Cline CLI, use its native non-interactive installer:
 
 ```bash
-cline mcp install lumi-app-finder --yes -- npx -y https://github.com/alice51849/lumi-mcp/releases/download/v1.1.2/lumi-app-finder-npx.tgz
+cline mcp install lumi-app-finder --yes -- npx -y https://github.com/alice51849/lumi-mcp/releases/download/v1.1.3/lumi-app-finder-npx.tgz
 ```
 
 For the Cline IDE extension, merge the following entry into the existing
@@ -23,7 +23,7 @@ entries.
       "command": "npx",
       "args": [
         "-y",
-        "https://github.com/alice51849/lumi-mcp/releases/download/v1.1.2/lumi-app-finder-npx.tgz"
+        "https://github.com/alice51849/lumi-mcp/releases/download/v1.1.3/lumi-app-finder-npx.tgz"
       ],
       "disabled": false,
       "autoApprove": []
@@ -56,7 +56,7 @@ runs. Cline should start the package with stdio transport automatically.
    and includes direct `apps.apple.com` links.
 
 The server reads the current public catalog when available and falls back to
-its bundled 1,400-record snapshot. User query text stays inside the local MCP
+its bundled 1,450-record snapshot. User query text stays inside the local MCP
 process.
 
 ## Troubleshoot

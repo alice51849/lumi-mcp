@@ -8,21 +8,21 @@ async function json(relative) {
   return JSON.parse(await readFile(new URL(relative, root), "utf8"));
 }
 
-test("snapshot covers 28 apps across all 50 Apple locales", async () => {
+test("snapshot covers 29 apps across all 50 Apple locales", async () => {
   const catalog = await json("server/catalog.json");
-  assert.equal(catalog.app_count, 28);
+  assert.equal(catalog.app_count, 29);
   assert.equal(catalog.locale_count, 50);
-  assert.equal(catalog.record_count, 1400);
-  assert.equal(catalog.records.length, 1400);
+  assert.equal(catalog.record_count, 1450);
+  assert.equal(catalog.records.length, 1450);
   assert.deepEqual(Object.keys(catalog.stopwords), catalog.locales);
-  assert.equal(new Set(catalog.records.map((record) => record.app_key)).size, 28);
+  assert.equal(new Set(catalog.records.map((record) => record.app_key)).size, 29);
   assert.equal(
     new Set(
       catalog.records.map(
         (record) => `${record.app_key}\u0000${record.locale}`,
       ),
     ).size,
-    1400,
+    1450,
   );
   for (const record of catalog.records) {
     assert.equal(record.purchase_label.length > 0, true);
@@ -34,6 +34,28 @@ test("snapshot covers 28 apps across all 50 Apple locales", async () => {
     );
     assert.equal(store.search, "");
     assert.equal(store.hash, "");
+    const guide = new URL(record.canonical_guide_url);
+    const answerPrefix =
+      `/ios-app-guide/${record.locale}/answers/`;
+    const isAnswer =
+      guide.pathname.startsWith(answerPrefix) &&
+      /^[a-z0-9-]+\.html$/u.test(guide.pathname.slice(answerPrefix.length));
+    const isOwnedProduct =
+      guide.pathname ===
+      `/ios-app-guide/${record.locale}/${record.app_key}.html`;
+    assert.equal(isAnswer || isOwnedProduct, true);
+  }
+  const aim990Plus = catalog.records.filter(
+    (record) => record.app_key === "aim990plus",
+  );
+  assert.equal(aim990Plus.length, 50);
+  for (const record of aim990Plus) {
+    assert.equal(record.app_store_id, "6792483140");
+    assert.equal(record.purchase_model, "paid_upfront");
+    assert.equal(
+      new URL(record.canonical_guide_url).pathname,
+      `/ios-app-guide/${record.locale}/aim990plus.html`,
+    );
   }
   for (const locale of catalog.locales) {
     assert.equal(catalog.stopwords[locale].length > 0, true);
@@ -51,7 +73,7 @@ test("snapshot covers 28 apps across all 50 Apple locales", async () => {
   }
 });
 
-test("Agent Skill ships an offline 28-app catalog for every locale", async () => {
+test("Agent Skill ships an offline 29-app catalog for every locale", async () => {
   const [catalog, packageJson, skill, locales, referenceFiles, readme] =
     await Promise.all([
       json("server/catalog.json"),
@@ -99,8 +121,8 @@ test("Agent Skill ships an offline 28-app catalog for every locale", async () =>
       .filter((record) => record.locale === locale)
       .sort((left, right) => left.app_key.localeCompare(right.app_key));
     assert.equal(reference.locale, locale);
-    assert.equal(reference.app_count, 28);
-    assert.equal(reference.apps.length, 28);
+    assert.equal(reference.app_count, 29);
+    assert.equal(reference.apps.length, 29);
     assert.equal(reference.publisher_disclosure, catalog.ui[locale].disclosure);
     assert.equal(
       reference.non_ranking_disclosure,

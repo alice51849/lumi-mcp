@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
-  "date_modified": "2026-07-20",
-  "app_count": 28,
+  "date_modified": "2026-07-21",
+  "app_count": 29,
   "locale_count": 50,
-  "record_count": 1400,
+  "record_count": 1450,
   "locales": [
     "ar-SA",
     "bn-BD",
@@ -12319,6 +12319,20 @@
     },
     {
       "locale": "ar-SA",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — تدريب الاستماع والقراءة | iOS App",
+      "decision_context": "تدرّب على فهم الإنجليزية المسموعة والمقروءة في بيئة مصممة للبالغين الذين يريدون بناء الدقة والسرعة تحت ضغط الوقت. يجمع التطبيق بين جلسات قصيرة واضحة",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/ar-SA/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "احصل على Aim990 Plus من App Store",
+      "purchase_label": "تحميل مدفوع"
+    },
+    {
+      "locale": "ar-SA",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -12708,6 +12722,20 @@
       "app_store_url": "https://apps.apple.com/app/id6784974530",
       "app_store_cta_label": "App Store থেকে Aim990 পান →",
       "purchase_label": "বিনামূল্যে শুরু · আজীবন আনলক"
+    },
+    {
+      "locale": "bn-BD",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — চাপেও দ্রুত ও নির্ভুল উত্তর | iOS App",
+      "decision_context": "Aim990 Plus প্রাপ্তবয়স্ক শিক্ষার্থীদের জন্য ইংরেজি শোনা ও পড়ার নিবিড় অনুশীলন। এর মূল ধাপগুলো সময়ের চাপের মধ্যেও মনোযোগ ধরে রাখার অভ্যাস গড়ে তোলে",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/bn-BD/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store থেকে Aim990 Plus ডাউনলোড করুন",
+      "purchase_label": "পেইড ডাউনলোড"
     },
     {
       "locale": "bn-BD",
@@ -13103,6 +13131,20 @@
     },
     {
       "locale": "ca",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Anglès a contrarellotge | iOS App",
+      "decision_context": "Entrena la comprensió de l’anglès amb sessions que posen a prova l’atenció, el ritme i la constància. Aim990 Plus està pensada per a persones adultes que",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/ca/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Descarrega Aim990 Plus a l’App Store",
+      "purchase_label": "Descarrega de pagament"
+    },
+    {
+      "locale": "ca",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -13492,6 +13534,20 @@
       "app_store_url": "https://apps.apple.com/cz/app/id6784974530",
       "app_store_cta_label": "Získejte Aim990 v App Store →",
       "purchase_label": "Zdarma na začátek · doživotní odemknutí"
+    },
+    {
+      "locale": "cs",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Jistota pod časovým tlakem | iOS App",
+      "decision_context": "Když běží čas, nestačí angličtině jen rozumět. Je potřeba udržet pozornost, rychle se rozhodovat a nenechat se rozhodit jednou chybnou odpovědí. Aim990",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/cs/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Stáhněte si Aim990 Plus v App Storu",
+      "purchase_label": "Placené stažení"
     },
     {
       "locale": "cs",
@@ -13887,6 +13943,20 @@
     },
     {
       "locale": "da",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Engelsk træning under pres | iOS App",
+      "decision_context": "Aim990 Plus er et samlet træningsværktøj til voksne, der vil læse og forstå talt engelsk sikkert, også når uret tikker. Dagens målrettede forløb begynder",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/da/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Hent Aim990 Plus i App Store",
+      "purchase_label": "Betalt hentning"
+    },
+    {
+      "locale": "da",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -14276,6 +14346,20 @@
       "app_store_url": "https://apps.apple.com/de/app/id6784974530",
       "app_store_cta_label": "Aim990 im App Store herunterladen →",
       "purchase_label": "Kostenloser Einstieg · dauerhafte Freischaltung"
+    },
+    {
+      "locale": "de-DE",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Englisch-Prüfung unter Druck | iOS App",
+      "decision_context": "Aim990 Plus ist eine umfassende Trainingsumgebung für Erwachsene, die englische Hör- und Leseaufgaben auch unter Zeitdruck sicher bearbeiten möchten. Der",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/de-DE/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Aim990 Plus im App Store laden",
+      "purchase_label": "Bezahlter Herunterladen"
     },
     {
       "locale": "de-DE",
@@ -14671,6 +14755,20 @@
     },
     {
       "locale": "el",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Εξάσκηση με χρονόμετρο | iOS App",
+      "decision_context": "Το Aim990 Plus είναι ένα εργαλείο εξάσκησης για ενήλικες που θέλουν να κατανοούν με σιγουριά τον προφορικό και γραπτό αγγλικό λόγο όταν ο χρόνος είναι",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/el/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Αποκτήστε το Aim990 Plus από το App Store",
+      "purchase_label": "Λήψη με χρέωση"
+    },
+    {
+      "locale": "el",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -15060,6 +15158,20 @@
       "app_store_url": "https://apps.apple.com/au/app/id6784974530",
       "app_store_cta_label": "Get Aim990 on the App Store →",
       "purchase_label": "Free to start · lifetime unlock"
+    },
+    {
+      "locale": "en-AU",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — English Exam Practice Offline | iOS App",
+      "decision_context": "Get comfortable working against the clock",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/en-AU/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Get Aim990 Plus on the App Store",
+      "purchase_label": "Paid download"
     },
     {
       "locale": "en-AU",
@@ -15455,6 +15567,20 @@
     },
     {
       "locale": "en-CA",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Offline English Test Practice | iOS App",
+      "decision_context": "Build accuracy when the clock is running",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/en-CA/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Get Aim990 Plus on the App Store",
+      "purchase_label": "Paid download"
+    },
+    {
+      "locale": "en-CA",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -15844,6 +15970,20 @@
       "app_store_url": "https://apps.apple.com/gb/app/id6784974530",
       "app_store_cta_label": "Get Aim990 on the App Store →",
       "purchase_label": "Free to start · lifetime unlock"
+    },
+    {
+      "locale": "en-GB",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Timed English Revision Drills | iOS App",
+      "decision_context": "Build a dependable routine under time pressure",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/en-GB/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Get Aim990 Plus on the App Store",
+      "purchase_label": "Paid download"
     },
     {
       "locale": "en-GB",
@@ -16239,6 +16379,20 @@
     },
     {
       "locale": "en-US",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Offline Exam Pressure Trainer | iOS App",
+      "decision_context": "Train for clear decisions under exam pressure",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/en-US/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Get Aim990 Plus on the App Store",
+      "purchase_label": "Paid download"
+    },
+    {
+      "locale": "en-US",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -16628,6 +16782,20 @@
       "app_store_url": "https://apps.apple.com/es/app/id6784974530",
       "app_store_cta_label": "Consigue Aim990 en la App Store →",
       "purchase_label": "Gratis para empezar · desbloqueo permanente"
+    },
+    {
+      "locale": "es-ES",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Inglés a contrarreloj | iOS App",
+      "decision_context": "Entrena la comprensión del inglés con sesiones que exigen atención, ritmo y constancia. Aim990 Plus está pensado para personas adultas que quieren",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/es-ES/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Consigue Aim990 Plus en el App Store",
+      "purchase_label": "Descarga de pago"
     },
     {
       "locale": "es-ES",
@@ -17023,6 +17191,20 @@
     },
     {
       "locale": "es-MX",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Entrena inglés bajo presión | iOS App",
+      "decision_context": "Fortalece tu comprensión del inglés con sesiones creadas para mantener la concentración incluso cuando el tiempo cuenta. Aim990 Plus está dirigido a",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/es-MX/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Consigue Aim990 Plus en el App Store",
+      "purchase_label": "Descarga de pago"
+    },
+    {
+      "locale": "es-MX",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -17412,6 +17594,20 @@
       "app_store_url": "https://apps.apple.com/fi/app/id6784974530",
       "app_store_cta_label": "Hanki Aim990 App Storesta →",
       "purchase_label": "Ilmainen aloitus · elinikäinen avaus"
+    },
+    {
+      "locale": "fi",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Englantia paineen alla | iOS App",
+      "decision_context": "Aim990 Plus on aikuisille suunniteltu englannin kuuntelu- ja lukuharjoittelun kokonaisuus, joka auttaa säilyttämään keskittymisen myös ajan käydessä vähiin",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/fi/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Lataa Aim990 Plus App Storesta",
+      "purchase_label": "Maksullinen ladattavaksi"
     },
     {
       "locale": "fi",
@@ -17807,6 +18003,20 @@
     },
     {
       "locale": "fr-CA",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Défis chronométrés d’anglais | iOS App",
+      "decision_context": "Renforcez votre compréhension de l’anglais avec des séances structurées pour la réalité d’un horaire chargé. Aim990 Plus s’adresse aux adultes qui",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/fr-CA/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Obtenir Aim990 Plus sur l'App Store",
+      "purchase_label": "Téléchargement payant"
+    },
+    {
+      "locale": "fr-CA",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -18196,6 +18406,20 @@
       "app_store_url": "https://apps.apple.com/fr/app/id6784974530",
       "app_store_cta_label": "Obtenez Aim990 sur l’App Store →",
       "purchase_label": "Gratuit au départ · déverrouillage définitif"
+    },
+    {
+      "locale": "fr-FR",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Anglais sous pression | iOS App",
+      "decision_context": "Travaillez votre compréhension de l’anglais dans des conditions qui exigent attention, rythme et endurance. Aim990 Plus est conçu pour les adultes qui",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/fr-FR/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Obtenir Aim990 Plus sur l'App Store",
+      "purchase_label": "Téléchargement payant"
     },
     {
       "locale": "fr-FR",
@@ -18591,6 +18815,20 @@
     },
     {
       "locale": "gu-IN",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — દબાણમાં ઝડપી સચોટ જવાબ | iOS App",
+      "decision_context": "Aim990 Plus પુખ્ત વયના શીખનારાઓ માટે અંગ્રેજી સાંભળવા અને વાંચવાની સઘન કસરત છે. તેનો મુખ્ય અભ્યાસક્રમ સમયના દબાણમાં પણ ધ્યાન ટકાવી રાખવાની ટેવ કેળવે છે",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/gu-IN/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store પરથી Aim990 Plus મેળવો",
+      "purchase_label": "ચુકવેલ ડાઉનલોડ"
+    },
+    {
+      "locale": "gu-IN",
       "app_key": "cvdesk",
       "app_name": "CV ડેસ્ક",
       "app_store_id": "6781337213",
@@ -18980,6 +19218,20 @@
       "app_store_url": "https://apps.apple.com/il/app/id6784974530",
       "app_store_cta_label": "קבל את Aim990 ב-App Store →",
       "purchase_label": "התחלה ללא תשלום · פתיחה לכל החיים"
+    },
+    {
+      "locale": "he",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — אימון שמיעה וקריאה בלחץ | iOS App",
+      "decision_context": "תרגול ממוקד להבנת אנגלית מדוברת וכתובה, שנבנה למבוגרים שרוצים לשפר דיוק ומהירות גם כשהשעון מתקתק. במקום לפתור עוד ועוד שאלות בלי כיוון, האפליקציה מחברת בין",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/he/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "הורידו את Aim990 Plus מה-App Store",
+      "purchase_label": "הורדה בתשלום"
     },
     {
       "locale": "he",
@@ -19375,6 +19627,20 @@
     },
     {
       "locale": "hi",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — दबाव में तेज़ और सटीक जवाब | iOS App",
+      "decision_context": "Aim990 Plus वयस्क शिक्षार्थियों के लिए अंग्रेज़ी सुनने और पढ़ने का गहन अभ्यास है। इसका मुख्य क्रम वास्तविक समय-दबाव में ध्यान बनाए रखने के लिए बनाया गया है",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/hi/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store पर Aim990 Plus पाएँ",
+      "purchase_label": "भुगतान किया गया डाउनलोड"
+    },
+    {
+      "locale": "hi",
       "app_key": "cvdesk",
       "app_name": "CV डेस्क",
       "app_store_id": "6781337213",
@@ -19764,6 +20030,20 @@
       "app_store_url": "https://apps.apple.com/hr/app/id6784974530",
       "app_store_cta_label": "Preuzmite Aim990 u App Storeu →",
       "purchase_label": "Besplatno za početak · doživotno otključavanje"
+    },
+    {
+      "locale": "hr",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Sigurnost pod štopericom | iOS App",
+      "decision_context": "Razumjeti engleski nije isto što i ostati precizan dok vrijeme istječe. Aim990 Plus intenzivan je trening slušanja i čitanja za odrasle, osmišljen za",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/hr/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Preuzmite Aim990 Plus u App Storeu",
+      "purchase_label": "Plaćeno preuzimanje"
     },
     {
       "locale": "hr",
@@ -20159,6 +20439,20 @@
     },
     {
       "locale": "hu",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Magabiztosság időnyomásban | iOS App",
+      "decision_context": "Az angoltudás mellett arra is szükség van, hogy az idő szorításában is pontosan dönts. Az Aim990 Plus felnőtteknek készült, intenzív hallásértési és",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/hu/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Töltse le a(z) Aim990 Plus appot az App Store-ból",
+      "purchase_label": "Fizetős letöltés"
+    },
+    {
+      "locale": "hu",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -20548,6 +20842,20 @@
       "app_store_url": "https://apps.apple.com/id/app/id6784974530",
       "app_store_cta_label": "Dapatkan Aim990 di App Store →",
       "purchase_label": "Gratis untuk mulai · buka kunci permanen"
+    },
+    {
+      "locale": "id",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Fokus Cepat di Bawah Tekanan | iOS App",
+      "decision_context": "Latih kemampuan bahasa Inggris dalam kondisi yang terasa nyata: waktu terbatas, rangkaian soal panjang, dan tuntutan untuk tetap teliti. Aim990 Plus",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/id/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Dapatkan Aim990 Plus di App Store",
+      "purchase_label": "Unduhan berbayar"
     },
     {
       "locale": "id",
@@ -20943,6 +21251,20 @@
     },
     {
       "locale": "it",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Inglese sotto pressione | iOS App",
+      "decision_context": "Allena la comprensione dell’inglese con sessioni che richiedono concentrazione, ritmo e continuità. Aim990 Plus è pensata per gli adulti che desiderano",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/it/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Scarica Aim990 Plus sull'App Store",
+      "purchase_label": "Scaricamento a pagamento"
+    },
+    {
+      "locale": "it",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -21332,6 +21654,20 @@
       "app_store_url": "https://apps.apple.com/jp/app/id6784974530",
       "app_store_cta_label": "App StoreでAim990を入手 →",
       "purchase_label": "無料で開始・買い切りで永久解除"
+    },
+    {
+      "locale": "ja",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — 15分で磨く7パート対応力 | iOS App",
+      "decision_context": "ただ問題数をこなすのではなく、時間の重圧の中で正確に判断する力を鍛える。",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/ja/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store で Aim990 Plus を入手",
+      "purchase_label": "有料ダウンロード"
     },
     {
       "locale": "ja",
@@ -21727,6 +22063,20 @@
     },
     {
       "locale": "kn-IN",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — ಇಂಗ್ಲಿಷ್ ಒತ್ತಡ ಅಭ್ಯಾಸ | iOS App",
+      "decision_context": "Aim990 Plus ವಯಸ್ಕರು ತಮ್ಮ ಇಂಗ್ಲಿಷ್ ಕೇಳುವಿಕೆ, ಓದುವಿಕೆ ಮತ್ತು ಸಮಯ ನಿರ್ವಹಣೆಯನ್ನು ಏಕಾಗ್ರವಾಗಿ ಬೆಳೆಸಿಕೊಳ್ಳಲು ರೂಪಿಸಿದ ಒತ್ತಡ ತರಬೇತಿ ಆಪ್. ಸಣ್ಣ ಪಾಠಗಳನ್ನು ಸುಮ್ಮನೆ",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/kn-IN/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store ನಲ್ಲಿ Aim990 Plus ಪಡೆಯಿರಿ",
+      "purchase_label": "ಪಾವತಿಸಿದ ಡೌನ್‌ಲೋಡ್"
+    },
+    {
+      "locale": "kn-IN",
       "app_key": "cvdesk",
       "app_name": "CV ಡೆಸ್ಕ್",
       "app_store_id": "6781337213",
@@ -22116,6 +22466,20 @@
       "app_store_url": "https://apps.apple.com/kr/app/id6784974530",
       "app_store_cta_label": "앱 스토어에서 Aim990 받기 →",
       "purchase_label": "무료로 시작 · 평생 잠금 해제"
+    },
+    {
+      "locale": "ko",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — 15분 완성 7개 영역 집중 | iOS App",
+      "decision_context": "많이 푸는 데서 멈추지 않고, 제한된 시간 안에 정확히 판단하는 힘까지 기르세요.",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/ko/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store에서 Aim990 Plus 받기",
+      "purchase_label": "유료 다운로드"
     },
     {
       "locale": "ko",
@@ -22511,6 +22875,20 @@
     },
     {
       "locale": "ml-IN",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — ഇംഗ്ലീഷ് സമ്മർദ പരിശീലനം | iOS App",
+      "decision_context": "Aim990 Plus മുതിർന്നവർക്ക് ഇംഗ്ലീഷ് കേൾവി, വായന, സമയനിയന്ത്രണം എന്നിവ ഏകാഗ്രമായി മെച്ചപ്പെടുത്താൻ രൂപകൽപ്പന ചെയ്ത സമ്മർദപരിശീലന ആപ്പാണ്. പാഠങ്ങൾ വെറുതെ",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/ml-IN/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store-ൽ നിന്ന് Aim990 Plus നേടൂ",
+      "purchase_label": "പണം നൽകേണ്ട ഡൗൺലോഡ്"
+    },
+    {
+      "locale": "ml-IN",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -22900,6 +23278,20 @@
       "app_store_url": "https://apps.apple.com/in/app/id6784974530",
       "app_store_cta_label": "App Store वरून Aim990 मिळवा →",
       "purchase_label": "सुरुवात करण्यासाठी मोफत · आयुष्यभर अनलॉक"
+    },
+    {
+      "locale": "mr-IN",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — दडपणात जलद अचूक उत्तरे | iOS App",
+      "decision_context": "Aim990 Plus हे प्रौढ शिकणाऱ्यांसाठी इंग्रजी ऐकण्याचा आणि वाचनाचा सखोल सराव देणारे अॅप आहे. वेळेचे दडपण असतानाही लक्ष टिकवण्याची सवय लागावी म्हणून त्याचा",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/mr-IN/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store वरून Aim990 Plus मिळवा",
+      "purchase_label": "पैसे देऊन डाउनलोड करा"
     },
     {
       "locale": "mr-IN",
@@ -23295,6 +23687,20 @@
     },
     {
       "locale": "ms",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Fokus Pantas Dalam Tekanan | iOS App",
+      "decision_context": "Bina kemahiran bahasa Inggeris dalam keadaan yang mencabar fokus: masa terhad, siri soalan yang panjang dan keperluan untuk terus teliti. Aim990 Plus",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/ms/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Dapatkan Aim990 Plus di App Store",
+      "purchase_label": "Muat turun berbayar"
+    },
+    {
+      "locale": "ms",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -23684,6 +24090,20 @@
       "app_store_url": "https://apps.apple.com/nl/app/id6784974530",
       "app_store_cta_label": "Download Aim990 in de App Store →",
       "purchase_label": "Gratis te starten · levenslange ontgrendeling"
+    },
+    {
+      "locale": "nl-NL",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Engels examen onder druk | iOS App",
+      "decision_context": "Aim990 Plus is een complete trainingsomgeving voor volwassenen die Engelse luister- en leestaken ook onder tijdsdruk beheerst willen uitvoeren. De",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/nl-NL/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Download Aim990 Plus in de App Store",
+      "purchase_label": "Betaalde aanschaf"
     },
     {
       "locale": "nl-NL",
@@ -24079,6 +24499,20 @@
     },
     {
       "locale": "no",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Engelsk trening under press | iOS App",
+      "decision_context": "Aim990 Plus er et komplett treningsverktøy for voksne som vil forstå lest og muntlig engelsk også når tiden er knapp. Dagens tydelige løype starter med 8",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/no/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Last ned Aim990 Plus fra App Store",
+      "purchase_label": "Betalt nedlasting"
+    },
+    {
+      "locale": "no",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -24468,6 +24902,20 @@
       "app_store_url": "https://apps.apple.com/in/app/id6784974530",
       "app_store_cta_label": "App Store ରୁ Aim990 ପାଆନ୍ତୁ →",
       "purchase_label": "ମୁକ୍ତ ଆରମ୍ଭ · ଜୀବନକାଳ ଅନଲକ୍"
+    },
+    {
+      "locale": "or-IN",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — ଇଂରାଜୀ ଚାପ ଅଭ୍ୟାସ | iOS App",
+      "decision_context": "Aim990 Plus ବୟସ୍କମାନଙ୍କ ଇଂରାଜୀ ଶ୍ରବଣ, ପଠନ ଓ ସମୟ ପରିଚାଳନାକୁ ଏକାଗ୍ର ଭାବରେ ଉନ୍ନତ କରିବା ପାଇଁ ତିଆରି ହୋଇଥିବା ଚାପ ଅଭ୍ୟାସ ଆପ୍। କେବଳ ପାଠ ଓଲଟାଇ ଦେଖିବା ବଦଳରେ",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/or-IN/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store ରୁ Aim990 Plus ପାଆନ୍ତୁ",
+      "purchase_label": "ପୈସା ଦେଇ ଡାଉନଲୋଡ୍"
     },
     {
       "locale": "or-IN",
@@ -24863,6 +25311,20 @@
     },
     {
       "locale": "pa-IN",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — ਦਬਾਅ ਵਿੱਚ ਤੇਜ਼ ਸਹੀ ਜਵਾਬ | iOS App",
+      "decision_context": "Aim990 Plus ਬਾਲਗ ਸਿੱਖਿਆਰਥੀਆਂ ਲਈ ਅੰਗਰੇਜ਼ੀ ਸੁਣਨ ਅਤੇ ਪੜ੍ਹਨ ਦੀ ਡੂੰਘੀ ਕਸਰਤ ਹੈ। ਇਸ ਦਾ ਮੁੱਖ ਕ੍ਰਮ ਸਮੇਂ ਦੇ ਦਬਾਅ ਹੇਠ ਵੀ ਧਿਆਨ ਬਣਾਈ ਰੱਖਣ ਦੀ ਆਦਤ ਪਾਉਂਦਾ ਹੈ: ਪਹਿਲਾਂ 8",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/pa-IN/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store ਤੋਂ Aim990 Plus ਪ੍ਰਾਪਤ ਕਰੋ",
+      "purchase_label": "ਭੁਗਤਾਨ ਵਾਲਾ ਡਾਊਨਲੋਡ"
+    },
+    {
+      "locale": "pa-IN",
       "app_key": "cvdesk",
       "app_name": "CV ਡੈਸਕ",
       "app_store_id": "6781337213",
@@ -25252,6 +25714,20 @@
       "app_store_url": "https://apps.apple.com/pl/app/id6784974530",
       "app_store_cta_label": "Pobierz Aim990 z App Store →",
       "purchase_label": "Darmowe na start · dożywotni dostęp"
+    },
+    {
+      "locale": "pl",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Pewność pod presją czasu | iOS App",
+      "decision_context": "Zachowaj jasność myślenia, gdy liczy się każda sekunda. Aim990 Plus to intensywny trening słuchania i czytania po angielsku dla dorosłych, zaprojektowany z",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/pl/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Pobierz Aim990 Plus z App Store",
+      "purchase_label": "Płatne do pobrania"
     },
     {
       "locale": "pl",
@@ -25647,6 +26123,20 @@
     },
     {
       "locale": "pt-BR",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Inglês sob pressão | iOS App",
+      "decision_context": "Desenvolva a compreensão do inglês com sessões que trabalham foco, ritmo e resistência. Aim990 Plus foi criado para adultos que querem praticar com",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/pt-BR/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Baixe Aim990 Plus na App Store",
+      "purchase_label": "Baixa paga"
+    },
+    {
+      "locale": "pt-BR",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -26036,6 +26526,20 @@
       "app_store_url": "https://apps.apple.com/pt/app/id6784974530",
       "app_store_cta_label": "Obtenha o Aim990 na App Store →",
       "purchase_label": "Grátis para começar · desbloqueio permanente"
+    },
+    {
+      "locale": "pt-PT",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Inglês contra o relógio | iOS App",
+      "decision_context": "Treine a compreensão do inglês com sessões que exigem atenção, ritmo e resistência. Aim990 Plus destina-se a adultos que pretendem praticar de forma",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/pt-PT/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Baixe Aim990 Plus na App Store",
+      "purchase_label": "Descarregamento pago"
     },
     {
       "locale": "pt-PT",
@@ -26431,6 +26935,20 @@
     },
     {
       "locale": "ro",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Încredere contra cronometru | iOS App",
+      "decision_context": "Să înțelegi engleza este important; să rămâi precis când timpul se scurge este o abilitate separată. Aim990 Plus este un antrenament intensiv de",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/ro/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Descarcă Aim990 Plus din App Store",
+      "purchase_label": "Descărcare plătită"
+    },
+    {
+      "locale": "ro",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -26820,6 +27338,20 @@
       "app_store_url": "https://apps.apple.com/ru/app/id6784974530",
       "app_store_cta_label": "Скачать Aim990 в App Store →",
       "purchase_label": "Бесплатно начать · пожизненная разблокировка"
+    },
+    {
+      "locale": "ru",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Практика в режиме таймера | iOS App",
+      "decision_context": "Aim990 Plus — тренажёр для взрослых, которым важно уверенно понимать английскую речь и текст в условиях ограниченного времени. Приложение помогает не",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/ru/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Установить Aim990 Plus в App Store",
+      "purchase_label": "Платное скачивание"
     },
     {
       "locale": "ru",
@@ -27215,6 +27747,20 @@
     },
     {
       "locale": "sk",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Istota pod časovým tlakom | iOS App",
+      "decision_context": "Rozumieť angličtine je jedna vec. Zachovať si presnosť, keď ubiehajú minúty, je druhá. Aim990 Plus je intenzívny tréning počúvania a čítania pre",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/sk/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Stiahnuť Aim990 Plus v App Store",
+      "purchase_label": "Platené stiahnutie"
+    },
+    {
+      "locale": "sk",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -27604,6 +28150,20 @@
       "app_store_url": "https://apps.apple.com/si/app/id6784974530",
       "app_store_cta_label": "Prenesite Aim990 v App Store →",
       "purchase_label": "Brezplačen začetek · doživljenjska odklenitev"
+    },
+    {
+      "locale": "sl-SI",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Zbranost proti uri | iOS App",
+      "decision_context": "Razumevanje angleščine je le del izziva. Drugi del je ohraniti natančnost, ko se čas izteka. Aim990 Plus je intenzivna vadba poslušanja in branja za",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/sl-SI/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Prenesite Aim990 Plus iz trgovine App Store",
+      "purchase_label": "Plačljiv prenos"
     },
     {
       "locale": "sl-SI",
@@ -27999,6 +28559,20 @@
     },
     {
       "locale": "sv",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Engelska prov under press | iOS App",
+      "decision_context": "Aim990 Plus är en komplett träningsmiljö för vuxna som vill bli säkrare på att lyssna och läsa engelska när tiden är knapp. Dagens fokuserade flöde",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/sv/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Hämta Aim990 Plus i App Store",
+      "purchase_label": "Betald nedladdning"
+    },
+    {
+      "locale": "sv",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -28388,6 +28962,20 @@
       "app_store_url": "https://apps.apple.com/in/app/id6784974530",
       "app_store_cta_label": "App Store இல் Aim990 ஐ பெறவும் →",
       "purchase_label": "இலவசமாக தொடங்கவும் · ஆயுள் முழுவதும் திறக்கவும்"
+    },
+    {
+      "locale": "ta-IN",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — ஆங்கில திறன் சவால் | iOS App",
+      "decision_context": "Aim990 Plus என்பது பெரியவர்கள் தங்கள் ஆங்கிலக் கேட்புத் திறன், வாசிப்புத் திறன், நேர மேலாண்மை ஆகியவற்றை ஒருமுகமாக வளர்க்க உருவாக்கப்பட்ட அழுத்தப் பயிற்சி",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/ta-IN/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store-இல் Aim990 Plus-ஐப் பெறுங்கள்",
+      "purchase_label": "பணம் செலுத்தி பதிவிறக்கவும்"
     },
     {
       "locale": "ta-IN",
@@ -28783,6 +29371,20 @@
     },
     {
       "locale": "te-IN",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — ఆంగ్ల ఒత్తిడి సాధన | iOS App",
+      "decision_context": "Aim990 Plus అనేది పెద్దలు తమ ఆంగ్ల శ్రవణం, పఠనం, సమయ నిర్వహణను ఏకాగ్రతతో మెరుగుపరచుకోవడానికి రూపొందించిన ఒత్తిడి సాధన యాప్. పాఠాలను ఊరికే తిరగేయడం కాకుండా",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/te-IN/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store నుంచి Aim990 Plus పొందండి",
+      "purchase_label": "చెల్లింపు డౌన్లోడ్"
+    },
+    {
+      "locale": "te-IN",
       "app_key": "cvdesk",
       "app_name": "CV డెస్క్",
       "app_store_id": "6781337213",
@@ -29172,6 +29774,20 @@
       "app_store_url": "https://apps.apple.com/th/app/id6784974530",
       "app_store_cta_label": "รับ Aim990 ใน App Store →",
       "purchase_label": "เริ่มใช้ฟรี · ปลดล็อกถาวร"
+    },
+    {
+      "locale": "th",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — ฟังอ่านครบ 7 พาร์ตใน 15 นาที | iOS App",
+      "decision_context": "ไม่ได้ฝึกแค่ให้ทำโจทย์ได้มากขึ้น แต่ฝึกให้ตัดสินใจได้แม่นยำเมื่อเวลาค่อย ๆ ลดลง",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/th/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "ดาวน์โหลด Aim990 Plus บน App Store",
+      "purchase_label": "ดาวน์โหลดแบบชำระเงิน"
     },
     {
       "locale": "th",
@@ -29567,6 +30183,20 @@
     },
     {
       "locale": "tr",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Süre baskısıyla gerçek pratik | iOS App",
+      "decision_context": "Aim990 Plus, sınırlı sürede İngilizce konuşmaları ve metinleri güvenle anlamak isteyen yetişkinler için hazırlanmış bir çalışma aracıdır. Yalnızca soru",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/tr/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Aim990 Plus uygulamasını App Store'dan al",
+      "purchase_label": "Ücretli indirme"
+    },
+    {
+      "locale": "tr",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -29956,6 +30586,20 @@
       "app_store_url": "https://apps.apple.com/ua/app/id6784974530",
       "app_store_cta_label": "Отримайте Aim990 в App Store →",
       "purchase_label": "Безкоштовно для початку · довічне розблокування"
+    },
+    {
+      "locale": "uk",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Практика в режимі таймера | iOS App",
+      "decision_context": "Aim990 Plus — тренажер для дорослих, яким важливо впевнено розуміти англійське мовлення й тексти в умовах обмеженого часу. Застосунок допомагає не просто",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/uk/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Завантажте Aim990 Plus з App Store",
+      "purchase_label": "Платне завантаження"
     },
     {
       "locale": "uk",
@@ -30351,6 +30995,20 @@
     },
     {
       "locale": "ur-PK",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — سننے اور پڑھنے کی مشق | iOS App",
+      "decision_context": "یہ ایپ ان بالغ افراد کے لیے بنائی گئی ہے جو وقت کے دباؤ میں انگریزی سننے اور پڑھنے کی درستگی اور رفتار بہتر کرنا چاہتے ہیں۔ بے ترتیب سوالات دہرانے کے بجائے",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/ur-PK/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "App Store سے Aim990 Plus حاصل کریں",
+      "purchase_label": "ادا شدہ ڈاؤن لوڈ"
+    },
+    {
+      "locale": "ur-PK",
       "app_key": "cvdesk",
       "app_name": "CV ڈیسک",
       "app_store_id": "6781337213",
@@ -30740,6 +31398,20 @@
       "app_store_url": "https://apps.apple.com/vn/app/id6784974530",
       "app_store_cta_label": "Tải Aim990 trên App Store →",
       "purchase_label": "Bắt đầu miễn phí · mở khóa vĩnh viễn"
+    },
+    {
+      "locale": "vi",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — Tập trung nhanh dưới áp lực | iOS App",
+      "decision_context": "Rèn khả năng sử dụng tiếng Anh trong điều kiện đòi hỏi sự tập trung cao: thời gian có hạn, chuỗi câu hỏi dài và áp lực phải giữ độ chính xác. Aim990 Plus",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/vi/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "Tải Aim990 Plus trên App Store",
+      "purchase_label": "Tải xuống trả phí"
     },
     {
       "locale": "vi",
@@ -31135,6 +31807,20 @@
     },
     {
       "locale": "zh-Hans",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — 15分钟攻克七大题型 | iOS App",
+      "decision_context": "把零散刷题变成一套经得住时间压力的训练流程。",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/zh-Hans/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "在 App Store 获取 Aim990 Plus",
+      "purchase_label": "付费下载"
+    },
+    {
+      "locale": "zh-Hans",
       "app_key": "cvdesk",
       "app_name": "CV Desk",
       "app_store_id": "6781337213",
@@ -31524,6 +32210,20 @@
       "app_store_url": "https://apps.apple.com/tw/app/id6784974530",
       "app_store_cta_label": "在 App Store 取得 Aim990 →",
       "purchase_label": "免費開始使用 · 永久解鎖"
+    },
+    {
+      "locale": "zh-Hant",
+      "app_key": "aim990plus",
+      "app_name": "Aim990 Plus",
+      "app_store_id": "6792483140",
+      "publisher_query": "Aim990 Plus — 15分鐘掌握七大題型 | iOS App",
+      "decision_context": "把零散刷題，整理成真正能承受時間壓力的備考節奏。",
+      "purchase_model": "paid_upfront",
+      "source_persona_query": "best offline English listening and reading exam trainer for iPhone",
+      "canonical_guide_url": "https://alice51849.github.io/ios-app-guide/zh-Hant/aim990plus.html",
+      "app_store_url": "https://apps.apple.com/app/id6792483140",
+      "app_store_cta_label": "在 App Store 取得 Aim990 Plus",
+      "purchase_label": "付費下載"
     },
     {
       "locale": "zh-Hant",

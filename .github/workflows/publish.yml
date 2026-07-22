@@ -63,7 +63,7 @@ jobs:
               dist/lumi-app-finder-npx.tgz \
               dist/SHA256SUMS \
               --title "Lumi App Finder $GITHUB_REF_NAME" \
-              --notes "First-party AI app discovery for 28 verified iOS apps across all 50 Apple locales. Includes direct App Store links, MCP Apps cards, and version-pinned VS Code and Cursor installers."
+              --notes "First-party AI app discovery for 29 verified iOS apps across all 50 Apple locales. Includes direct App Store links, MCP Apps cards, and version-pinned VS Code and Cursor installers."
           fi
       - name: Install MCP Registry publisher
         run: |

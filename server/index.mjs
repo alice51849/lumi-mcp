@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import readline from "node:readline";
 
 const SERVER_NAME = "lumi-app-finder";
-const SERVER_VERSION = "1.1.2";
+const SERVER_VERSION = "1.1.3";
 const LATEST_PROTOCOL = "2025-06-18";
 const SUPPORTED_PROTOCOLS = new Set([
   "2025-06-18",
@@ -35,6 +35,8 @@ const OFFICIAL_LOCALES = Object.freeze([
   "sv", "ta-IN", "te-IN", "th", "tr", "uk", "ur-PK", "vi",
   "zh-Hans", "zh-Hant",
 ]);
+const EXPECTED_APP_COUNT = 29;
+const EXPECTED_RECORD_COUNT = EXPECTED_APP_COUNT * OFFICIAL_LOCALES.length;
 const REQUIRED_RECORD_FIELDS = Object.freeze([
   "locale",
   "app_key",
@@ -217,13 +219,37 @@ function validateStoreUrl(value, appId) {
   return url;
 }
 
+function validateGuideUrl(value, locale, appKey) {
+  const url = new URL(value);
+  const answerPrefix = `/ios-app-guide/${locale}/answers/`;
+  const answerSlug = url.pathname.slice(answerPrefix.length);
+  const isAnswer =
+    url.pathname.startsWith(answerPrefix) &&
+    /^[a-z0-9-]+\.html$/u.test(answerSlug);
+  const isOwnedProduct =
+    url.pathname === `/ios-app-guide/${locale}/${appKey}.html`;
+  if (
+    url.protocol !== "https:" ||
+    url.hostname !== "alice51849.github.io" ||
+    url.port ||
+    url.username ||
+    url.password ||
+    url.search ||
+    url.hash ||
+    (!isAnswer && !isOwnedProduct)
+  ) {
+    throw new Error(`Invalid guide URL for '${appKey}/${locale}'.`);
+  }
+  return url;
+}
+
 function validateCatalog(payload) {
   if (
     !payload ||
     typeof payload !== "object" ||
-    payload.app_count !== 28 ||
+    payload.app_count !== EXPECTED_APP_COUNT ||
     payload.locale_count !== OFFICIAL_LOCALES.length ||
-    payload.record_count !== 1400 ||
+    payload.record_count !== EXPECTED_RECORD_COUNT ||
     JSON.stringify(payload.locales) !== JSON.stringify(OFFICIAL_LOCALES) ||
     !Array.isArray(payload.records) ||
     payload.records.length !== payload.record_count ||
@@ -286,17 +312,11 @@ function validateCatalog(payload) {
     }
     appIds.set(record.app_key, record.app_store_id);
     validateStoreUrl(record.app_store_url, record.app_store_id);
-    const guide = new URL(record.canonical_guide_url);
-    if (
-      guide.protocol !== "https:" ||
-      guide.hostname !== "alice51849.github.io" ||
-      !guide.pathname.startsWith(
-        `/ios-app-guide/${record.locale}/answers/`,
-      ) ||
-      !guide.pathname.endsWith(".html")
-    ) {
-      throw new Error(`Invalid guide URL for '${pair}'.`);
-    }
+    validateGuideUrl(
+      record.canonical_guide_url,
+      record.locale,
+      record.app_key,
+    );
   }
   if (
     appIds.size !== payload.app_count ||

@@ -218,11 +218,12 @@ test("English buyer needs match the relevant portfolio apps", async () => {
   });
 });
 
-test("native publisher intent resolves correctly in all 50 locales", async () => {
+test("Aim990 Plus publisher intent resolves correctly in all 50 locales", async () => {
   await withClient(async (client) => {
     for (const locale of catalog.locales) {
       const expected = catalog.records.find(
-        (record) => record.locale === locale && record.app_key === "aim990",
+        (record) =>
+          record.locale === locale && record.app_key === "aim990plus",
       );
       assert.ok(expected, locale);
       const response = await client.request("tools/call", {
@@ -243,6 +244,13 @@ test("native publisher intent resolves correctly in all 50 locales", async () =>
           response.result.structuredContent.results[0].app_store_url,
         ).search,
         "",
+        locale,
+      );
+      assert.equal(
+        new URL(
+          response.result.structuredContent.results[0].guide_url,
+        ).pathname,
+        `/ios-app-guide/${locale}/aim990plus.html`,
         locale,
       );
     }

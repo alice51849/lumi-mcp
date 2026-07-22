@@ -21,6 +21,8 @@ const OFFICIAL_LOCALES = Object.freeze([
   "sv", "ta-IN", "te-IN", "th", "tr", "uk", "ur-PK", "vi",
   "zh-Hans", "zh-Hant",
 ]);
+const EXPECTED_APP_COUNT = 29;
+const EXPECTED_RECORD_COUNT = EXPECTED_APP_COUNT * OFFICIAL_LOCALES.length;
 const STOPWORD_EXPORTS = Object.freeze({
   "ar-SA": "ara",
   "bn-BD": "ben",
@@ -193,16 +195,42 @@ function validateStoreUrl(value, appId) {
   }
 }
 
+function validateGuideUrl(value, locale, appKey) {
+  const url = new URL(value);
+  const answerPrefix = `/ios-app-guide/${locale}/answers/`;
+  const answerSlug = url.pathname.slice(answerPrefix.length);
+  const isAnswer =
+    url.pathname.startsWith(answerPrefix) &&
+    /^[a-z0-9-]+\.html$/u.test(answerSlug);
+  const isOwnedProduct =
+    url.pathname === `/ios-app-guide/${locale}/${appKey}.html`;
+  if (
+    url.protocol !== "https:" ||
+    url.hostname !== "alice51849.github.io" ||
+    url.port ||
+    url.username ||
+    url.password ||
+    url.search ||
+    url.hash ||
+    (!isAnswer && !isOwnedProduct)
+  ) {
+    throw new Error(`Invalid guide route for ${appKey}/${locale}.`);
+  }
+}
+
 function validateInputs(catalog, i18n) {
   if (
-    catalog?.app_count !== 28 ||
+    catalog?.app_count !== EXPECTED_APP_COUNT ||
     catalog?.locale_count !== OFFICIAL_LOCALES.length ||
-    catalog?.record_count !== 1400 ||
+    catalog?.record_count !== EXPECTED_RECORD_COUNT ||
     JSON.stringify(catalog?.locales) !== JSON.stringify(OFFICIAL_LOCALES) ||
     !Array.isArray(catalog?.records) ||
     catalog.records.length !== catalog.record_count
   ) {
-    throw new Error("Publisher catalog coverage is not 28 × 50.");
+    throw new Error(
+      `Publisher catalog coverage is not ${EXPECTED_APP_COUNT} × ` +
+        `${OFFICIAL_LOCALES.length}.`,
+    );
   }
   if (
     !i18n?.localizations ||
@@ -238,11 +266,19 @@ function validateInputs(catalog, i18n) {
     appKeys.add(record.app_key);
     try {
       validateStoreUrl(record.app_store_url, record.app_store_id);
+      validateGuideUrl(
+        record.canonical_guide_url,
+        record.locale,
+        record.app_key,
+      );
     } catch {
-      throw new Error(`Invalid App Store URL for '${pair}'.`);
+      throw new Error(`Invalid owned destination for '${pair}'.`);
     }
   }
-  if (pairs.size !== 1400 || appKeys.size !== 28) {
+  if (
+    pairs.size !== EXPECTED_RECORD_COUNT ||
+    appKeys.size !== EXPECTED_APP_COUNT
+  ) {
     throw new Error("Publisher records do not cover every app/locale pair.");
   }
 }
