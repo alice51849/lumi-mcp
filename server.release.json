@@ -15,7 +15,7 @@
       "registryType": "mcpb",
       "identifier": "https://github.com/alice51849/lumi-mcp/releases/download/v1.2.0/lumi-app-finder.mcpb",
       "version": "1.2.0",
-      "fileSha256": "5272895abbf2924e1d838593af9ef66269efccc05f115316e53cf45bdb5c35da",
+      "fileSha256": "10322aeba5b91cefa926446c122b733b4f9ef25832567a170195d328032c8609",
       "transport": {
         "type": "stdio"
       }
