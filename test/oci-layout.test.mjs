@@ -70,7 +70,16 @@ async function attestation(root, subject, predicateTypes) {
   }
   return writeBlob(
     root,
-    { schemaVersion: 2, layers },
+    {
+      schemaVersion: 2,
+      artifactType: "application/vnd.docker.attestation.manifest.v1+json",
+      subject: {
+        mediaType: subject.mediaType,
+        digest: subject.digest,
+        size: subject.size,
+      },
+      layers,
+    },
     {
       annotations: {
         "vnd.docker.reference.type": "attestation-manifest",

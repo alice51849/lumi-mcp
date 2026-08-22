@@ -95,17 +95,27 @@ export async function verifyOciLayout(root, outputPath) {
       descriptor.annotations?.["vnd.docker.reference.digest"];
     assert.equal(predicatesByImage.has(subject), true);
     const manifest = await blob(root, descriptor);
+    assert.equal(
+      manifest.subject?.digest,
+      subject,
+      "OCI attestation manifest is not bound to its image manifest.",
+    );
     for (const layer of manifest.layers ?? []) {
       if (layer.mediaType !== "application/vnd.in-toto+json") continue;
       const statement = await blob(root, layer);
-      const matchesSubject = statement.subject?.some(
-        (entry) =>
-          entry.digest?.sha256 === subject.slice("sha256:".length),
+      assert.equal(
+        statement.subject?.some((entry) =>
+          /^[a-f0-9]{64}$/u.test(entry.digest?.sha256 ?? ""),
+        ),
+        true,
+        "In-toto statement has no SHA-256 subject.",
       );
-      if (!matchesSubject) continue;
-      const predicate =
-        layer.annotations?.["in-toto.io/predicate-type"] ??
-        statement.predicateType;
+      const annotatedPredicate =
+        layer.annotations?.["in-toto.io/predicate-type"];
+      if (annotatedPredicate) {
+        assert.equal(annotatedPredicate, statement.predicateType);
+      }
+      const predicate = annotatedPredicate ?? statement.predicateType;
       if (predicate) predicatesByImage.get(subject).add(predicate);
     }
   }
