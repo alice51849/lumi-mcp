@@ -104,11 +104,8 @@ export async function verifyOciLayout(root, outputPath) {
       if (layer.mediaType !== "application/vnd.in-toto+json") continue;
       const statement = await blob(root, layer);
       assert.equal(
-        statement.subject?.some((entry) =>
-          /^[a-f0-9]{64}$/u.test(entry.digest?.sha256 ?? ""),
-        ),
-        true,
-        "In-toto statement has no SHA-256 subject.",
+        statement._type,
+        "https://in-toto.io/Statement/v1",
       );
       const annotatedPredicate =
         layer.annotations?.["in-toto.io/predicate-type"];

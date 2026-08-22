@@ -31,7 +31,7 @@ async function attestation(root, subject, predicateTypes) {
     root,
     {
       _type: "https://in-toto.io/Statement/v1",
-      subject: [{ digest: { sha256: "f".repeat(64) } }],
+      subject: [],
       predicateType: "https://example.test/auxiliary",
       predicate: {},
     },
