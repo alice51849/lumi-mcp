@@ -91,7 +91,8 @@ test("GHCR bootstrap is private, manual, commit-scoped, and fully gated", async 
   assert.match(bootstrap, /case "\$status" in[\s\S]+200\)[\s\S]+404\)[\s\S]+\*\)/u);
   assert.match(bootstrap, /Promote verified digest to private commit tag/u);
   assert.match(bootstrap, /Reverify private tag binding and visibility/u);
-  assert.match(bootstrap, /image\.RepoDigests\.includes\(expected\)/u);
+  assert.match(bootstrap, /--format '\{\{ \.Manifest\.Digest \}\}'/u);
+  assert.match(bootstrap, /test "\$tag_digest" = "\$DIGEST"/u);
   assert.match(bootstrap, /visibility'\)" = "private"/u);
   assert.doesNotMatch(bootstrap, /server\.release\.json/u);
   assert.doesNotMatch(bootstrap, /Promote verified digest to the semver tag/u);
@@ -162,6 +163,7 @@ test("release and Registry publication fail closed behind every supply-chain gat
   assert.ok(registryPublish > registryReconcile);
   assert.match(workflow, /publish:\n\s+needs: quality/u);
   assert.match(workflow, /docker logout ghcr\.io/u);
+  assert.match(workflow, /test "\$candidate_digest" = "\$DIGEST"/u);
   assert.match(workflow, /visibility !== "public"/u);
   assert.match(
     workflow,

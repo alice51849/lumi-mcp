@@ -380,16 +380,13 @@ jobs:
         run: |
           set -euo pipefail
           docker pull "${IMAGE_NAME}:${CANDIDATE}"
-          docker image inspect "${IMAGE_NAME}:${CANDIDATE}" \
+          docker buildx imagetools inspect --raw \
+            "${IMAGE_NAME}:${CANDIDATE}" \
             > dist/bootstrap-tag-inspect.json
-          node -e '
-            const fs = require("node:fs");
-            const image = JSON.parse(
-              fs.readFileSync("dist/bootstrap-tag-inspect.json", "utf8"),
-            )[0];
-            const expected = `${process.env.IMAGE_NAME}@${process.env.DIGEST}`;
-            if (!image.RepoDigests.includes(expected)) process.exit(1);
-          '
+          tag_digest="$(docker buildx imagetools inspect \
+            "${IMAGE_NAME}:${CANDIDATE}" \
+            --format '{{ .Manifest.Digest }}')"
+          test "$tag_digest" = "$DIGEST"
           test "$(gh api \
             '/user/packages/container/lumi-app-finder' \
             --jq '.visibility')" = "private"

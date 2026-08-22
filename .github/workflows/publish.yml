@@ -242,14 +242,10 @@ jobs:
           docker pull "${IMAGE_NAME}@${DIGEST}"
           docker image inspect "${IMAGE_NAME}:${CANDIDATE}" \
             > dist/image-inspect.json
-          node -e '
-            const fs = require("node:fs");
-            const image = JSON.parse(
-              fs.readFileSync("dist/image-inspect.json", "utf8"),
-            )[0];
-            const expected = `${process.env.IMAGE_NAME}@${process.env.DIGEST}`;
-            if (!image.RepoDigests.includes(expected)) process.exit(1);
-          '
+          candidate_digest="$(docker buildx imagetools inspect \
+            "${IMAGE_NAME}:${CANDIDATE}" \
+            --format '{{ .Manifest.Digest }}')"
+          test "$candidate_digest" = "$DIGEST"
       - name: Verify architectures, ownership, labels, and size
         env:
           DIGEST: ${{ steps.image.outputs.digest }}
