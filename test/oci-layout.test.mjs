@@ -27,7 +27,22 @@ async function writeBlob(root, value, extra = {}) {
 }
 
 async function attestation(root, subject, predicateTypes) {
-  const layers = [];
+  const unrelated = await writeBlob(
+    root,
+    {
+      _type: "https://in-toto.io/Statement/v1",
+      subject: [{ digest: { sha256: "f".repeat(64) } }],
+      predicateType: "https://example.test/auxiliary",
+      predicate: {},
+    },
+    {
+      mediaType: "application/vnd.in-toto+json",
+      annotations: {
+        "in-toto.io/predicate-type": "https://example.test/auxiliary",
+      },
+    },
+  );
+  const layers = [unrelated];
   for (const predicateType of predicateTypes) {
     layers.push(
       await writeBlob(

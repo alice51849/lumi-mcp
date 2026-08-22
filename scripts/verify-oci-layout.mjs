@@ -98,13 +98,11 @@ export async function verifyOciLayout(root, outputPath) {
     for (const layer of manifest.layers ?? []) {
       if (layer.mediaType !== "application/vnd.in-toto+json") continue;
       const statement = await blob(root, layer);
-      assert.equal(
-        statement.subject?.some(
-          (entry) =>
-            entry.digest?.sha256 === subject.slice("sha256:".length),
-        ),
-        true,
+      const matchesSubject = statement.subject?.some(
+        (entry) =>
+          entry.digest?.sha256 === subject.slice("sha256:".length),
       );
+      if (!matchesSubject) continue;
       const predicate =
         layer.annotations?.["in-toto.io/predicate-type"] ??
         statement.predicateType;
@@ -117,12 +115,18 @@ export async function verifyOciLayout(root, outputPath) {
         value.includes("spdx.dev/Document"),
       ),
       true,
+      `Image attestation is missing a subject-bound SPDX predicate: ${
+        [...predicates].join(", ") || "none"
+      }`,
     );
     assert.equal(
       [...predicates].some((value) =>
         value.includes("slsa.dev/provenance"),
       ),
       true,
+      `Image attestation is missing subject-bound provenance: ${
+        [...predicates].join(", ") || "none"
+      }`,
     );
   }
   if (outputPath) {
