@@ -40,11 +40,24 @@ const packageEntry = server.packages?.find(
   (entry) => entry.registryType === "mcpb",
 );
 if (!packageEntry) throw new Error("server.json has no MCPB package.");
+if (packageEntry.version !== version) {
+  throw new Error("server.json MCPB package version does not match.");
+}
 const expectedUrl =
   `https://github.com/alice51849/lumi-mcp/releases/download/v${version}/` +
   "lumi-app-finder.mcpb";
 if (packageEntry.identifier !== expectedUrl) {
   throw new Error("server.json release URL does not match its version.");
+}
+const ociEntry = server.packages?.find(
+  (entry) => entry.registryType === "oci",
+);
+if (
+  ociEntry?.identifier !==
+    `ghcr.io/alice51849/lumi-app-finder:${version}` ||
+  ociEntry?.transport?.type !== "stdio"
+) {
+  throw new Error("server.json OCI package is not pinned to its version.");
 }
 packageEntry.fileSha256 = createHash("sha256").update(bundle).digest("hex");
 await writeFile(serverPath, `${JSON.stringify(server, null, 2)}\n`, "utf8");

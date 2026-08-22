@@ -1,0 +1,40 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.alice51849/lumi-app-finder",
+  "title": "Lumi App Finder",
+  "description": "Find iOS apps by task across 43 live apps and all 50 Apple locales with direct App Store links.",
+  "websiteUrl": "https://alice51849.github.io/ios-app-guide/",
+  "repository": {
+    "url": "https://github.com/alice51849/lumi-mcp",
+    "source": "github",
+    "id": "1285241520"
+  },
+  "version": "1.2.0",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/alice51849/lumi-mcp/releases/download/v1.2.0/lumi-app-finder.mcpb",
+      "version": "1.2.0",
+      "fileSha256": "5272895abbf2924e1d838593af9ef66269efccc05f115316e53cf45bdb5c35da",
+      "transport": {
+        "type": "stdio"
+      }
+    },
+    {
+      "registryType": "oci",
+      "identifier": "ghcr.io/alice51849/lumi-app-finder:1.2.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "catalog": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
+      "coverage": "43 verified live iOS apps across all 50 Apple locales",
+      "attribution": "Apple campaign ct=lumi_oci; market reporting uses App Store Connect territory.",
+      "privacy": "Offline runtime; no telemetry or query, IP, or user-agent logging.",
+      "disclosure": "First-party publisher catalog; text relevance is not an independent ranking."
+    }
+  }
+}

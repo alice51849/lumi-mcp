@@ -1,74 +1,346 @@
-name: Publish MCP Registry release
+name: Publish attested MCP release
 
 on:
   push:
     tags: ["v*"]
 
 permissions:
-  contents: write
-  id-token: write
+  contents: read
+
+env:
+  IMAGE_NAME: ghcr.io/alice51849/lumi-app-finder
 
 jobs:
-  publish:
+  quality:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - name: Set up Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 22
           cache: npm
+      - name: Verify immutable release version
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          test "$GITHUB_REF_NAME" = "v${version}"
+          test "$(node -p "require('./package.json').version")" = "$version"
+          test "$(node -p "require('./manifest.json').version")" = "$version"
+          test "$(node -p "require('./server.release.json').version")" = "$version"
+          test "$(node -p \
+            "require('./server.release.json').packages.find((entry) => entry.registryType === 'oci').identifier")" \
+            = "${IMAGE_NAME}:${version}"
       - name: Install dependencies
         run: npm ci
-      - name: Test and validate
+      - name: Gate authoritative live catalog
+        run: npm run catalog:gate
+      - name: Test server and generated artifacts
+        run: npm test
+      - name: Validate official Registry schema
+        run: npm run validate:registry
+      - name: Validate MCPB manifest
+        run: npm run validate
+      - name: Build deterministic release artifacts
         run: |
-          npm test
-          npm run validate
-      - name: Build release bundle
-        run: |
+          set -euo pipefail
+          mkdir -p dist
           npm run pack:mcpb
-          node scripts/set-server-hash.mjs \
-            dist/lumi-app-finder.mcpb \
-            server.json \
-            "${GITHUB_REF_NAME#v}"
+          bundle_hash="$(sha256sum dist/lumi-app-finder.mcpb | cut -d' ' -f1)"
+          expected_hash="$(node -p \
+            "require('./server.release.json').packages.find((entry) => entry.registryType === 'mcpb').fileSha256")"
+          test "$bundle_hash" = "$expected_hash"
           version="${GITHUB_REF_NAME#v}"
           npm pack --pack-destination dist >/dev/null
           mv "dist/lumi-app-finder-mcp-${version}.tgz" \
             dist/lumi-app-finder-npx.tgz
-          request='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"npx-probe","version":"1.0.0"}}}'
-          response="$(printf '%s\n' "$request" | npx --yes ./dist/lumi-app-finder-npx.tgz)"
-          node -e '
-            const result = JSON.parse(process.argv[1]).result;
-            if (result?.serverInfo?.version !== process.argv[2]) process.exit(1);
-          ' "$response" "$version"
           (
             cd dist
             sha256sum lumi-app-finder.mcpb lumi-app-finder-npx.tgz \
               > SHA256SUMS
           )
-      - name: Publish GitHub release asset
+          npx mcpb info dist/lumi-app-finder.mcpb
+      - name: Smoke direct and packed stdio servers
+        run: |
+          set -euo pipefail
+          npm run smoke
+          node scripts/mcp-smoke.mjs -- \
+            npx --yes ./dist/lumi-app-finder-npx.tgz
+      - name: Benchmark and size report
+        run: node scripts/benchmark.mjs --output dist/benchmark.json
+      - name: Upload release inputs
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: lumi-mcp-release-inputs
+          path: |
+            dist/SHA256SUMS
+            dist/benchmark.json
+            dist/lumi-app-finder.mcpb
+            dist/lumi-app-finder-npx.tgz
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: quality
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Set up Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22
+      - name: Require an existing public GHCR package
+        id: public-package
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
+          gh api \
+            '/users/alice51849/packages/container/lumi-app-finder' \
+            > package.json.tmp
+          gh api \
+            '/users/alice51849/packages/container/lumi-app-finder/versions?per_page=100' \
+            > package-versions.json.tmp
+          node -e '
+            const fs = require("node:fs");
+            const value = JSON.parse(
+              fs.readFileSync("package.json.tmp", "utf8"),
+            );
+            if (
+              value.name !== "lumi-app-finder" ||
+              value.package_type !== "container" ||
+              value.visibility !== "public"
+            ) {
+              process.exit(1);
+            }
+            const versions = JSON.parse(
+              fs.readFileSync("package-versions.json.tmp", "utf8"),
+            );
+            const tags = versions
+              .flatMap((version) => version.metadata?.container?.tags ?? [])
+              .filter((tag) =>
+                /^[A-Za-z0-9_][A-Za-z0-9_.-]{0,127}$/u.test(tag),
+              )
+              .sort();
+            if (!tags.length) process.exit(1);
+            fs.appendFileSync(
+              process.env.GITHUB_OUTPUT,
+              `bootstrap=${tags[0]}\n`,
+            );
+          '
+          rm package.json.tmp package-versions.json.tmp
+      - name: Verify an anonymous bootstrap pull
+        env:
+          BOOTSTRAP: ${{ steps.public-package.outputs.bootstrap }}
+          DOCKER_CONFIG: ${{ runner.temp }}/lumi-anonymous-docker
+        run: |
+          set -euo pipefail
+          install -d -m 0700 "$DOCKER_CONFIG"
+          docker pull "${IMAGE_NAME}:${BOOTSTRAP}"
+      - name: Download verified release inputs
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: lumi-mcp-release-inputs
+          path: dist
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4
+        with:
+          version: v0.36.1
+          driver-opts: |
+            image=moby/buildkit@sha256:28a898719c18a33f4e8000685287fa36fd0dd9560c6440227d3a732d79bb41d8
+      - name: Log in to GHCR for publication
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Resolve reproducible image metadata
+        id: metadata
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          echo "candidate=${version}-${GITHUB_SHA::12}.candidate" \
+            >> "$GITHUB_OUTPUT"
+          echo "created=$(git show -s --format=%cI "$GITHUB_SHA")" \
+            >> "$GITHUB_OUTPUT"
+      - name: Build and push commit-scoped candidate image
+        id: image
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ env.IMAGE_NAME }}:${{ steps.metadata.outputs.candidate }}
+          sbom: true
+          provenance: mode=max
+          build-args: |
+            VERSION=${{ steps.metadata.outputs.version }}
+            REVISION=${{ github.sha }}
+            CREATED=${{ steps.metadata.outputs.created }}
+      - name: Generate digest-bound SBOM
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0
+        with:
+          image: ${{ env.IMAGE_NAME }}@${{ steps.image.outputs.digest }}
+          syft-version: v1.51.0
+          format: spdx-json
+          output-file: dist/lumi-app-finder.spdx.json
+          upload-artifact: false
+          upload-release-assets: false
+      - name: Validate generated SBOM
+        run: |
+          node -e '
+            const fs = require("node:fs");
+            const sbom = JSON.parse(
+              fs.readFileSync("dist/lumi-app-finder.spdx.json", "utf8"),
+            );
+            if (sbom.spdxVersion !== "SPDX-2.3") process.exit(1);
+            if (!Array.isArray(sbom.packages) || !sbom.packages.length) {
+              process.exit(1);
+            }
+          '
+      - name: Attest image provenance
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
+        with:
+          subject-name: ${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.image.outputs.digest }}
+          push-to-registry: true
+          create-storage-record: false
+      - name: Attest image SBOM
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
+        with:
+          subject-name: ${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.image.outputs.digest }}
+          sbom-path: dist/lumi-app-finder.spdx.json
+          push-to-registry: true
+          create-storage-record: false
+      - name: Attest MCPB and npx artifacts
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
+        with:
+          subject-checksums: dist/SHA256SUMS
+      - name: Verify anonymous candidate and digest pulls
+        env:
+          CANDIDATE: ${{ steps.metadata.outputs.candidate }}
+          DIGEST: ${{ steps.image.outputs.digest }}
+        run: |
+          set -euo pipefail
+          docker logout ghcr.io
+          for attempt in 1 2 3 4; do
+            if docker pull "${IMAGE_NAME}:${CANDIDATE}"; then
+              break
+            fi
+            test "$attempt" -lt 4
+            sleep $((attempt * 15))
+          done
+          docker pull "${IMAGE_NAME}@${DIGEST}"
+          docker image inspect "${IMAGE_NAME}:${CANDIDATE}" \
+            > dist/image-inspect.json
+          node -e '
+            const fs = require("node:fs");
+            const image = JSON.parse(
+              fs.readFileSync("dist/image-inspect.json", "utf8"),
+            )[0];
+            const expected = `${process.env.IMAGE_NAME}@${process.env.DIGEST}`;
+            if (!image.RepoDigests.includes(expected)) process.exit(1);
+          '
+      - name: Verify architectures, ownership, labels, and size
+        env:
+          DIGEST: ${{ steps.image.outputs.digest }}
+        run: |
+          set -euo pipefail
+          docker buildx imagetools inspect --raw \
+            "${IMAGE_NAME}@${DIGEST}" > dist/oci-index.json
+          node scripts/verify-image-index.mjs dist/oci-index.json
+          node scripts/verify-image-metadata.mjs dist/image-inspect.json
+      - name: Smoke immutable image digest across 50 locales
+        env:
+          DIGEST: ${{ steps.image.outputs.digest }}
+        run: |
+          node scripts/mcp-smoke.mjs -- \
+            docker run --rm -i \
+              --network none \
+              --read-only \
+              --cap-drop ALL \
+              --security-opt no-new-privileges \
+              --pids-limit 64 \
+              --memory 256m \
+              "${IMAGE_NAME}@${DIGEST}"
+      - name: Verify signed provenance and SBOM attestations
+        env:
+          DIGEST: ${{ steps.image.outputs.digest }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          subject="oci://${IMAGE_NAME}@${DIGEST}"
+          common=(
+            --repo "$GITHUB_REPOSITORY"
+            --signer-repo "$GITHUB_REPOSITORY"
+            --source-digest "$GITHUB_SHA"
+            --deny-self-hosted-runners
+          )
+          gh attestation verify "$subject" "${common[@]}"
+          gh attestation verify "$subject" "${common[@]}" \
+            --predicate-type https://spdx.dev/Document/v2.3
+      - name: Promote verified digest to the semver tag
+        env:
+          DIGEST: ${{ steps.image.outputs.digest }}
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.metadata.outputs.version }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io \
+            --username "$GITHUB_ACTOR" --password-stdin
+          docker buildx imagetools create \
+            --tag "${IMAGE_NAME}:${VERSION}" \
+            "${IMAGE_NAME}@${DIGEST}"
+          docker logout ghcr.io
+          for attempt in 1 2 3 4; do
+            if inspection="$(docker buildx imagetools inspect \
+              "${IMAGE_NAME}:${VERSION}")"; then
+              actual="$(printf '%s\n' "$inspection" |
+                awk '$1 == "Digest:" { print $2; exit }')"
+              if test "$actual" = "$DIGEST"; then
+                exit 0
+              fi
+            fi
+            test "$attempt" -lt 4
+            sleep $((attempt * 15))
+          done
+          exit 1
+      - name: Publish verified GitHub release assets
+        env:
+          DIGEST: ${{ steps.image.outputs.digest }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
             gh release upload "$GITHUB_REF_NAME" \
               dist/lumi-app-finder.mcpb \
               dist/lumi-app-finder-npx.tgz \
+              dist/lumi-app-finder.spdx.json \
               dist/SHA256SUMS \
               --clobber
           else
             gh release create "$GITHUB_REF_NAME" \
               dist/lumi-app-finder.mcpb \
               dist/lumi-app-finder-npx.tgz \
+              dist/lumi-app-finder.spdx.json \
               dist/SHA256SUMS \
               --title "Lumi App Finder $GITHUB_REF_NAME" \
-              --notes "First-party AI app discovery for 29 verified iOS apps across all 50 Apple locales. Includes direct App Store links, MCP Apps cards, and version-pinned VS Code and Cursor installers."
+              --notes "First-party discovery for 43 verified iOS apps across all 50 Apple locales. OCI digest: ${DIGEST}. Includes MCPB, semver-pinned GHCR image, SBOM, provenance, and offline 50-locale smoke coverage."
           fi
-      - name: Install MCP Registry publisher
+      - name: Install verified MCP Registry publisher
         run: |
           set -euo pipefail
-          version=1.8.0
+          version=1.8.1
           base="https://github.com/modelcontextprotocol/registry/releases/download/v${version}"
           curl --fail --location --retry 4 --retry-all-errors \
             --output mcp-publisher_linux_amd64.tar.gz \
@@ -81,16 +353,66 @@ jobs:
           sha256sum --check mcp-publisher.sha256
           tar -xzf mcp-publisher_linux_amd64.tar.gz mcp-publisher
           chmod +x mcp-publisher
+      - name: Validate all public Registry packages
+        run: |
+          cp server.release.json server.json
+          ./mcp-publisher validate server.json
+      - name: Reconcile an existing immutable Registry version
+        id: registry-version
+        env:
+          VERSION: ${{ steps.metadata.outputs.version }}
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 4 --retry-all-errors \
+            --output dist/registry-response.json \
+            --get \
+            --data-urlencode 'search=io.github.alice51849/lumi-app-finder' \
+            --data-urlencode "version=${VERSION}" \
+            'https://registry.modelcontextprotocol.io/v0.1/servers'
+          if node scripts/verify-registry-version.mjs \
+            dist/registry-response.json server.release.json; then
+            echo 'exists=true' >> "$GITHUB_OUTPUT"
+          else
+            status=$?
+            test "$status" -eq 3
+            echo 'exists=false' >> "$GITHUB_OUTPUT"
+          fi
       - name: Authenticate with GitHub OIDC
+        if: steps.registry-version.outputs.exists != 'true'
         run: ./mcp-publisher login github-oidc
       - name: Publish to the official MCP Registry
+        if: steps.registry-version.outputs.exists != 'true'
+        env:
+          VERSION: ${{ steps.metadata.outputs.version }}
         run: |
+          set -euo pipefail
+          if ./mcp-publisher publish; then
+            exit 0
+          fi
+          curl --fail --location --retry 4 --retry-all-errors \
+            --output dist/registry-response.json \
+            --get \
+            --data-urlencode 'search=io.github.alice51849/lumi-app-finder' \
+            --data-urlencode "version=${VERSION}" \
+            'https://registry.modelcontextprotocol.io/v0.1/servers'
+          node scripts/verify-registry-version.mjs \
+            dist/registry-response.json server.release.json
+      - name: Verify official Registry update
+        env:
+          VERSION: ${{ steps.metadata.outputs.version }}
+        run: |
+          set -euo pipefail
           for attempt in 1 2 3 4; do
-            if ./mcp-publisher publish; then
+            curl --fail --location --retry 4 --retry-all-errors \
+              --output dist/registry-response.json \
+              --get \
+              --data-urlencode 'search=io.github.alice51849/lumi-app-finder' \
+              --data-urlencode "version=${VERSION}" \
+              'https://registry.modelcontextprotocol.io/v0.1/servers'
+            if node scripts/verify-registry-version.mjs \
+              dist/registry-response.json server.release.json; then
               exit 0
             fi
-            if test "$attempt" -eq 4; then
-              exit 1
-            fi
+            test "$attempt" -lt 4
             sleep $((attempt * 15))
           done

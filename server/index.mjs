@@ -3,18 +3,21 @@
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import readline from "node:readline";
+import {
+  OFFICIAL_LOCALES,
+  storefrontTerritory,
+  validateMcpStoreUrl,
+  validateSnapshotCatalog,
+} from "./catalog-contract.mjs";
 
 const SERVER_NAME = "lumi-app-finder";
-const SERVER_VERSION = "1.1.3";
+const SERVER_VERSION = "1.2.0";
 const LATEST_PROTOCOL = "2025-06-18";
 const SUPPORTED_PROTOCOLS = new Set([
   "2025-06-18",
   "2025-03-26",
   "2024-11-05",
 ]);
-const CATALOG_URL =
-  "https://alice51849.github.io/ios-app-guide/data/" +
-  "lumi-studio-publisher-search-intent-catalog.json";
 const CATALOG_PATH = fileURLToPath(
   new URL("./catalog.json", import.meta.url),
 );
@@ -25,60 +28,11 @@ const UI_PATH = fileURLToPath(
   new URL("../ui/app-finder.html", import.meta.url),
 );
 const MAX_UI_BYTES = 1_000_000;
-const CACHE_TTL_MS = 15 * 60 * 1000;
-const OFFICIAL_LOCALES = Object.freeze([
-  "ar-SA", "bn-BD", "ca", "cs", "da", "de-DE", "el", "en-AU",
-  "en-CA", "en-GB", "en-US", "es-ES", "es-MX", "fi", "fr-CA",
-  "fr-FR", "gu-IN", "he", "hi", "hr", "hu", "id", "it", "ja",
-  "kn-IN", "ko", "ml-IN", "mr-IN", "ms", "nl-NL", "no", "or-IN",
-  "pa-IN", "pl", "pt-BR", "pt-PT", "ro", "ru", "sk", "sl-SI",
-  "sv", "ta-IN", "te-IN", "th", "tr", "uk", "ur-PK", "vi",
-  "zh-Hans", "zh-Hant",
-]);
-const EXPECTED_APP_COUNT = 29;
-const EXPECTED_RECORD_COUNT = EXPECTED_APP_COUNT * OFFICIAL_LOCALES.length;
-const REQUIRED_RECORD_FIELDS = Object.freeze([
-  "locale",
-  "app_key",
-  "app_name",
-  "app_store_id",
-  "publisher_query",
-  "decision_context",
-  "purchase_model",
-  "purchase_label",
-  "source_persona_query",
-  "canonical_guide_url",
-  "app_store_url",
-  "app_store_cta_label",
-]);
-const MAX_FIELD_LENGTHS = Object.freeze({
-  locale: 16,
-  app_key: 64,
-  app_name: 120,
-  app_store_id: 12,
-  publisher_query: 500,
-  decision_context: 1200,
-  purchase_model: 64,
-  source_persona_query: 500,
-  canonical_guide_url: 2048,
-  app_store_url: 2048,
-  app_store_cta_label: 300,
-});
-const PURCHASE_MODELS = new Set([
-  "paid_upfront",
-  "free_with_lifetime_unlock",
-  "free",
-  "flexible",
-  "neutral",
-]);
-const QUERY_ORIGIN = "publisher_authored_editorially_localized";
-const MAX_LIVE_CATALOG_BYTES = 5_000_000;
 const MIN_ABSOLUTE_RELEVANCE = 4;
 const MIN_RELATIVE_RELEVANCE = 0.35;
 
 let bundledCatalogPromise;
 let bundledUiPromise;
-let liveCache;
 let uiEnabled = false;
 const segmenters = new Map();
 
@@ -190,261 +144,13 @@ function independentMatchCount(queryTerms, matchedTokens) {
   return count;
 }
 
-function validateStoreUrl(value, appId) {
-  const url = new URL(value);
-  const params = [...url.searchParams.entries()];
-  const keys = new Set(params.map(([key]) => key));
-  const isClean = params.length === 0;
-  const isFullyAttributed =
-    params.length === 3 &&
-    keys.size === 3 &&
-    keys.has("pt") &&
-    keys.has("ct") &&
-    keys.has("mt") &&
-    /^\d{1,20}$/.test(url.searchParams.get("pt") ?? "") &&
-    /^[A-Za-z0-9/_]{1,30}$/.test(url.searchParams.get("ct") ?? "") &&
-    url.searchParams.get("mt") === "8";
-  if (
-    url.protocol !== "https:" ||
-    url.hostname !== "apps.apple.com" ||
-    url.port ||
-    url.username ||
-    url.password ||
-    url.hash ||
-    !new RegExp(`^/(?:[a-z]{2}/)?app/id${appId}$`).test(url.pathname) ||
-    (!isClean && !isFullyAttributed)
-  ) {
-    throw new Error(`Invalid App Store route for ${appId}.`);
-  }
-  return url;
-}
-
-function validateGuideUrl(value, locale, appKey) {
-  const url = new URL(value);
-  const answerPrefix = `/ios-app-guide/${locale}/answers/`;
-  const answerSlug = url.pathname.slice(answerPrefix.length);
-  const isAnswer =
-    url.pathname.startsWith(answerPrefix) &&
-    /^[a-z0-9-]+\.html$/u.test(answerSlug);
-  const isOwnedProduct =
-    url.pathname === `/ios-app-guide/${locale}/${appKey}.html`;
-  if (
-    url.protocol !== "https:" ||
-    url.hostname !== "alice51849.github.io" ||
-    url.port ||
-    url.username ||
-    url.password ||
-    url.search ||
-    url.hash ||
-    (!isAnswer && !isOwnedProduct)
-  ) {
-    throw new Error(`Invalid guide URL for '${appKey}/${locale}'.`);
-  }
-  return url;
-}
-
-function validateCatalog(payload) {
-  if (
-    !payload ||
-    typeof payload !== "object" ||
-    payload.app_count !== EXPECTED_APP_COUNT ||
-    payload.locale_count !== OFFICIAL_LOCALES.length ||
-    payload.record_count !== EXPECTED_RECORD_COUNT ||
-    JSON.stringify(payload.locales) !== JSON.stringify(OFFICIAL_LOCALES) ||
-    !Array.isArray(payload.records) ||
-    payload.records.length !== payload.record_count ||
-    !payload.stopwords ||
-    typeof payload.stopwords !== "object"
-  ) {
-    throw new Error("Catalog coverage metadata is invalid.");
-  }
-
-  const pairs = new Set();
-  const appIds = new Map();
-  for (const locale of OFFICIAL_LOCALES) {
-    const localeStopwords = payload.stopwords[locale];
-    if (
-      !Array.isArray(localeStopwords) ||
-      !localeStopwords.length ||
-      localeStopwords.some(
-        (word) =>
-          typeof word !== "string" ||
-          !word ||
-          word.length > 64 ||
-          /[\u0000-\u001f\u007f]/u.test(word),
-      ) ||
-      new Set(localeStopwords).size !== localeStopwords.length
-    ) {
-      throw new Error(`Invalid stopwords for '${locale}'.`);
-    }
-  }
-  for (const record of payload.records) {
-    for (const field of REQUIRED_RECORD_FIELDS) {
-      if (
-        typeof record?.[field] !== "string" ||
-        !record[field].trim() ||
-        record[field].length > MAX_FIELD_LENGTHS[field] ||
-        /[\u0000-\u001f\u007f]/u.test(record[field])
-      ) {
-        throw new Error(`Catalog record has invalid '${field}'.`);
-      }
-    }
-    if (!OFFICIAL_LOCALES.includes(record.locale)) {
-      throw new Error(`Unsupported catalog locale '${record.locale}'.`);
-    }
-    if (!/^\d{9,12}$/.test(record.app_store_id)) {
-      throw new Error(`Invalid App Store ID '${record.app_store_id}'.`);
-    }
-    if (
-      !/^[a-z0-9-]{1,64}$/.test(record.app_key) ||
-      !PURCHASE_MODELS.has(record.purchase_model)
-    ) {
-      throw new Error(`Invalid app contract for '${record.app_key}'.`);
-    }
-    const pair = `${record.app_key}\u0000${record.locale}`;
-    if (pairs.has(pair)) {
-      throw new Error(`Duplicate catalog pair '${pair}'.`);
-    }
-    pairs.add(pair);
-    const existingId = appIds.get(record.app_key);
-    if (existingId && existingId !== record.app_store_id) {
-      throw new Error(`App Store ID changed for '${record.app_key}'.`);
-    }
-    appIds.set(record.app_key, record.app_store_id);
-    validateStoreUrl(record.app_store_url, record.app_store_id);
-    validateGuideUrl(
-      record.canonical_guide_url,
-      record.locale,
-      record.app_key,
-    );
-  }
-  if (
-    appIds.size !== payload.app_count ||
-    pairs.size !== payload.record_count
-  ) {
-    throw new Error("Catalog does not cover every app and locale.");
-  }
-  return payload;
-}
-
 async function bundledCatalog() {
   if (!bundledCatalogPromise) {
     bundledCatalogPromise = readFile(CATALOG_PATH, "utf8")
       .then(JSON.parse)
-      .then(validateCatalog);
+      .then(validateSnapshotCatalog);
   }
   return bundledCatalogPromise;
-}
-
-function normalizeLiveCatalog(payload, fallback) {
-  if (
-    payload?.app_count !== fallback.app_count ||
-    payload?.locale_count !== fallback.locale_count ||
-    payload?.record_count !== fallback.record_count ||
-    JSON.stringify(payload?.locales) !== JSON.stringify(OFFICIAL_LOCALES) ||
-    !Array.isArray(payload?.records) ||
-    payload?.query_origin !== QUERY_ORIGIN ||
-    payload?.measured_search_volume !== false ||
-    payload?.is_ranking !== false
-  ) {
-    throw new Error("Live catalog coverage differs from the bundle contract.");
-  }
-  const fallbackByPair = new Map(
-    fallback.records.map((record) => [
-      `${record.app_key}\u0000${record.locale}`,
-      record,
-    ]),
-  );
-  const records = payload.records.map((record) => {
-    const fallbackRecord = fallbackByPair.get(
-      `${record.app_key}\u0000${record.locale}`,
-    );
-    if (!fallbackRecord) {
-      throw new Error(
-        `Live catalog introduced unknown pair ${record.app_key}/${record.locale}.`,
-      );
-    }
-    if (
-      record.app_store_id !== fallbackRecord.app_store_id ||
-      record.purchase_model !== fallbackRecord.purchase_model ||
-      record.query_origin !== QUERY_ORIGIN ||
-      record.verified_live !== true ||
-      record.measured_search_volume !== false ||
-      record.is_ranking !== false
-    ) {
-      throw new Error(
-        `Live catalog contract changed for ${record.app_key}/${record.locale}.`,
-      );
-    }
-    return {
-      locale: record.locale,
-      app_key: record.app_key,
-      app_name: record.app_name,
-      app_store_id: record.app_store_id,
-      publisher_query: record.publisher_query,
-      decision_context: record.decision_context,
-      purchase_model: record.purchase_model,
-      purchase_label: fallbackRecord.purchase_label,
-      source_persona_query: record.source_persona_query,
-      canonical_guide_url: record.canonical_guide_url,
-      app_store_url: record.app_store_url,
-      app_store_cta_label: record.app_store_cta_label,
-    };
-  });
-  return validateCatalog({
-    schema_version: "1.0",
-    date_modified: payload.dateModified,
-    app_count: payload.app_count,
-    locale_count: payload.locale_count,
-    record_count: payload.record_count,
-    locales: payload.locales,
-    stopwords: fallback.stopwords,
-    ui: fallback.ui,
-    records,
-  });
-}
-
-async function catalogWithSource() {
-  const fallback = await bundledCatalog();
-  if (process.env.LUMI_OFFLINE === "1") {
-    return { catalog: fallback, source: "bundled_snapshot" };
-  }
-  if (liveCache && Date.now() - liveCache.loadedAt < CACHE_TTL_MS) {
-    return liveCache.value;
-  }
-  try {
-    const response = await fetch(CATALOG_URL, {
-      headers: { accept: "application/json" },
-      signal: AbortSignal.timeout(7000),
-    });
-    if (!response.ok) {
-      throw new Error(`Catalog request returned HTTP ${response.status}.`);
-    }
-    const declaredLength = Number(response.headers.get("content-length") ?? 0);
-    if (
-      Number.isFinite(declaredLength) &&
-      declaredLength > MAX_LIVE_CATALOG_BYTES
-    ) {
-      throw new Error("Catalog response exceeds the size limit.");
-    }
-    const body = await response.text();
-    if (Buffer.byteLength(body, "utf8") > MAX_LIVE_CATALOG_BYTES) {
-      throw new Error("Catalog response exceeds the size limit.");
-    }
-    const catalog = normalizeLiveCatalog(JSON.parse(body), fallback);
-    const value = { catalog, source: "live_catalog" };
-    liveCache = { loadedAt: Date.now(), value };
-    return value;
-  } catch (error) {
-    console.error(
-      `Lumi App Finder: live catalog unavailable; using bundled snapshot: ${
-        error instanceof Error ? error.message : String(error)
-      }`,
-    );
-    const value = { catalog: fallback, source: "bundled_snapshot" };
-    liveCache = { loadedAt: Date.now(), value };
-    return value;
-  }
 }
 
 function searchableFields(localized, english) {
@@ -528,22 +234,12 @@ function relevance(query, locale, localized, english, queryTerms) {
 }
 
 function attributedStoreUrl(record) {
-  const url = validateStoreUrl(record.app_store_url, record.app_store_id);
-  const providerToken = url.searchParams.get("pt");
-  const campaign = `lumi_mcp_${record.locale
-    .replaceAll("-", "_")
-    .toLocaleLowerCase("en-US")}`;
-  if (!/^[a-z0-9_]{1,30}$/.test(campaign)) {
-    throw new Error(`Invalid campaign token '${campaign}'.`);
-  }
-  url.search = "";
-  if (providerToken) {
-    url.searchParams.set("pt", providerToken);
-    url.searchParams.set("ct", campaign);
-    url.searchParams.set("mt", "8");
-  }
-  validateStoreUrl(url.toString(), record.app_store_id);
-  return url.toString();
+  validateMcpStoreUrl(
+    record.app_store_url,
+    record.app_store_id,
+    record.locale,
+  );
+  return record.app_store_url;
 }
 
 function parseInput(input) {
@@ -568,7 +264,7 @@ function parseInput(input) {
 
 async function findIosApps(input) {
   const { query, locale, limit } = parseInput(input);
-  const { catalog, source } = await catalogWithSource();
+  const catalog = await bundledCatalog();
   const localized = catalog.records.filter(
     (record) => record.locale === locale,
   );
@@ -621,9 +317,15 @@ async function findIosApps(input) {
       decision_context: record.decision_context,
       purchase_model: record.purchase_model,
       purchase_label: record.purchase_label,
+      one_time_option: record.one_time_option,
       guide_url: record.canonical_guide_url,
       guide_label: localizedUi.guide_label ?? "Guide",
       app_store_url: attributedStoreUrl(record),
+      app_store_territory: storefrontTerritory(
+        record.app_store_url,
+        record.app_store_id,
+        record.locale,
+      ),
       app_store_cta_label: record.app_store_cta_label,
     }));
 
@@ -668,8 +370,11 @@ async function findIosApps(input) {
     structuredContent: {
       query,
       locale,
-      catalog_source: source,
+      catalog_source: "bundled_verified_snapshot",
+      catalog_source_url: catalog.source_identifier,
       catalog_date_modified: catalog.date_modified,
+      catalog_content_digest: catalog.source_content_digest,
+      catalog_record_count: catalog.record_count,
       disclosure,
       non_measured_disclosure: nonMeasured,
       results: matches,
@@ -719,7 +424,10 @@ const TOOL = Object.freeze({
       query: { type: "string" },
       locale: { type: "string" },
       catalog_source: { type: "string" },
+      catalog_source_url: { type: "string" },
       catalog_date_modified: { type: "string" },
+      catalog_content_digest: { type: "string" },
+      catalog_record_count: { type: "integer" },
       disclosure: { type: "string" },
       non_measured_disclosure: { type: "string" },
       results: {
@@ -734,7 +442,10 @@ const TOOL = Object.freeze({
       "query",
       "locale",
       "catalog_source",
+      "catalog_source_url",
       "catalog_date_modified",
+      "catalog_content_digest",
+      "catalog_record_count",
       "disclosure",
       "non_measured_disclosure",
       "results",
@@ -745,7 +456,7 @@ const TOOL = Object.freeze({
     readOnlyHint: true,
     destructiveHint: false,
     idempotentHint: true,
-    openWorldHint: true,
+    openWorldHint: false,
   },
 });
 
@@ -885,12 +596,8 @@ async function handleMessage(message) {
             },
           ],
         });
-      } catch (error) {
-        console.error(
-          `Lumi App Finder UI error: ${
-            error instanceof Error ? error.stack : String(error)
-          }`,
-        );
+      } catch {
+        console.error("Lumi App Finder: bundled UI validation failed.");
         return rpcError(
           message.id,
           -32603,
@@ -923,11 +630,7 @@ async function handleMessage(message) {
         if (error instanceof InvalidParamsError) {
           return rpcError(message.id, -32602, error.message);
         }
-        console.error(
-          `Lumi App Finder internal error: ${
-            error instanceof Error ? error.stack : String(error)
-          }`,
-        );
+        console.error("Lumi App Finder: bundled catalog validation failed.");
         return rpcError(
           message.id,
           -32603,

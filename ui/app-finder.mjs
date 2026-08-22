@@ -18,7 +18,7 @@ let activeLocale = resolveLocale(navigator.language);
 let resultLocale;
 
 const app = new App(
-  { name: "Lumi App Finder Results", version: "1.1.3" },
+  { name: "Lumi App Finder Results", version: "1.2.0" },
   { availableDisplayModes: ["inline", "fullscreen"] },
   { autoResize: true, strict: true },
 );
@@ -69,7 +69,6 @@ function safeStoreUrl(value) {
     const url = new URL(value);
     const params = [...url.searchParams.entries()];
     const keys = new Set(params.map(([key]) => key));
-    const clean = params.length === 0;
     const fullyAttributed =
       params.length === 3 &&
       keys.size === 3 &&
@@ -77,7 +76,7 @@ function safeStoreUrl(value) {
       keys.has("ct") &&
       keys.has("mt") &&
       /^\d{1,20}$/.test(url.searchParams.get("pt") ?? "") &&
-      /^[A-Za-z0-9/_]{1,30}$/.test(url.searchParams.get("ct") ?? "") &&
+      url.searchParams.get("ct") === "lumi_oci" &&
       url.searchParams.get("mt") === "8";
     if (
       url.protocol !== "https:" ||
@@ -87,7 +86,7 @@ function safeStoreUrl(value) {
       url.password ||
       url.hash ||
       !/^\/(?:[a-z]{2}\/)?app\/id\d{9,12}$/u.test(url.pathname) ||
-      (!clean && !fullyAttributed)
+      !fullyAttributed
     ) {
       return null;
     }
@@ -100,6 +99,16 @@ function safeStoreUrl(value) {
 function safeGuideUrl(value, locale) {
   try {
     const url = new URL(value);
+    const answerPrefix = `/ios-app-guide/${locale}/answers/`;
+    const answerSlug = url.pathname.slice(answerPrefix.length);
+    const isAnswer =
+      url.pathname.startsWith(answerPrefix) &&
+      /^[a-z0-9-]+\.html$/u.test(answerSlug);
+    const isProduct =
+      new RegExp(
+        `^/ios-app-guide/${locale}/[a-z0-9-]+\\.html$`,
+        "u",
+      ).test(url.pathname);
     if (
       url.protocol !== "https:" ||
       url.hostname !== "alice51849.github.io" ||
@@ -108,8 +117,7 @@ function safeGuideUrl(value, locale) {
       url.password ||
       url.search ||
       url.hash ||
-      !url.pathname.startsWith(`/ios-app-guide/${locale}/answers/`) ||
-      !url.pathname.endsWith(".html")
+      (!isAnswer && !isProduct)
     ) {
       return null;
     }
@@ -232,7 +240,7 @@ function resultCard(result) {
   return card;
 }
 
-function showTerminalState(kind, detail) {
+function showTerminalState(kind) {
   const message = STATUS_MESSAGES[activeLocale]?.[kind] ??
     STATUS_MESSAGES["en-US"][kind];
   applyLocale(activeLocale);
@@ -247,17 +255,16 @@ function showTerminalState(kind, detail) {
   if (kind === "error") main.dataset.error = "true";
   else delete main.dataset.error;
   main.setAttribute("aria-busy", "false");
-  if (kind === "error") console.error("Lumi App Finder UI error:", detail);
 }
 
 function render(result) {
   if (result?.isError) {
-    showTerminalState("error", result.content);
+    showTerminalState("error");
     return;
   }
   const payload = result?.structuredContent;
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
-    showTerminalState("error", "Missing structured tool result.");
+    showTerminalState("error");
     return;
   }
   const locale = safeString(payload.locale, 16);
@@ -269,7 +276,7 @@ function render(result) {
     !disclosure ||
     !nonMeasured
   ) {
-    showTerminalState("error", "Invalid structured tool result.");
+    showTerminalState("error");
     return;
   }
 
@@ -322,12 +329,11 @@ function applyHostContext(context) {
 }
 
 app.ontoolresult = render;
-app.ontoolcancelled = (params) => {
-  showTerminalState("cancelled", params.reason);
-};
+app.ontoolcancelled = () => showTerminalState("cancelled");
 app.onhostcontextchanged = applyHostContext;
-app.onerror = (error) => showTerminalState("error", error);
+app.onerror = (error) => void error;
+showTerminalState("error");
 app.connect().then(() => {
   const context = app.getHostContext();
   if (context) applyHostContext(context);
-}).catch((error) => showTerminalState("error", error));
+}).catch(() => showTerminalState("error"));

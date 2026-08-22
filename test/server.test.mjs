@@ -4,6 +4,12 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import readline from "node:readline";
 import test from "node:test";
+import {
+  EXPECTED_RECORD_COUNT,
+  MCP_CAMPAIGN_TOKEN,
+  OFFICIAL_LOCALES,
+  validateMcpStoreUrl,
+} from "../server/catalog-contract.mjs";
 
 const serverPath = fileURLToPath(
   new URL("../server/index.mjs", import.meta.url),
@@ -18,7 +24,7 @@ class RpcClient {
     this.pending = new Map();
     this.stderr = "";
     this.child = spawn(process.execPath, [serverPath], {
-      env: { ...process.env, LUMI_OFFLINE: "1" },
+      env: process.env,
       stdio: ["pipe", "pipe", "pipe"],
     });
     this.child.stderr.setEncoding("utf8");
@@ -90,7 +96,11 @@ test("server negotiates MCP and exposes one read-only discovery tool", async () 
     assert.equal(listed.result.tools.length, 1);
     assert.equal(listed.result.tools[0].name, "find_ios_apps");
     assert.equal(listed.result.tools[0].annotations.readOnlyHint, true);
-    assert.equal(listed.result.tools[0].inputSchema.properties.locale.enum.length, 50);
+    assert.equal(listed.result.tools[0].annotations.openWorldHint, false);
+    assert.equal(
+      listed.result.tools[0].inputSchema.properties.locale.enum.length,
+      OFFICIAL_LOCALES.length,
+    );
     assert.equal(Object.hasOwn(listed.result.tools[0], "_meta"), false);
   });
 });
@@ -167,7 +177,8 @@ test("Traditional Chinese intent returns localized direct App Store links", asyn
     const output = response.result.structuredContent;
     const rendered = response.result.content[0].text;
     assert.equal(output.locale, "zh-Hant");
-    assert.equal(output.catalog_source, "bundled_snapshot");
+    assert.equal(output.catalog_source, "bundled_verified_snapshot");
+    assert.equal(output.catalog_record_count, EXPECTED_RECORD_COUNT);
     assert.equal(output.results.length > 0, true);
     assert.match(rendered, /資料筆數/);
     assert.match(rendered, /開發者查詢/);
@@ -183,9 +194,14 @@ test("Traditional Chinese intent returns localized direct App Store links", asyn
       true,
     );
     for (const record of output.results) {
-      const url = new URL(record.app_store_url);
-      assert.equal(url.hostname, "apps.apple.com");
-      assert.equal(url.search, "");
+      const url = validateMcpStoreUrl(
+        record.app_store_url,
+        record.app_store_id,
+        "zh-Hant",
+      );
+      assert.equal(url.searchParams.get("ct"), MCP_CAMPAIGN_TOKEN);
+      assert.equal(url.searchParams.get("mt"), "8");
+      assert.equal(record.one_time_option, true);
       assert.equal(record.guide_url.includes("/zh-Hant/answers/"), true);
       assert.equal(record.guide_label.length > 0, true);
     }
@@ -218,42 +234,52 @@ test("English buyer needs match the relevant portfolio apps", async () => {
   });
 });
 
-test("Aim990 Plus publisher intent resolves correctly in all 50 locales", async () => {
+test("all 50 locales return deterministic contracts", async () => {
   await withClient(async (client) => {
-    for (const locale of catalog.locales) {
+    for (const locale of OFFICIAL_LOCALES) {
       const expected = catalog.records.find(
         (record) =>
           record.locale === locale && record.app_key === "aim990plus",
       );
       assert.ok(expected, locale);
-      const response = await client.request("tools/call", {
-        name: "find_ios_apps",
-        arguments: {
-          query: expected.publisher_query,
-          locale,
-          limit: 3,
-        },
-      });
+      const request = () =>
+        client.request("tools/call", {
+          name: "find_ios_apps",
+          arguments: {
+            query: expected.app_store_id,
+            locale,
+            limit: 1,
+          },
+        });
+      const response = await request();
+      const repeated = await request();
+      assert.deepEqual(
+        repeated.result.structuredContent,
+        response.result.structuredContent,
+        locale,
+      );
       assert.equal(
         response.result.structuredContent.results[0]?.app_key,
         expected.app_key,
         locale,
       );
       assert.equal(
-        new URL(
-          response.result.structuredContent.results[0].app_store_url,
-        ).search,
-        "",
+        response.result.structuredContent.results[0].app_store_url,
+        expected.app_store_url,
+        locale,
+      );
+      validateMcpStoreUrl(
+        response.result.structuredContent.results[0].app_store_url,
+        expected.app_store_id,
         locale,
       );
       assert.equal(
-        new URL(
-          response.result.structuredContent.results[0].guide_url,
-        ).pathname,
-        `/ios-app-guide/${locale}/aim990plus.html`,
+        response.result.structuredContent.results[0].guide_url,
+        expected.canonical_guide_url,
         locale,
       );
     }
+    assert.equal(client.stderr, "");
   });
 });
 

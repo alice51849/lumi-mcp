@@ -14,3 +14,20 @@ security advisory until a coordinated fix or disclosure is ready.
 
 The latest tagged release is supported. Upgrade to the newest release before
 reporting an issue that only affects an older version.
+
+## Verify an OCI release
+
+Use the immutable digest shown by GHCR or the GitHub release:
+
+```bash
+gh attestation verify \
+  oci://ghcr.io/alice51849/lumi-app-finder@sha256:<digest> \
+  --repo alice51849/lumi-mcp
+gh attestation verify \
+  oci://ghcr.io/alice51849/lumi-app-finder@sha256:<digest> \
+  --repo alice51849/lumi-mcp \
+  --predicate-type https://spdx.dev/Document/v2.3
+```
+
+The image must also expose
+`io.modelcontextprotocol.server.name=io.github.alice51849/lumi-app-finder`.

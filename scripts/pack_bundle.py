@@ -15,6 +15,7 @@ BASE_FILES = (
     "manifest.json",
     "MCP_APP_NOTICES.txt",
     "PRIVACY.md",
+    "server/catalog-contract.mjs",
     "README.md",
     "server/catalog.json",
     "server/index.mjs",

@@ -1,8 +1,11 @@
 *
 !server/
-!server/**
+!server/index.mjs
+!server/catalog-contract.mjs
+!server/catalog.json
 !ui/
-!ui/**
+!ui/app-finder.html
 !LICENSE
 !MCP_APP_NOTICES.txt
+!PRIVACY.md
 !THIRD_PARTY_NOTICES.txt

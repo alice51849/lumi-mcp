@@ -1,6 +1,15 @@
 import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
+import {
+  CATALOG_SOURCE_URL,
+  EXPECTED_APP_COUNT,
+  EXPECTED_RECORD_COUNT,
+  MCP_CAMPAIGN_TOKEN,
+  OFFICIAL_LOCALES,
+  validateMcpStoreUrl,
+  validateSnapshotCatalog,
+} from "../server/catalog-contract.mjs";
 
 const root = new URL("../", import.meta.url);
 
@@ -8,32 +17,47 @@ async function json(relative) {
   return JSON.parse(await readFile(new URL(relative, root), "utf8"));
 }
 
-test("snapshot covers 29 apps across all 50 Apple locales", async () => {
-  const catalog = await json("server/catalog.json");
-  assert.equal(catalog.app_count, 29);
-  assert.equal(catalog.locale_count, 50);
-  assert.equal(catalog.record_count, 1450);
-  assert.equal(catalog.records.length, 1450);
+test("snapshot covers 43 unique apps across all 50 Apple locales", async () => {
+  const catalog = validateSnapshotCatalog(
+    await json("server/catalog.json"),
+  );
+  assert.equal(catalog.app_count, EXPECTED_APP_COUNT);
+  assert.equal(catalog.locale_count, OFFICIAL_LOCALES.length);
+  assert.equal(catalog.record_count, EXPECTED_RECORD_COUNT);
+  assert.equal(catalog.records.length, EXPECTED_RECORD_COUNT);
+  assert.equal(catalog.source_identifier, CATALOG_SOURCE_URL);
   assert.deepEqual(Object.keys(catalog.stopwords), catalog.locales);
-  assert.equal(new Set(catalog.records.map((record) => record.app_key)).size, 29);
+  assert.equal(
+    new Set(catalog.records.map((record) => record.app_key)).size,
+    EXPECTED_APP_COUNT,
+  );
+  assert.equal(
+    new Set(catalog.records.map((record) => record.app_store_id)).size,
+    EXPECTED_APP_COUNT,
+  );
   assert.equal(
     new Set(
       catalog.records.map(
         (record) => `${record.app_key}\u0000${record.locale}`,
       ),
     ).size,
-    1450,
+    EXPECTED_RECORD_COUNT,
   );
   for (const record of catalog.records) {
     assert.equal(record.purchase_label.length > 0, true);
-    const store = new URL(record.app_store_url);
-    assert.equal(store.hostname, "apps.apple.com");
+    assert.equal(record.one_time_option, true);
     assert.equal(
-      store.pathname.endsWith(`/id${record.app_store_id}`),
-      true,
+      record.canonical_app_store_url,
+      `https://apps.apple.com/app/id${record.app_store_id}`,
     );
-    assert.equal(store.search, "");
-    assert.equal(store.hash, "");
+    const store = validateMcpStoreUrl(
+      record.app_store_url,
+      record.app_store_id,
+      record.locale,
+    );
+    assert.equal(store.searchParams.get("ct"), MCP_CAMPAIGN_TOKEN);
+    assert.match(store.searchParams.get("pt"), /^\d{1,20}$/u);
+    assert.equal(store.searchParams.get("mt"), "8");
     const guide = new URL(record.canonical_guide_url);
     const answerPrefix =
       `/ios-app-guide/${record.locale}/answers/`;
@@ -48,14 +72,11 @@ test("snapshot covers 29 apps across all 50 Apple locales", async () => {
   const aim990Plus = catalog.records.filter(
     (record) => record.app_key === "aim990plus",
   );
-  assert.equal(aim990Plus.length, 50);
+  assert.equal(aim990Plus.length, OFFICIAL_LOCALES.length);
   for (const record of aim990Plus) {
     assert.equal(record.app_store_id, "6792483140");
     assert.equal(record.purchase_model, "paid_upfront");
-    assert.equal(
-      new URL(record.canonical_guide_url).pathname,
-      `/ios-app-guide/${record.locale}/aim990plus.html`,
-    );
+    assert.equal(record.one_time_option, true);
   }
   for (const locale of catalog.locales) {
     assert.equal(catalog.stopwords[locale].length > 0, true);
@@ -73,8 +94,15 @@ test("snapshot covers 29 apps across all 50 Apple locales", async () => {
   }
 });
 
-test("Agent Skill ships an offline 29-app catalog for every locale", async () => {
-  const [catalog, packageJson, skill, locales, referenceFiles, readme] =
+test("Agent Skill ships an offline 43-app catalog for every locale", async () => {
+  const [
+    catalog,
+    packageJson,
+    skill,
+    locales,
+    referenceFiles,
+    readme,
+  ] =
     await Promise.all([
       json("server/catalog.json"),
       json("package.json"),
@@ -93,13 +121,13 @@ test("Agent Skill ships an offline 29-app catalog for every locale", async () =>
   assert.doesNotMatch(skill, /^allowed-tools:/mu);
   assert.equal(
     readme.includes(
-      `gh skill install alice51849/lumi-mcp lumi-app-finder@v${packageJson.version} --scope user`,
+      "gh skill install alice51849/lumi-mcp lumi-app-finder --scope user",
     ),
     true,
   );
   assert.equal(
     readme.includes(
-      `npx -y skills@1.5.19 add https://github.com/alice51849/lumi-mcp/tree/v${packageJson.version}/skills/lumi-app-finder --skill lumi-app-finder -g -y`,
+      "npx -y skills@1.5.19 add https://github.com/alice51849/lumi-mcp --skill lumi-app-finder -g -y",
     ),
     true,
   );
@@ -121,8 +149,14 @@ test("Agent Skill ships an offline 29-app catalog for every locale", async () =>
       .filter((record) => record.locale === locale)
       .sort((left, right) => left.app_key.localeCompare(right.app_key));
     assert.equal(reference.locale, locale);
-    assert.equal(reference.app_count, 29);
-    assert.equal(reference.apps.length, 29);
+    assert.equal(reference.app_count, EXPECTED_APP_COUNT);
+    assert.equal(reference.apps.length, EXPECTED_APP_COUNT);
+    assert.equal(reference.catalog_source, CATALOG_SOURCE_URL);
+    assert.equal(
+      reference.source_content_digest,
+      catalog.source_content_digest,
+    );
+    assert.equal(reference.snapshot_content_digest, catalog.content_digest);
     assert.equal(reference.publisher_disclosure, catalog.ui[locale].disclosure);
     assert.equal(
       reference.non_ranking_disclosure,
@@ -142,8 +176,13 @@ test("Agent Skill ships an offline 29-app catalog for every locale", async () =>
       assert.equal(app.decision_context, record.decision_context);
       assert.equal(app.purchase_model, record.purchase_model);
       assert.equal(app.purchase_label, record.purchase_label);
+      assert.equal(app.one_time_option, true);
       assert.equal(app.verified_live, true);
       assert.equal(app.guide_url, record.canonical_guide_url);
+      assert.equal(
+        app.canonical_app_store_url,
+        record.canonical_app_store_url,
+      );
       assert.equal(app.app_store_url, record.app_store_url);
       assert.equal(app.app_store_cta_label, record.app_store_cta_label);
       assert.equal(/[\r\n\u2028\u2029]/u.test(JSON.stringify(app)), false);
@@ -155,7 +194,8 @@ test("MCPB metadata and resources expose every official locale", async () => {
   const [
     catalog,
     manifest,
-    server,
+    publishedServer,
+    releaseServer,
     glama,
     resourceFiles,
     appHtml,
@@ -165,6 +205,7 @@ test("MCPB metadata and resources expose every official locale", async () => {
     json("server/catalog.json"),
     json("manifest.json"),
     json("server.json"),
+    json("server.release.json"),
     json("glama.json"),
     readdir(new URL("mcpb-resources/", root)),
     readFile(new URL("ui/app-finder.html", root), "utf8"),
@@ -172,7 +213,7 @@ test("MCPB metadata and resources expose every official locale", async () => {
     json("ui/status-messages.json"),
   ]);
   assert.equal(manifest.manifest_version, "0.3");
-  assert.equal(manifest.version, server.version);
+  assert.equal(manifest.version, releaseServer.version);
   assert.equal(manifest.tools.length, 1);
   assert.equal(manifest.tools[0].name, "find_ios_apps");
   assert.deepEqual(glama, {
@@ -191,15 +232,43 @@ test("MCPB metadata and resources expose every official locale", async () => {
     assert.equal(resource.tools[0].name, "find_ios_apps");
     assert.equal(resource.tools[0].description.length > 0, true);
   }
-  const mcpb = server.packages.find(
+  assert.deepEqual(
+    publishedServer.packages.map((entry) => entry.registryType),
+    ["mcpb"],
+  );
+  assert.notEqual(publishedServer.version, releaseServer.version);
+  const mcpb = releaseServer.packages.find(
     (entry) => entry.registryType === "mcpb",
   );
   assert.equal(Object.hasOwn(mcpb, "registryBaseUrl"), false);
   assert.match(mcpb.fileSha256, /^[a-f0-9]{64}$/);
+  assert.equal(mcpb.version, releaseServer.version);
   assert.equal(
     mcpb.identifier,
     "https://github.com/alice51849/lumi-mcp/releases/download/" +
-      `v${server.version}/lumi-app-finder.mcpb`,
+      `v${releaseServer.version}/lumi-app-finder.mcpb`,
+  );
+  const oci = releaseServer.packages.find(
+    (entry) => entry.registryType === "oci",
+  );
+  assert.deepEqual(oci, {
+    registryType: "oci",
+    identifier:
+      `ghcr.io/alice51849/lumi-app-finder:${releaseServer.version}`,
+    transport: { type: "stdio" },
+  });
+  assert.equal(releaseServer.description.length <= 100, true);
+  assert.equal(releaseServer.repository.id, "1285241520");
+  assert.equal(
+    Buffer.byteLength(
+      JSON.stringify(
+        releaseServer._meta[
+          "io.modelcontextprotocol.registry/publisher-provided"
+        ],
+      ),
+      "utf8",
+    ) <= 4096,
+    true,
   );
   assert.equal(Buffer.byteLength(appHtml, "utf8") < 1_000_000, true);
   assert.match(appHtml, /<title>Lumi App Finder Results<\/title>/);
@@ -226,39 +295,70 @@ test("container runs the zero-dependency stdio server as a non-root user", async
     readFile(new URL("Dockerfile", root), "utf8"),
     readFile(new URL(".dockerignore", root), "utf8"),
   ]);
-  assert.match(dockerfile, /^FROM node:20-alpine$/mu);
-  assert.match(dockerfile, /^COPY --chown=node:node server\/ \.\/server\/$/mu);
-  assert.match(dockerfile, /^COPY --chown=node:node ui\/ \.\/ui\/$/mu);
-  assert.match(dockerfile, /^USER node$/mu);
   assert.match(
     dockerfile,
-    /^ENTRYPOINT \["node", "server\/index\.mjs"\]$/mu,
+    /^FROM gcr\.io\/distroless\/nodejs22-debian12:nonroot@sha256:[a-f0-9]{64}$/mu,
   );
+  assert.match(
+    dockerfile,
+    /io\.modelcontextprotocol\.server\.name="io\.github\.alice51849\/lumi-app-finder"/u,
+  );
+  assert.match(
+    dockerfile,
+    /org\.opencontainers\.image\.version="\$\{VERSION\}"/u,
+  );
+  assert.match(
+    dockerfile,
+    /org\.opencontainers\.image\.source="https:\/\/github\.com\/alice51849\/lumi-mcp"/u,
+  );
+  assert.match(
+    dockerfile,
+    /org\.opencontainers\.image\.licenses="MIT"/u,
+  );
+  assert.match(dockerfile, /^USER 65532:65532$/mu);
+  assert.match(
+    dockerfile,
+    /^ENTRYPOINT \["\/nodejs\/bin\/node"\]$/mu,
+  );
+  assert.match(dockerfile, /^CMD \["server\/index\.mjs"\]$/mu);
   for (const path of [
-    "!server/**",
-    "!ui/**",
+    "!server/index.mjs",
+    "!server/catalog-contract.mjs",
+    "!server/catalog.json",
+    "!ui/app-finder.html",
     "!LICENSE",
     "!MCP_APP_NOTICES.txt",
+    "!PRIVACY.md",
     "!THIRD_PARTY_NOTICES.txt",
   ]) {
     assert.equal(dockerignore.includes(path), true);
   }
 });
 
-test("host installers stay version-pinned to the zero-dependency launcher", async () => {
-  const [packageJson, packageLock, manifest, server, readme, serverSource] =
-    await Promise.all([
-      json("package.json"),
-      json("package-lock.json"),
-      json("manifest.json"),
-      json("server.json"),
-      readFile(new URL("README.md", root), "utf8"),
-      readFile(new URL("server/index.mjs", root), "utf8"),
-    ]);
+test("host installers use the latest verified zero-dependency launcher", async () => {
+  const [
+    packageJson,
+    packageLock,
+    manifest,
+    publishedServer,
+    releaseServer,
+    readme,
+    serverSource,
+    contractSource,
+  ] = await Promise.all([
+    json("package.json"),
+    json("package-lock.json"),
+    json("manifest.json"),
+    json("server.json"),
+    json("server.release.json"),
+    readFile(new URL("README.md", root), "utf8"),
+    readFile(new URL("server/index.mjs", root), "utf8"),
+    readFile(new URL("server/catalog-contract.mjs", root), "utf8"),
+  ]);
   const version = packageJson.version;
   const source =
-    "https://github.com/alice51849/lumi-mcp/releases/download/" +
-    `v${version}/lumi-app-finder-npx.tgz`;
+    "https://github.com/alice51849/lumi-mcp/releases/latest/download/" +
+    "lumi-app-finder-npx.tgz";
   const vscodeConfig = {
     name: "lumi-app-finder",
     type: "stdio",
@@ -281,6 +381,7 @@ test("host installers stay version-pinned to the zero-dependency launcher", asyn
     );
 
   assert.equal(packageJson.private, true);
+  assert.equal(packageJson.files.includes("server/catalog-contract.mjs"), true);
   assert.deepEqual(packageJson.bin, {
     "lumi-app-finder": "server/index.mjs",
   });
@@ -288,16 +389,27 @@ test("host installers stay version-pinned to the zero-dependency launcher", asyn
   assert.equal(packageLock.version, version);
   assert.equal(packageLock.packages[""].version, version);
   assert.equal(manifest.version, version);
-  assert.equal(server.version, version);
+  assert.equal(releaseServer.version, version);
+  assert.notEqual(publishedServer.version, version);
   for (const lifecycle of ["preinstall", "install", "postinstall", "prepare"]) {
     assert.equal(Object.hasOwn(packageJson.scripts, lifecycle), false);
   }
   assert.equal(serverSource.startsWith("#!/usr/bin/env node\n"), true);
   const imports = [
-    ...serverSource.matchAll(/^import .* from ["']([^"']+)["'];$/gmu),
+    ...serverSource.matchAll(/\bfrom\s+["']([^"']+)["'];/gmu),
   ].map((match) => match[1]);
   assert.equal(imports.length > 0, true);
-  assert.equal(imports.every((specifier) => specifier.startsWith("node:")), true);
+  assert.deepEqual(
+    imports.filter((specifier) => !specifier.startsWith("node:")),
+    ["./catalog-contract.mjs"],
+  );
+  const contractImports = [
+    ...contractSource.matchAll(/\bfrom\s+["']([^"']+)["'];/gmu),
+  ].map((match) => match[1]);
+  assert.equal(
+    contractImports.every((specifier) => specifier.startsWith("node:")),
+    true,
+  );
   assert.equal(readme.includes(`](${vscodeUrl})`), true);
   assert.equal(readme.includes(`](${cursorUrl})`), true);
   assert.equal(readme.includes(`"${source}"`), true);

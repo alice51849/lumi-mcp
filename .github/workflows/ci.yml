@@ -1,4 +1,4 @@
-name: Validate MCP bundle
+name: Validate MCP and OCI shadow
 
 on:
   push:
@@ -9,38 +9,38 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  quality:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - name: Set up Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 22
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Test server and catalog
+      - name: Gate authoritative live catalog
+        run: npm run catalog:gate
+      - name: Test server and generated artifacts
         run: npm test
+      - name: Validate official Registry schema
+        run: npm run validate:registry
       - name: Validate MCPB manifest
         run: npm run validate
-      - name: Pack and inspect MCPB
+      - name: Pack deterministic MCPB and npx artifacts
         run: |
+          set -euo pipefail
+          mkdir -p dist
           npm run pack:mcpb
           first="$(sha256sum dist/lumi-app-finder.mcpb | cut -d' ' -f1)"
+          expected="$(node -p \
+            "require('./server.release.json').packages.find((entry) => entry.registryType === 'mcpb').fileSha256")"
+          test "$first" = "$expected"
           npm run pack:mcpb
           second="$(sha256sum dist/lumi-app-finder.mcpb | cut -d' ' -f1)"
           test "$first" = "$second"
-          published_url="$(node -p \
-            "require('./server.json').packages.find((entry) => entry.registryType === 'mcpb').identifier")"
-          expected_hash="$(node -p \
-            "require('./server.json').packages.find((entry) => entry.registryType === 'mcpb').fileSha256")"
-          curl --fail --location --retry 4 --retry-all-errors \
-            --output dist/published.mcpb "$published_url"
-          published_hash="$(sha256sum dist/published.mcpb | cut -d' ' -f1)"
-          test "$published_hash" = "$expected_hash"
-          npx mcpb info dist/lumi-app-finder.mcpb
           version="$(node -p "require('./package.json').version")"
           npm pack --pack-destination dist >/dev/null
           mv "dist/lumi-app-finder-mcp-${version}.tgz" \
@@ -52,9 +52,143 @@ jobs:
             dist/lumi-app-finder-npx.tgz
           second_npx="$(sha256sum dist/lumi-app-finder-npx.tgz | cut -d' ' -f1)"
           test "$first_npx" = "$second_npx"
-          request='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"npx-probe","version":"1.0.0"}}}'
-          response="$(printf '%s\n' "$request" | npx --yes ./dist/lumi-app-finder-npx.tgz)"
+          (
+            cd dist
+            sha256sum lumi-app-finder.mcpb lumi-app-finder-npx.tgz \
+              > SHA256SUMS
+          )
+          npx mcpb info dist/lumi-app-finder.mcpb
+      - name: Smoke local stdio package
+        run: npm run smoke
+      - name: Benchmark and size report
+        run: node scripts/benchmark.mjs --output dist/benchmark.json
+      - name: Upload quality reports
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: lumi-mcp-quality
+          path: |
+            dist/SHA256SUMS
+            dist/benchmark.json
+          if-no-files-found: error
+          retention-days: 7
+
+  oci-shadow:
+    needs: quality
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Set up Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4
+        with:
+          version: v0.36.1
+          driver-opts: |
+            image=moby/buildkit@sha256:28a898719c18a33f4e8000685287fa36fd0dd9560c6440227d3a732d79bb41d8
+      - name: Resolve reproducible image metadata
+        id: metadata
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          echo "version=$(node -p "require('./package.json').version")" \
+            >> "$GITHUB_OUTPUT"
+          echo "created=$(git show -s --format=%cI "$GITHUB_SHA")" \
+            >> "$GITHUB_OUTPUT"
+      - name: Build multi-architecture OCI shadow
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: false
+          outputs: type=oci,dest=dist/lumi-app-finder.oci.tar
+          sbom: true
+          provenance: mode=max
+          build-args: |
+            VERSION=${{ steps.metadata.outputs.version }}
+            REVISION=${{ github.sha }}
+            CREATED=${{ steps.metadata.outputs.created }}
+      - name: Verify multi-architecture OCI index
+        run: |
+          set -euo pipefail
+          mkdir -p dist/oci-layout
+          tar -xf dist/lumi-app-finder.oci.tar -C dist/oci-layout
+          cp dist/oci-layout/index.json dist/oci-index.json
+          node scripts/verify-image-index.mjs dist/oci-index.json
+          node scripts/verify-oci-layout.mjs dist/oci-layout
+      - name: Attest shadow OCI artifact
+        if: github.event_name == 'push'
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
+        with:
+          subject-path: dist/lumi-app-finder.oci.tar
+      - name: Build native image for digest canary
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7
+        with:
+          context: .
+          platforms: linux/amd64
+          load: true
+          push: false
+          tags: lumi-app-finder:shadow
+          provenance: false
+          sbom: false
+          build-args: |
+            VERSION=${{ steps.metadata.outputs.version }}
+            REVISION=${{ github.sha }}
+            CREATED=${{ steps.metadata.outputs.created }}
+      - name: Verify metadata, size, and MCP by image digest
+        run: |
+          set -euo pipefail
+          docker image inspect lumi-app-finder:shadow \
+            > dist/image-inspect.json
+          node scripts/verify-image-metadata.mjs dist/image-inspect.json
+          image_id="$(docker image inspect --format '{{.Id}}' \
+            lumi-app-finder:shadow)"
+          printf '%s\n' "$image_id" > dist/image-digest.txt
+          node scripts/mcp-smoke.mjs -- \
+            docker run --rm -i \
+              --network none \
+              --read-only \
+              --cap-drop ALL \
+              --security-opt no-new-privileges \
+              --pids-limit 64 \
+              --memory 256m \
+              "$image_id"
+      - name: Generate native image SBOM
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0
+        with:
+          image: lumi-app-finder:shadow
+          syft-version: v1.51.0
+          format: spdx-json
+          output-file: dist/lumi-app-finder.spdx.json
+          upload-artifact: false
+          upload-release-assets: false
+      - name: Validate SBOM
+        run: |
           node -e '
-            const result = JSON.parse(process.argv[1]).result;
-            if (result?.serverInfo?.version !== process.argv[2]) process.exit(1);
-          ' "$response" "$version"
+            const fs = require("node:fs");
+            const sbom = JSON.parse(
+              fs.readFileSync("dist/lumi-app-finder.spdx.json", "utf8"),
+            );
+            if (sbom.spdxVersion !== "SPDX-2.3") process.exit(1);
+            if (!Array.isArray(sbom.packages) || !sbom.packages.length) {
+              process.exit(1);
+            }
+          '
+      - name: Upload OCI shadow reports
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: lumi-mcp-oci-shadow
+          path: |
+            dist/image-digest.txt
+            dist/image-inspect.json
+            dist/lumi-app-finder.spdx.json
+            dist/oci-index.json
+          if-no-files-found: error
+          retention-days: 7

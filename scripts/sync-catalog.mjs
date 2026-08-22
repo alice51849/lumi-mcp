@@ -4,25 +4,25 @@ import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import * as stopword from "stopword";
+import {
+  CATALOG_LICENSE_URL,
+  CATALOG_SCHEMA_URL,
+  CATALOG_SOURCE_URL,
+  OFFICIAL_LOCALES,
+  QUERY_ORIGIN,
+  recordsDigest,
+  snapshotRecord,
+  validateSnapshotCatalog,
+  validateSourceCatalog,
+} from "../server/catalog-contract.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const DEFAULT_CATALOG =
-  "https://raw.githubusercontent.com/alice51849/ios-app-guide/main/data/" +
-  "lumi-studio-publisher-search-intent-catalog.json";
+const DEFAULT_CATALOG = CATALOG_SOURCE_URL;
 const DEFAULT_I18N =
   "https://raw.githubusercontent.com/alice51849/ios-app-guide/main/" +
   "_engine/geo/publisher_intent_catalog_i18n.json";
-const OFFICIAL_LOCALES = Object.freeze([
-  "ar-SA", "bn-BD", "ca", "cs", "da", "de-DE", "el", "en-AU",
-  "en-CA", "en-GB", "en-US", "es-ES", "es-MX", "fi", "fr-CA",
-  "fr-FR", "gu-IN", "he", "hi", "hr", "hu", "id", "it", "ja",
-  "kn-IN", "ko", "ml-IN", "mr-IN", "ms", "nl-NL", "no", "or-IN",
-  "pa-IN", "pl", "pt-BR", "pt-PT", "ro", "ru", "sk", "sl-SI",
-  "sv", "ta-IN", "te-IN", "th", "tr", "uk", "ur-PK", "vi",
-  "zh-Hans", "zh-Hant",
-]);
-const EXPECTED_APP_COUNT = 29;
-const EXPECTED_RECORD_COUNT = EXPECTED_APP_COUNT * OFFICIAL_LOCALES.length;
+const CHECK = process.argv.includes("--check");
+const MAX_REMOTE_BYTES = 10_000_000;
 const STOPWORD_EXPORTS = Object.freeze({
   "ar-SA": "ara",
   "bn-BD": "ben",
@@ -114,24 +114,8 @@ const NON_MEASURED =
   "endorsements.";
 const PURCHASE_LABELS = Object.freeze({
   paid_upfront: "Paid download",
-  free_with_lifetime_unlock: "Free to start · lifetime unlock",
-  free: "Free",
-  flexible: "Flexible · check listing",
-  neutral: "Check current listing",
+  free_with_lifetime_unlock: "Free to start · one-time unlock",
 });
-const RECORD_FIELDS = Object.freeze([
-  "locale",
-  "app_key",
-  "app_name",
-  "app_store_id",
-  "publisher_query",
-  "decision_context",
-  "purchase_model",
-  "source_persona_query",
-  "canonical_guide_url",
-  "app_store_url",
-  "app_store_cta_label",
-]);
 
 function option(name, fallback) {
   const index = process.argv.indexOf(name);
@@ -152,9 +136,19 @@ async function loadJson(source) {
     if (!response.ok) {
       throw new Error(`${source} returned HTTP ${response.status}.`);
     }
+    const declaredLength = Number(response.headers.get("content-length") ?? 0);
+    if (
+      Number.isFinite(declaredLength) &&
+      declaredLength > MAX_REMOTE_BYTES
+    ) {
+      throw new Error(`${source} exceeds the catalog size limit.`);
+    }
     raw = await response.text();
   } else {
     raw = await readFile(path.resolve(source), "utf8");
+  }
+  if (Buffer.byteLength(raw, "utf8") > MAX_REMOTE_BYTES) {
+    throw new Error(`${source} exceeds the catalog size limit.`);
   }
   return JSON.parse(raw);
 }
@@ -167,71 +161,8 @@ function localized(mapping, source) {
   return value.trim();
 }
 
-function validateStoreUrl(value, appId) {
-  const url = new URL(value);
-  const params = [...url.searchParams.entries()];
-  const keys = new Set(params.map(([key]) => key));
-  const isClean = params.length === 0;
-  const isFullyAttributed =
-    params.length === 3 &&
-    keys.size === 3 &&
-    keys.has("pt") &&
-    keys.has("ct") &&
-    keys.has("mt") &&
-    /^\d{1,20}$/.test(url.searchParams.get("pt") ?? "") &&
-    /^[A-Za-z0-9/_]{1,30}$/.test(url.searchParams.get("ct") ?? "") &&
-    url.searchParams.get("mt") === "8";
-  if (
-    url.protocol !== "https:" ||
-    url.hostname !== "apps.apple.com" ||
-    url.port ||
-    url.username ||
-    url.password ||
-    url.hash ||
-    !new RegExp(`^/(?:[a-z]{2}/)?app/id${appId}$`).test(url.pathname) ||
-    (!isClean && !isFullyAttributed)
-  ) {
-    throw new Error(`Invalid App Store route for ${appId}.`);
-  }
-}
-
-function validateGuideUrl(value, locale, appKey) {
-  const url = new URL(value);
-  const answerPrefix = `/ios-app-guide/${locale}/answers/`;
-  const answerSlug = url.pathname.slice(answerPrefix.length);
-  const isAnswer =
-    url.pathname.startsWith(answerPrefix) &&
-    /^[a-z0-9-]+\.html$/u.test(answerSlug);
-  const isOwnedProduct =
-    url.pathname === `/ios-app-guide/${locale}/${appKey}.html`;
-  if (
-    url.protocol !== "https:" ||
-    url.hostname !== "alice51849.github.io" ||
-    url.port ||
-    url.username ||
-    url.password ||
-    url.search ||
-    url.hash ||
-    (!isAnswer && !isOwnedProduct)
-  ) {
-    throw new Error(`Invalid guide route for ${appKey}/${locale}.`);
-  }
-}
-
 function validateInputs(catalog, i18n) {
-  if (
-    catalog?.app_count !== EXPECTED_APP_COUNT ||
-    catalog?.locale_count !== OFFICIAL_LOCALES.length ||
-    catalog?.record_count !== EXPECTED_RECORD_COUNT ||
-    JSON.stringify(catalog?.locales) !== JSON.stringify(OFFICIAL_LOCALES) ||
-    !Array.isArray(catalog?.records) ||
-    catalog.records.length !== catalog.record_count
-  ) {
-    throw new Error(
-      `Publisher catalog coverage is not ${EXPECTED_APP_COUNT} × ` +
-        `${OFFICIAL_LOCALES.length}.`,
-    );
-  }
+  validateSourceCatalog(catalog);
   if (
     !i18n?.localizations ||
     JSON.stringify(Object.keys(i18n.localizations).sort()) !==
@@ -239,47 +170,12 @@ function validateInputs(catalog, i18n) {
   ) {
     throw new Error("Publisher UI localizations do not cover all 50 locales.");
   }
-
-  const pairs = new Set();
-  const appKeys = new Set();
-  for (const record of catalog.records) {
-    for (const field of RECORD_FIELDS) {
-      if (typeof record?.[field] !== "string" || !record[field].trim()) {
-        throw new Error(`Invalid publisher record field '${field}'.`);
-      }
+  for (const model of new Set(
+    catalog.records.map((record) => record.purchase_model),
+  )) {
+    if (!Object.hasOwn(PURCHASE_LABELS, model)) {
+      throw new Error(`Missing localized purchase label source '${model}'.`);
     }
-    if (
-      record.verified_live !== true ||
-      record.measured_search_volume !== false ||
-      record.is_ranking !== false ||
-      !OFFICIAL_LOCALES.includes(record.locale) ||
-      !/^\d{9,12}$/.test(record.app_store_id) ||
-      !Object.hasOwn(PURCHASE_LABELS, record.purchase_model)
-    ) {
-      throw new Error(
-        `Invalid publisher contract for ${record.app_key}/${record.locale}.`,
-      );
-    }
-    const pair = `${record.app_key}\u0000${record.locale}`;
-    if (pairs.has(pair)) throw new Error(`Duplicate pair '${pair}'.`);
-    pairs.add(pair);
-    appKeys.add(record.app_key);
-    try {
-      validateStoreUrl(record.app_store_url, record.app_store_id);
-      validateGuideUrl(
-        record.canonical_guide_url,
-        record.locale,
-        record.app_key,
-      );
-    } catch {
-      throw new Error(`Invalid owned destination for '${pair}'.`);
-    }
-  }
-  if (
-    pairs.size !== EXPECTED_RECORD_COUNT ||
-    appKeys.size !== EXPECTED_APP_COUNT
-  ) {
-    throw new Error("Publisher records do not cover every app/locale pair.");
   }
 }
 
@@ -356,15 +252,13 @@ async function main() {
   const records = catalog.records
     .map((record) => {
       const mapping = i18n.localizations[record.locale];
-      return {
-        ...Object.fromEntries(
-          RECORD_FIELDS.map((field) => [field, record[field]]),
-        ),
-        purchase_label: localized(
+      return snapshotRecord(
+        record,
+        localized(
           mapping,
           PURCHASE_LABELS[record.purchase_model],
         ),
-      };
+      );
     })
     .sort(
       (left, right) =>
@@ -372,8 +266,16 @@ async function main() {
         left.app_key.localeCompare(right.app_key),
     );
   const snapshot = {
-    schema_version: "1.0",
+    schema_version: "1.1",
     date_modified: catalog.dateModified,
+    source_identifier: CATALOG_SOURCE_URL,
+    source_schema: CATALOG_SCHEMA_URL,
+    source_license: CATALOG_LICENSE_URL,
+    source_content_digest: catalog.content_digest,
+    source_generation_digest: catalog.generation_digest,
+    query_origin: QUERY_ORIGIN,
+    measured_search_volume: false,
+    is_ranking: false,
     app_count: catalog.app_count,
     locale_count: catalog.locale_count,
     record_count: catalog.record_count,
@@ -383,28 +285,64 @@ async function main() {
     ),
     ui,
     records,
+    content_digest: recordsDigest(records),
   };
+  validateSnapshotCatalog(snapshot);
 
   const resourceRoot = path.join(ROOT, "mcpb-resources");
+  const catalogPath = path.join(ROOT, "server", "catalog.json");
+  const noticePath = path.join(ROOT, "THIRD_PARTY_NOTICES.txt");
+  const notice = await readFile(
+    path.join(ROOT, "node_modules", "stopword", "dist", "3rd-party.txt"),
+    "utf8",
+  );
+  const expectedResources = new Map(
+    [...resources].map(([locale, resource]) => [
+      `${locale}.json`,
+      stableJson(resource),
+    ]),
+  );
+
+  if (CHECK) {
+    if ((await readFile(catalogPath, "utf8")) !== stableJson(snapshot)) {
+      throw new Error(
+        "Bundled catalog is stale; run npm run sync:catalog.",
+      );
+    }
+    if ((await readFile(noticePath, "utf8")) !== notice) {
+      throw new Error(
+        "Third-party notices are stale; run npm run sync:catalog.",
+      );
+    }
+    const existing = (await readdir(resourceRoot))
+      .filter((file) => file.endsWith(".json"))
+      .sort();
+    const expected = [...expectedResources.keys()].sort();
+    if (JSON.stringify(existing) !== JSON.stringify(expected)) {
+      throw new Error(
+        "MCPB locale resources are incomplete or stale.",
+      );
+    }
+    for (const [file, content] of expectedResources) {
+      if ((await readFile(path.join(resourceRoot, file), "utf8")) !== content) {
+        throw new Error(`MCPB locale resource is stale: ${file}`);
+      }
+    }
+    console.log(
+      `Verified live catalog gate: ${snapshot.app_count} apps x ` +
+        `${snapshot.locale_count} locales (${snapshot.record_count} records).`,
+    );
+    return;
+  }
+
   await mkdir(path.join(ROOT, "server"), { recursive: true });
   await mkdir(resourceRoot, { recursive: true });
-  await writeFile(
-    path.join(ROOT, "server", "catalog.json"),
-    stableJson(snapshot),
-    "utf8",
-  );
-  await writeFile(
-    path.join(ROOT, "THIRD_PARTY_NOTICES.txt"),
-    await readFile(
-      path.join(ROOT, "node_modules", "stopword", "dist", "3rd-party.txt"),
-      "utf8",
-    ),
-    "utf8",
-  );
-  for (const [locale, resource] of resources) {
+  await writeFile(catalogPath, stableJson(snapshot), "utf8");
+  await writeFile(noticePath, notice, "utf8");
+  for (const [file, content] of expectedResources) {
     await writeFile(
-      path.join(resourceRoot, `${locale}.json`),
-      stableJson(resource),
+      path.join(resourceRoot, file),
+      content,
       "utf8",
     );
   }

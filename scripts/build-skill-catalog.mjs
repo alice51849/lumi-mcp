@@ -3,6 +3,14 @@
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  CATALOG_SOURCE_URL,
+  EXPECTED_APP_COUNT,
+  OFFICIAL_LOCALES,
+  validateGuideUrl,
+  validateMcpStoreUrl,
+  validateSnapshotCatalog,
+} from "../server/catalog-contract.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CATALOG_PATH = path.join(ROOT, "server", "catalog.json");
@@ -12,14 +20,10 @@ const REFERENCES_PATH = path.join(
   "lumi-app-finder",
   "references",
 );
-const CATALOG_SOURCE =
-  "https://alice51849.github.io/ios-app-guide/data/" +
-  "lumi-studio-publisher-search-intent-catalog.json";
 const CHECK = process.argv.includes("--check");
-const EXPECTED_APP_COUNT = 29;
-const EXPECTED_LOCALE_COUNT = 50;
-const EXPECTED_RECORD_COUNT = EXPECTED_APP_COUNT * EXPECTED_LOCALE_COUNT;
 const REQUIRED_FIELDS = Object.freeze([
+  "record_id",
+  "locale",
   "app_key",
   "app_name",
   "app_store_id",
@@ -29,6 +33,7 @@ const REQUIRED_FIELDS = Object.freeze([
   "purchase_label",
   "source_persona_query",
   "canonical_guide_url",
+  "canonical_app_store_url",
   "app_store_url",
   "app_store_cta_label",
 ]);
@@ -48,59 +53,6 @@ function singleLine(value, field) {
   return value.trim();
 }
 
-function validateStoreUrl(value, appId) {
-  const url = new URL(value);
-  const params = [...url.searchParams.entries()];
-  const keys = new Set(params.map(([key]) => key));
-  const isClean = params.length === 0;
-  const isFullyAttributed =
-    params.length === 3 &&
-    keys.size === 3 &&
-    keys.has("pt") &&
-    keys.has("ct") &&
-    keys.has("mt") &&
-    /^\d{1,20}$/u.test(url.searchParams.get("pt") ?? "") &&
-    /^[A-Za-z0-9/_]{1,30}$/u.test(url.searchParams.get("ct") ?? "") &&
-    url.searchParams.get("mt") === "8";
-  if (
-    url.protocol !== "https:" ||
-    url.hostname !== "apps.apple.com" ||
-    url.port ||
-    url.username ||
-    url.password ||
-    url.hash ||
-    !new RegExp(`^/(?:[a-z]{2}/)?app/id${appId}$`, "u").test(
-      url.pathname,
-    ) ||
-    (!isClean && !isFullyAttributed)
-  ) {
-    throw new Error(`Invalid App Store route for ${appId}.`);
-  }
-}
-
-function validateGuideUrl(value, locale, appKey) {
-  const url = new URL(value);
-  const answerPrefix = `/ios-app-guide/${locale}/answers/`;
-  const answerSlug = url.pathname.slice(answerPrefix.length);
-  const isAnswer =
-    url.pathname.startsWith(answerPrefix) &&
-    /^[a-z0-9-]+\.html$/u.test(answerSlug);
-  const isOwnedProduct =
-    url.pathname === `/ios-app-guide/${locale}/${appKey}.html`;
-  if (
-    url.protocol !== "https:" ||
-    url.hostname !== "alice51849.github.io" ||
-    url.port ||
-    url.username ||
-    url.password ||
-    url.search ||
-    url.hash ||
-    (!isAnswer && !isOwnedProduct)
-  ) {
-    throw new Error(`Invalid guide route for ${appKey}/${locale}.`);
-  }
-}
-
 function skillRecord(record) {
   for (const field of REQUIRED_FIELDS) {
     singleLine(record?.[field], field);
@@ -108,7 +60,11 @@ function skillRecord(record) {
   if (!/^\d{9,12}$/u.test(record.app_store_id)) {
     throw new Error(`Invalid App Store ID for '${record.app_key}'.`);
   }
-  validateStoreUrl(record.app_store_url, record.app_store_id);
+  validateMcpStoreUrl(
+    record.app_store_url,
+    record.app_store_id,
+    record.locale,
+  );
   validateGuideUrl(
     record.canonical_guide_url,
     record.locale,
@@ -123,32 +79,22 @@ function skillRecord(record) {
     decision_context: record.decision_context,
     purchase_model: record.purchase_model,
     purchase_label: record.purchase_label,
+    one_time_option: record.one_time_option,
     verified_live: true,
     guide_url: record.canonical_guide_url,
+    canonical_app_store_url: record.canonical_app_store_url,
     app_store_url: record.app_store_url,
     app_store_cta_label: record.app_store_cta_label,
   };
 }
 
 async function expectedReferences() {
-  const catalog = JSON.parse(await readFile(CATALOG_PATH, "utf8"));
-  if (
-    catalog?.app_count !== EXPECTED_APP_COUNT ||
-    catalog?.locale_count !== EXPECTED_LOCALE_COUNT ||
-    catalog?.record_count !== EXPECTED_RECORD_COUNT ||
-    !Array.isArray(catalog.locales) ||
-    catalog.locales.length !== EXPECTED_LOCALE_COUNT ||
-    !Array.isArray(catalog.records) ||
-    catalog.records.length !== EXPECTED_RECORD_COUNT
-  ) {
-    throw new Error(
-      `Skill source catalog coverage is not ${EXPECTED_APP_COUNT} x ` +
-        `${EXPECTED_LOCALE_COUNT}.`,
-    );
-  }
+  const catalog = validateSnapshotCatalog(
+    JSON.parse(await readFile(CATALOG_PATH, "utf8")),
+  );
 
   const expected = new Map();
-  for (const locale of catalog.locales) {
+  for (const locale of OFFICIAL_LOCALES) {
     const ui = catalog.ui?.[locale];
     const apps = catalog.records
       .filter((record) => record.locale === locale)
@@ -164,9 +110,11 @@ async function expectedReferences() {
       );
     }
     const payload = {
-      schema_version: "1.0",
+      schema_version: "1.1",
       date_modified: catalog.date_modified,
-      catalog_source: CATALOG_SOURCE,
+      catalog_source: CATALOG_SOURCE_URL,
+      source_content_digest: catalog.source_content_digest,
+      snapshot_content_digest: catalog.content_digest,
       locale,
       app_count: apps.length,
       publisher: "Lumi Studio",
@@ -178,7 +126,7 @@ async function expectedReferences() {
         ui?.non_measured,
         `${locale}.non_ranking_disclosure`,
       ),
-      query_origin: "publisher_authored_editorially_localized",
+      query_origin: catalog.query_origin,
       measured_search_volume: false,
       is_ranking: false,
       apps,
