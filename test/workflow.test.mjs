@@ -59,7 +59,7 @@ test("CI builds only after quality gates and never pushes the OCI shadow", async
   assertActionsArePinned(workflow);
 });
 
-test("GHCR bootstrap is private, manual, commit-scoped, and fully gated", async () => {
+test("GHCR bootstrap is manual, commit-scoped, and fully gated", async () => {
   const workflow = await readFile(
     new URL(".github/workflows/ci.yml", root),
     "utf8",
@@ -86,14 +86,25 @@ test("GHCR bootstrap is private, manual, commit-scoped, and fully gated", async 
     /outputs: type=image,name=\$\{\{ env\.IMAGE_NAME \}\},push-by-digest=true,name-canonical=true,push=true/u,
   );
   assert.match(bootstrap, /platforms: linux\/amd64,linux\/arm64/u);
-  assert.match(bootstrap, /Smoke private immutable digest across 50 locales/u);
-  assert.match(bootstrap, /Verify private signed provenance and SBOM attestations/u);
+  assert.match(bootstrap, /Smoke immutable bootstrap digest across 50 locales/u);
+  assert.match(bootstrap, /Verify signed bootstrap provenance and SBOM attestations/u);
   assert.match(bootstrap, /case "\$status" in[\s\S]+200\)[\s\S]+404\)[\s\S]+\*\)/u);
-  assert.match(bootstrap, /Promote verified digest to private commit tag/u);
-  assert.match(bootstrap, /Reverify private tag binding and visibility/u);
+  assert.match(bootstrap, /Promote verified digest to commit tag/u);
+  assert.match(bootstrap, /Reverify tag binding and package visibility/u);
   assert.match(bootstrap, /--format '\{\{ \.Manifest\.Digest \}\}'/u);
   assert.match(bootstrap, /test "\$tag_digest" = "\$DIGEST"/u);
-  assert.match(bootstrap, /visibility'\)" = "private"/u);
+  assert.match(
+    bootstrap,
+    /case "\$visibility" in[\s\S]+private\)[\s\S]+public\)[\s\S]+\*\)/u,
+  );
+  assert.match(
+    bootstrap,
+    /DOCKER_CONFIG="\$anonymous_config"[\s\S]+docker pull "\$\{IMAGE_NAME\}:\$\{CANDIDATE\}"/u,
+  );
+  assert.match(
+    bootstrap,
+    /DOCKER_CONFIG="\$anonymous_config"[\s\S]+docker pull "\$\{IMAGE_NAME\}@\$\{DIGEST\}"/u,
+  );
   assert.doesNotMatch(bootstrap, /server\.release\.json/u);
   assert.doesNotMatch(bootstrap, /Promote verified digest to the semver tag/u);
   assert.doesNotMatch(bootstrap, /gh release/u);

@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       bootstrap_ghcr:
-        description: Create or repair the private commit-scoped GHCR bootstrap
+        description: Create or repair the commit-scoped GHCR bootstrap
         required: true
         type: boolean
         default: false
@@ -256,13 +256,13 @@ jobs:
           version: v0.36.1
           driver-opts: |
             image=moby/buildkit@sha256:28a898719c18a33f4e8000685287fa36fd0dd9560c6440227d3a732d79bb41d8
-      - name: Log in to GHCR for private bootstrap
+      - name: Log in to GHCR for bootstrap
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Resolve private bootstrap metadata
+      - name: Resolve bootstrap metadata
         id: metadata
         run: |
           set -euo pipefail
@@ -273,7 +273,7 @@ jobs:
             >> "$GITHUB_OUTPUT"
           echo "created=$(git show -s --format=%cI "$GITHUB_SHA")" \
             >> "$GITHUB_OUTPUT"
-      - name: Build and push private bootstrap digest
+      - name: Build and push bootstrap digest
         id: image
         uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7
         with:
@@ -286,7 +286,7 @@ jobs:
             VERSION=${{ steps.metadata.outputs.version }}
             REVISION=${{ github.sha }}
             CREATED=${{ steps.metadata.outputs.created }}
-      - name: Generate private digest-bound SBOM
+      - name: Generate bootstrap digest-bound SBOM
         env:
           DIGEST: ${{ steps.image.outputs.digest }}
         run: |
@@ -294,7 +294,7 @@ jobs:
           "${RUNNER_TEMP}/lumi-syft-bin/syft" \
             "registry:${IMAGE_NAME}@${DIGEST}" \
             -o spdx-json=dist/lumi-app-finder.spdx.json
-      - name: Validate private bootstrap SBOM
+      - name: Validate bootstrap SBOM
         run: |
           node -e '
             const fs = require("node:fs");
@@ -306,14 +306,14 @@ jobs:
               process.exit(1);
             }
           '
-      - name: Attest private bootstrap provenance
+      - name: Attest bootstrap provenance
         uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
         with:
           subject-name: ${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.image.outputs.digest }}
           push-to-registry: true
           create-storage-record: false
-      - name: Attest private bootstrap SBOM
+      - name: Attest bootstrap SBOM
         uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
         with:
           subject-name: ${{ env.IMAGE_NAME }}
@@ -321,7 +321,7 @@ jobs:
           sbom-path: dist/lumi-app-finder.spdx.json
           push-to-registry: true
           create-storage-record: false
-      - name: Verify private digest architectures, labels, and size
+      - name: Verify bootstrap digest architectures, labels, and size
         env:
           DIGEST: ${{ steps.image.outputs.digest }}
         run: |
@@ -334,7 +334,7 @@ jobs:
           node scripts/verify-image-index.mjs dist/oci-index.json
           node scripts/verify-image-metadata.mjs dist/image-inspect.json
           printf '%s\n' "$DIGEST" > dist/image-digest.txt
-      - name: Smoke private immutable digest across 50 locales
+      - name: Smoke immutable bootstrap digest across 50 locales
         env:
           DIGEST: ${{ steps.image.outputs.digest }}
         run: |
@@ -347,7 +347,7 @@ jobs:
               --pids-limit 64 \
               --memory 256m \
               "${IMAGE_NAME}@${DIGEST}"
-      - name: Verify private signed provenance and SBOM attestations
+      - name: Verify signed bootstrap provenance and SBOM attestations
         env:
           DIGEST: ${{ steps.image.outputs.digest }}
           GH_TOKEN: ${{ github.token }}
@@ -363,7 +363,7 @@ jobs:
           gh attestation verify "$subject" "${common[@]}"
           gh attestation verify "$subject" "${common[@]}" \
             --predicate-type https://spdx.dev/Document/v2.3
-      - name: Promote verified digest to private commit tag
+      - name: Promote verified digest to commit tag
         env:
           CANDIDATE: ${{ steps.metadata.outputs.candidate }}
           DIGEST: ${{ steps.image.outputs.digest }}
@@ -372,7 +372,7 @@ jobs:
           docker buildx imagetools create \
             --tag "${IMAGE_NAME}:${CANDIDATE}" \
             "${IMAGE_NAME}@${DIGEST}"
-      - name: Reverify private tag binding and visibility
+      - name: Reverify tag binding and package visibility
         env:
           CANDIDATE: ${{ steps.metadata.outputs.candidate }}
           DIGEST: ${{ steps.image.outputs.digest }}
@@ -387,10 +387,34 @@ jobs:
             "${IMAGE_NAME}:${CANDIDATE}" \
             --format '{{ .Manifest.Digest }}')"
           test "$tag_digest" = "$DIGEST"
-          test "$(gh api \
+          visibility="$(gh api \
             '/user/packages/container/lumi-app-finder' \
-            --jq '.visibility')" = "private"
-      - name: Upload private bootstrap reports
+            --jq '.visibility')"
+          case "$visibility" in
+            private)
+              ;;
+            public)
+              anonymous_config="${RUNNER_TEMP}/lumi-bootstrap-anonymous"
+              install -d -m 0700 "$anonymous_config"
+              for attempt in 1 2 3 4; do
+                if DOCKER_CONFIG="$anonymous_config" \
+                  docker pull "${IMAGE_NAME}:${CANDIDATE}"; then
+                  break
+                fi
+                test "$attempt" -lt 4
+                sleep $((attempt * 15))
+              done
+              DOCKER_CONFIG="$anonymous_config" \
+                docker pull "${IMAGE_NAME}@${DIGEST}"
+              ;;
+            *)
+              echo "Unexpected GHCR visibility: ${visibility}" >&2
+              exit 1
+              ;;
+          esac
+          printf 'visibility=%s\n' "$visibility" \
+            > dist/bootstrap-visibility.txt
+      - name: Upload bootstrap reports
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: lumi-mcp-ghcr-bootstrap-${{ github.run_id }}
@@ -398,6 +422,7 @@ jobs:
             dist/image-digest.txt
             dist/image-inspect.json
             dist/bootstrap-tag-inspect.json
+            dist/bootstrap-visibility.txt
             dist/lumi-app-finder.spdx.json
             dist/oci-index.json
           if-no-files-found: error
