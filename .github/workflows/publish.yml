@@ -187,14 +187,13 @@ jobs:
             REVISION=${{ github.sha }}
             CREATED=${{ steps.metadata.outputs.created }}
       - name: Generate digest-bound SBOM
-        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610 # v0
-        with:
-          image: ${{ env.IMAGE_NAME }}@${{ steps.image.outputs.digest }}
-          syft-version: v1.51.0
-          format: spdx-json
-          output-file: dist/lumi-app-finder.spdx.json
-          upload-artifact: false
-          upload-release-assets: false
+        env:
+          DIGEST: ${{ steps.image.outputs.digest }}
+        run: |
+          bash scripts/install-syft.sh
+          "${RUNNER_TEMP}/lumi-syft-bin/syft" \
+            "registry:${IMAGE_NAME}@${DIGEST}" \
+            -o spdx-json=dist/lumi-app-finder.spdx.json
       - name: Validate generated SBOM
         run: |
           node -e '
