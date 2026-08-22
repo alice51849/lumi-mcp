@@ -120,9 +120,9 @@ jobs:
           set -euo pipefail
           mkdir -p dist/oci-layout
           tar -xf dist/lumi-app-finder.oci.tar -C dist/oci-layout
-          cp dist/oci-layout/index.json dist/oci-index.json
+          node scripts/verify-oci-layout.mjs \
+            dist/oci-layout dist/oci-index.json
           node scripts/verify-image-index.mjs dist/oci-index.json
-          node scripts/verify-oci-layout.mjs dist/oci-layout
       - name: Attest shadow OCI artifact
         if: github.event_name == 'push'
         uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
