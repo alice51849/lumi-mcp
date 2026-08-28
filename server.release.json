@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.alice51849/lumi-app-finder",
   "title": "Lumi App Finder",
-  "description": "Find iOS apps by task across 46 live apps and all 50 Apple locales with direct App Store links.",
+  "description": "Find Lumi Studio iOS apps by task across all 50 Apple locales, with direct App Store links.",
   "websiteUrl": "https://alice51849.github.io/ios-app-guide/",
   "repository": {
     "url": "https://github.com/alice51849/lumi-mcp",

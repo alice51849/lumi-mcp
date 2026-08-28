@@ -234,7 +234,7 @@ test("MCPB metadata and resources expose every official locale", async () => {
   }
   assert.deepEqual(
     publishedServer.packages.map((entry) => entry.registryType),
-    ["mcpb"],
+    ["mcpb", "oci"],
   );
   assert.notEqual(publishedServer.version, releaseServer.version);
   const mcpb = releaseServer.packages.find(
