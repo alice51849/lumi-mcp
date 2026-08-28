@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "ca",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "Aquest és material de primera mà publicat per Lumi Studio, el desenvolupador de totes les apps llistades.",
   "non_ranking_disclosure": "Les consultes són descripcions editorials dels casos d'ús previstos, no dades de volum de cerca mesurat, classificacions, ressenyes independents ni recomanacions d'usuaris.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/es/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Descarrega Aim990 Plus a l’App Store"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: Salut de la bateria",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: Salut de la bateria — Temps estimat fins al 80% | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • BattAI utilitza cinc dades de les API públiques d’iOS: nivell de bateria, estat de càrrega, baix consum, estat tèrmic de tot el dispositiu i hora. La resta es calcula amb aquestes lectures o l’afegeixes tu. Cada dada mostra la font i els límits. • BattAI no té compte, telemetria, anuncis ni peticions de xarxa. Les dades es queden al dispositiu, excepte una instantània mínima i limitada a les funcions enviada directament a l’Apple Watch enllaçat. El mostreig és limitat, l’anàlisi s’executa com a màxim cada cinc minuts, les estimacions són intervals i les dades absents continuen absents.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Inici gratuït · desbloqueig amb una compra única",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/ca/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/es/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Descarrega BattAI: Salut de la bateria a l’App Store"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "Descarrega PicClear a l’App Store →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: marcadors amb IA",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: marcadors amb IA — Desa enllaços, llegeix-los | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "Desa-ho ara. I aquesta vegada llegeix-ho de debò.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Inici gratuït · desbloqueig amb una compra única",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/ca/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/es/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Descarrega SaveTag: marcadors amb IA a l’App Store"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/es/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Descarrega Sereno a l’App Store →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — Ordena captures i cerca text | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "Les teves captures, ordenades",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Inici gratuït · desbloqueig amb una compra única",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/ca/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/es/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Descarrega ShotInbox AI: Sort Screenshots a l’App Store"
     },
     {
       "app_key": "snapport",

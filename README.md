@@ -3,7 +3,7 @@
 Lumi App Finder gives AI assistants one read-only tool for matching a user's
 task or buyer need to a verified live Lumi Studio iOS app.
 
-It covers **43 apps × all 50 Apple locales**. Every result includes
+It covers **46 apps × all 50 Apple locales**. Every result includes
 editorially localized context, the purchase model, a detailed guide, and a
 direct App Store link for the matching storefront.
 
@@ -27,7 +27,7 @@ gh skill install alice51849/lumi-mcp lumi-app-finder --scope user
 GitHub CLI 2.90 or newer installs to GitHub Copilot by default. Add
 `--agent claude-code`, `--agent cursor`, `--agent codex`, or
 `--agent gemini-cli` for another supported host. The installed skill reads only
-the requested locale's 43-record snapshot and requires no account, API key,
+the requested locale's 46-record snapshot and requires no account, API key,
 network request, or executable script at runtime.
 
 The version-pinned skill also works with the Vercel Skills CLI and its supported
@@ -60,8 +60,8 @@ Inputs:
 - `limit` — 1–10 matches; defaults to 5.
 
 The release snapshot is generated from the authoritative live publisher
-registry and rejected unless it contains exactly 43 unique App Store IDs × 50
-Apple locales = 2,150 complete records. The runtime reads only that
+registry and rejected unless it contains exactly 46 unique App Store IDs × 50
+Apple locales = 2,300 complete records. The runtime reads only that
 digest-verified bundled snapshot: it makes no network request, and user query
 text never leaves the local MCP process.
 

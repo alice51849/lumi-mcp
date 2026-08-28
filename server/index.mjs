@@ -11,7 +11,7 @@ import {
 } from "./catalog-contract.mjs";
 
 const SERVER_NAME = "lumi-app-finder";
-const SERVER_VERSION = "1.2.0";
+const SERVER_VERSION = "1.3.0";
 const LATEST_PROTOCOL = "2025-06-18";
 const SUPPORTED_PROTOCOLS = new Set([
   "2025-06-18",

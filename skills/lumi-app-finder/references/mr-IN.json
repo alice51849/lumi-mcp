@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "mr-IN",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "हे Lumi Studio कडून प्रकाशित केलेले प्रथम पक्ष साहित्य आहे, जे प्रत्येक सूचीबद्ध अॅपचे विकसक आहे.",
   "non_ranking_disclosure": "शोध विचारणा वापराच्या हेतूंचे संपादकीय वर्णन आहेत, मोजलेले शोध-आयतन डेटा, रँकिंग, स्वतंत्र पुनरावलोकने किंवा वापरकर्त्यांच्या समर्थन नाहीत.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/in/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "App Store वरून Aim990 Plus मिळवा"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: बॅटरी आरोग्य गुण",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: बॅटरी आरोग्य गुण — 80% पर्यंतचा अंदाजित वेळ | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • BattAI सार्वजनिक iOS API मधून 5 मूल्ये वापरते: बॅटरी पातळी, चार्ज स्थिती, Low Power Mode, संपूर्ण उपकरणाची उष्ण स्थिती आणि वेळ. इतर निकाल या मोजमापांतून मोजले जातात किंवा तुम्ही जोडता. प्रत्येक तपशील स्रोत आणि मर्यादा दाखवतो. • BattAI मध्ये खाते, दूरमापन, जाहिराती किंवा नेटवर्क विनंत्या नाहीत. माहिती या उपकरणावरच राहते; फक्त मर्यादित सुविधांचा छोटा स्नॅपशॉट जोडलेल्या Apple Watch ला थेट पाठवला जातो. मोजमाप मर्यादित, विश्लेषण जास्तीत जास्त दर 5 min ला, अंदाज श्रेणींत आणि नोंद नसलेली माहिती तशीच राहते.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "सुरुवात करण्यासाठी मोफत · एकदाच खरेदी करून अनलॉक",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/mr-IN/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/in/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "App Store वरून BattAI: बॅटरी आरोग्य गुण मिळवा"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "App Store वरून PicClear मिळवा →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: AI बुकमार्क",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: AI बुकमार्क — लिंक सेव्ह करा, नंतर वाचा | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "आत्ता सेव्ह करा. आणि यावेळी खरंच वाचा.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "सुरुवात करण्यासाठी मोफत · एकदाच खरेदी करून अनलॉक",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/mr-IN/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/in/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "App Store वरून SaveTag: AI बुकमार्क मिळवा"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/in/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "App Store वरून Sereno मिळवा →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — एकदाच खरेदी, आजीवन वापर | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "तुमचे स्क्रीनशॉट, व्यवस्थित",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "सुरुवात करण्यासाठी मोफत · एकदाच खरेदी करून अनलॉक",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/mr-IN/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/in/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "App Store वरून ShotInbox AI: Sort Screenshots मिळवा"
     },
     {
       "app_key": "snapport",

@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "el",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "Αυτό είναι πρωτογενές υλικό που δημοσιεύεται από το Lumi Studio, τον δημιουργό κάθε καταχωρημένης εφαρμογής.",
   "non_ranking_disclosure": "Οι ερωτήσεις είναι επιμελημένες περιγραφές των προοριζόμενων περιπτώσεων χρήσης, όχι μετρημένα δεδομένα όγκου αναζήτησης, κατατάξεις, ανεξάρτητες κριτικές ή συστάσεις χρηστών.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/gr/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Αποκτήστε το Aim990 Plus από το App Store"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: Υγεία μπαταρίας",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: Υγεία μπαταρίας — Εκτιμώμενος χρόνος έως το 80% | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • Το BattAI χρησιμοποιεί πέντε τιμές από τα δημόσια API του iOS: επίπεδο μπαταρίας, κατάσταση φόρτισης, Λειτουργία χαμηλής ισχύος, θερμική κατάσταση όλης της συσκευής και χρόνο. Τα άλλα αποτελέσματα υπολογίζονται από αυτές τις μετρήσεις ή προστίθενται από εσάς. Κάθε στοιχείο δείχνει την πηγή και τα όριά του. • Το BattAI δεν έχει λογαριασμό, τηλεμετρία, διαφημίσεις ή αιτήματα δικτύου. Τα δεδομένα μένουν σε αυτή τη συσκευή, εκτός από ένα ελάχιστο στιγμιότυπο περιορισμένων λειτουργιών που αποστέλλεται απευθείας στο ζευγοποιημένο Apple Watch. Η δειγματοληψία είναι περιορισμένη, η ανάλυση εκτελείται το πολύ κάθε πέντε λεπτά, οι εκτιμήσεις χρησιμοποιούν εύρη και τα δεδομένα που λείπουν παραμένουν κενά.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Δωρεάν για αρχή · ξεκλείδωμα με μία αγορά",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/el/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/gr/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Αποκτήστε το BattAI: Υγεία μπαταρίας από το App Store"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "Κατεβάστε το PicClear από το App Store →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: σελιδοδείκτες AI",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: σελιδοδείκτες AI — Αποθήκευσε και διάβασε μετά | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "Αποθήκευσέ το τώρα. Και αυτή τη φορά διάβασέ το στ' αλήθεια.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Δωρεάν για αρχή · ξεκλείδωμα με μία αγορά",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/el/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/gr/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Αποκτήστε το SaveTag: σελιδοδείκτες AI από το App Store"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/gr/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Κατεβάστε το Sereno από το App Store →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — Βρες και οργάνωσε στιγμιότυπα | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "Τα στιγμιότυπά σας, τακτοποιημένα",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Δωρεάν για αρχή · ξεκλείδωμα με μία αγορά",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/el/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/gr/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Αποκτήστε το ShotInbox AI: Sort Screenshots από το App Store"
     },
     {
       "app_key": "snapport",

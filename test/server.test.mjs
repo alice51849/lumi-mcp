@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import readline from "node:readline";
 import test from "node:test";
 import {
+  EXPECTED_APP_COUNT,
   EXPECTED_RECORD_COUNT,
   MCP_CAMPAIGN_TOKEN,
   OFFICIAL_LOCALES,
@@ -229,6 +230,30 @@ test("English buyer needs match the relevant portfolio apps", async () => {
         ),
         true,
         query,
+      );
+    }
+  });
+});
+
+test("every admitted app is discoverable by exact App Store ID", async () => {
+  await withClient(async (client) => {
+    const records = catalog.records.filter(
+      (record) => record.locale === "en-US",
+    );
+    assert.equal(records.length, EXPECTED_APP_COUNT);
+    for (const expected of records) {
+      const response = await client.request("tools/call", {
+        name: "find_ios_apps",
+        arguments: {
+          query: expected.app_store_id,
+          locale: "en-US",
+          limit: 1,
+        },
+      });
+      assert.equal(
+        response.result.structuredContent.results[0]?.app_key,
+        expected.app_key,
+        expected.app_key,
       );
     }
   });

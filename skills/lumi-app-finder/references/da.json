@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "da",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "Dette materiale er udgivet direkte af Lumi Studio, som har udviklet alle de viste apps.",
   "non_ranking_disclosure": "Søgeforespørgslerne er redaktionelle beskrivelser af tiltænkte brugsscenarier, ikke målte søgevolumendata, ranglister, uafhængige anmeldelser eller brugeranbefalinger.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/dk/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Hent Aim990 Plus i App Store"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: Batteritilstandsscore",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: Batteritilstandsscore — Anslået tid til 80% | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • BattAI bruger fem værdier fra offentlige iOS-API'er: batteriniveau, opladningstilstand, Energibesparelse, hele enhedens termiske tilstand og tid. Andre resultater beregnes ud fra disse målinger eller tilføjes af dig. Hver detalje viser kilde og grænser. • BattAI har ingen konto, telemetri, reklamer eller netværksanmodninger. Data bliver på denne enhed, bortset fra et minimalt funktionsbegrænset øjebliksbillede, der sendes direkte til det parrede Apple Watch. Målinger er begrænsede, analysen kører højst hvert femte minut, beregninger bruger intervaller, og manglende data forbliver manglende.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Gratis at komme i gang · oplåsning med et engangskøb",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/da/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/dk/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Hent BattAI: Batteritilstandsscore i App Store"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "Hent PicClear i App Store →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: AI-bogmærker",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: AI-bogmærker — Gem links, læs dem senere | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "Gem nu. Og læs det så rent faktisk senere.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Gratis at komme i gang · oplåsning med et engangskøb",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/da/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/dk/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Hent SaveTag: AI-bogmærker i App Store"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/dk/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Hent Sereno i App Store →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — Søg og sorter skærmbilleder | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "Dine skærmbilleder, sorteret",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Gratis at komme i gang · oplåsning med et engangskøb",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/da/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/dk/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Hent ShotInbox AI: Sort Screenshots i App Store"
     },
     {
       "app_key": "snapport",

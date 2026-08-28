@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "tr",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "Bu, listelenen her uygulamanın geliştiricisi Lumi Studio tarafından yayımlanan birinci taraf materyaldir.",
   "non_ranking_disclosure": "Sorgular, amaçlanan kullanım durumlarının editoryal açıklamalarıdır; ölçülmüş arama hacmi verileri, sıralamalar, bağımsız incelemeler veya kullanıcı onayları değildir.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/tr/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Aim990 Plus uygulamasını App Store'dan edinin →"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: Pil sağlığı puanı",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: Pil sağlığı puanı — %80’e tahmini süre | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • BattAI herkese açık iOS API’lerinden beş değer kullanır: pil düzeyi, şarj durumu, Düşük Güç Modu, cihazın genel termal durumu ve zaman. Diğer sonuçlar bu ölçümlerden hesaplanır veya sizin tarafınızdan eklenir. Her ayrıntı kaynağını ve sınırlarını gösterir. • BattAI’da hesap, telemetri, reklam veya ağ isteği yoktur. Veriler bu cihazda kalır; yalnızca asgari ve özellikleri sınırlı bir anlık görüntü doğrudan eşlenmiş Apple Watch’a gönderilir. Örnekleme sınırlıdır, analiz en fazla beş dakikada bir çalışır, tahminler aralık kullanır ve eksik veriler eksik kalır.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Başlangıçta ücretsiz · tek seferlik satın alımla açma",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/tr/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/tr/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "BattAI: Pil sağlığı puanı uygulamasını App Store'dan al"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "PicClear'ı App Store'dan edinin →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: yapay zekâlı yer imi",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: yapay zekâlı yer imi — Bağlantıları kaydet, sonra oku | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "Şimdi kaydet. Bu sefer gerçekten oku.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Başlangıçta ücretsiz · tek seferlik satın alımla açma",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/tr/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/tr/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "SaveTag: yapay zekâlı yer imi uygulamasını App Store'dan al"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/tr/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Sereno’yu App Store’dan edinin →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — Ekran görüntülerini düzenle | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "Ekran görüntüleriniz düzenli",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Başlangıçta ücretsiz · tek seferlik satın alımla açma",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/tr/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/tr/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "ShotInbox AI: Sort Screenshots uygulamasını App Store'dan al"
     },
     {
       "app_key": "snapport",

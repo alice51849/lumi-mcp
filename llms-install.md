@@ -55,7 +55,7 @@ runs. Cline should start the package with stdio transport automatically.
 3. Confirm that the result identifies itself as first-party publisher content
    and includes direct `apps.apple.com` links.
 
-The server reads only its live-registry-gated, digest-verified 2,150-record
+The server reads only its live-registry-gated, digest-verified 2,300-record
 snapshot. It makes no runtime network request, and user query text stays inside
 the local MCP process.
 

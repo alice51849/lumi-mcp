@@ -6,18 +6,18 @@ import {
 
 const expected = {
   name: "io.github.alice51849/lumi-app-finder",
-  version: "1.2.0",
+  version: "1.3.0",
   packages: [
     {
       registryType: "mcpb",
       identifier: "https://example.test/lumi-app-finder.mcpb",
-      version: "1.2.0",
+      version: "1.3.0",
       fileSha256: "a".repeat(64),
       transport: { type: "stdio" },
     },
     {
       registryType: "oci",
-      identifier: "ghcr.io/alice51849/lumi-app-finder:1.2.0",
+      identifier: "ghcr.io/alice51849/lumi-app-finder:1.3.0",
       transport: { type: "stdio" },
     },
   ],

@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "ko",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "이 자료는 목록에 있는 모든 앱의 개발사 Lumi Studio가 직접 발행한 1차 자료입니다.",
   "non_ranking_disclosure": "검색어는 예상 사용 사례를 편집 기준에 따라 설명한 것이며, 실제 측정된 검색량 데이터, 순위, 독립 리뷰 또는 사용자 추천이 아닙니다.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/kr/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "App Store에서 Aim990 Plus 받기 →"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: 배터리 상태 점수",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: 배터리 상태 점수 — 80%까지 예상 기간 | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • BattAI가 공개 iOS API에서 쓰는 값은 배터리 잔량, 충전 상태, 저전력 모드, 기기 전체 열 상태, 시간까지 다섯 가지예요. 다른 결과는 기록에서 계산하거나 직접 추가해요. 각 항목에 출처와 한계를 표시해요. • BattAI에는 계정, 텔레메트리, 광고, 네트워크 요청이 없어요. 데이터는 이 기기에 저장하고, 페어링된 Apple Watch로 기능이 제한된 최소 스냅샷만 직접 보내요. 기록 빈도를 제한하고 분석은 최소 5분 간격으로 실행해요. 추정은 범위로 표시하고, 비어 있는 데이터는 그대로 둬요.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "무료로 시작 · 한 번 구매로 잠금 해제",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/ko/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/kr/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "App Store에서 BattAI: 배터리 상태 점수 받기"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "App Store에서 PicClear 받기 →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: AI 링크 보관함",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: AI 링크 보관함 — 나중에 읽기, 자동 태그 정리 | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "일단 저장하고, 이번엔 진짜 다 읽습니다.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "무료로 시작 · 한 번 구매로 잠금 해제",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/ko/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/kr/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "App Store에서 SaveTag: AI 링크 보관함 받기"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/kr/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "App Store에서 Sereno 받기 →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — 스크린샷 분류·OCR 검색·타임라인 | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "스크린샷을 깔끔하게 모든 스크린샷을 찾고, 처리하고, 정리하세요.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "무료로 시작 · 한 번 구매로 잠금 해제",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/ko/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/kr/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "App Store에서 ShotInbox AI: Sort Screenshots 받기"
     },
     {
       "app_key": "snapport",

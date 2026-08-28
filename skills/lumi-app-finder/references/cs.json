@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "cs",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "Toto je materiál od první strany publikovaný Lumi Studio, vývojářem všech uvedených aplikací.",
   "non_ranking_disclosure": "Dotazy jsou redakční popisy zamýšlených použití, nikoli měřená data o objemu vyhledávání, žebříčky, nezávislé recenze ani uživatelská doporučení.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/cz/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Stáhněte si Aim990 Plus v App Storu"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: Skóre kondice baterie",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: Skóre kondice baterie — Odhad času do 80% | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • BattAI používá pět hodnot z veřejných API iOS: stav baterie, stav nabíjení, úsporný režim, tepelný stav celého zařízení a čas. Ostatní výsledky se počítají z těchto měření nebo z údajů, které přidáte. U každého údaje je uveden zdroj a omezení. • BattAI nemá účet, telemetrii, reklamy ani síťové požadavky. Data zůstávají v tomto zařízení, kromě minimálního snímku s omezenými funkcemi odeslaného přímo do spárovaných Apple Watch. Měření je omezené, analýza běží nejvýš jednou za pět minut, odhady používají rozmezí a chybějící data zůstávají chybějící.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Zdarma na začátek · odemknutí jednorázovým nákupem",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/cs/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/cz/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Stáhněte si BattAI: Skóre kondice baterie v App Storu"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "Stáhněte PicClear v App Store →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: záložky s AI",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: záložky s AI — Ulož odkazy, čti je později | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "Ulož teď. A tentokrát to opravdu přečti.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Zdarma na začátek · odemknutí jednorázovým nákupem",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/cs/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/cz/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Stáhněte si SaveTag: záložky s AI v App Storu"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/cz/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Stáhněte Sereno v App Store →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — Organizátor snímků obrazovky | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "Vaše snímky, přehledně",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Zdarma na začátek · odemknutí jednorázovým nákupem",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/cs/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/cz/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Stáhněte si ShotInbox AI: Sort Screenshots v App Storu"
     },
     {
       "app_key": "snapport",

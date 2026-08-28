@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "ms",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "Bahan ini diterbitkan terus oleh Lumi Studio, pembangun semua aplikasi yang disenaraikan.",
   "non_ranking_disclosure": "Pertanyaan ialah penerangan editorial tentang kegunaan yang dimaksudkan, bukan data volum carian yang diukur, kedudukan, ulasan bebas atau saranan pengguna.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/my/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Dapatkan Aim990 Plus di App Store →"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: Skor kesihatan bateri",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: Skor kesihatan bateri — Anggaran masa hingga 80% | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • BattAI menggunakan lima nilai daripada API awam iOS: aras bateri, keadaan pengecasan, Mod Kuasa Rendah, keadaan terma seluruh peranti dan masa. Hasil lain dikira daripada bacaan itu atau ditambah oleh anda. Setiap butiran menunjukkan sumber dan batasnya. • BattAI tidak mempunyai akaun, telemetri, iklan atau permintaan rangkaian. Data kekal pada peranti ini, kecuali petikan minimum dengan fungsi terhad yang dihantar terus ke Apple Watch pasangan anda. Pensampelan dihadkan, analisis berjalan paling kerap setiap lima minit, anggaran menggunakan julat dan data yang hilang kekal kosong.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Percuma untuk bermula · buka kunci sekali beli",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/ms/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/my/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Dapatkan BattAI: Skor kesihatan bateri di App Store"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "Dapatkan PicClear di App Store →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: penanda buku AI",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: penanda buku AI — Simpan pautan, baca kemudian | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "Simpan sekarang. Dan kali ini betul-betul dibaca.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Percuma untuk bermula · buka kunci sekali beli",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/ms/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/my/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Dapatkan SaveTag: penanda buku AI di App Store"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/my/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Dapatkan Sereno di App Store →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — Tangkapan skrin mudah dicari | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "Tangkapan skrin anda, tersusun",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Percuma untuk bermula · buka kunci sekali beli",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/ms/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/my/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Dapatkan ShotInbox AI: Sort Screenshots di App Store"
     },
     {
       "app_key": "snapport",

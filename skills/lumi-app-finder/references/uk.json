@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "uk",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "Це матеріали першої сторони, опубліковані Lumi Studio, розробником кожного з перелічених додатків.",
   "non_ranking_disclosure": "Запити — це редакційні описи передбачуваних випадків використання, а не дані про обсяг пошуку, рейтинги, незалежні огляди чи відгуки користувачів.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/ua/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Завантажте Aim990 Plus з App Store"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: Стан батареї",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: Стан батареї — Оцінка стану акумулятора | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • BattAI використовує п’ять значень із публічних API iOS: рівень заряду, стан заряджання, режим низького енергоспоживання, тепловий стан усього пристрою й час. Інші результати обчислюються з цих показань або додаються вами. Кожен показник має джерело й обмеження. • BattAI не має облікового запису, телеметрії, реклами чи мережевих запитів. Дані залишаються на цьому пристрої, крім мінімального обмеженого знімка, який надсилається безпосередньо на спарений Apple Watch. Вибірка обмежена, аналіз виконується не частіше ніж раз на п’ять хвилин, оцінки подаються діапазонами, а відсутні дані лишаються відсутніми.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Безкоштовно для початку · розблокування за одну покупку",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/uk/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/ua/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Завантажте BattAI: Стан батареї з App Store"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "Отримайте PicClear в App Store →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: закладки з ШІ",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: закладки з ШІ — Зберігай посилання, читай | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "Збережіть зараз. І цього разу справді прочитайте.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Безкоштовно для початку · розблокування за одну покупку",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/uk/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/ua/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Завантажте SaveTag: закладки з ШІ з App Store"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/ua/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Отримайте Sereno в App Store →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — Органайзер знімків екрана | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "Усі знімки впорядковано",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Безкоштовно для початку · розблокування за одну покупку",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/uk/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/ua/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Завантажте ShotInbox AI: Sort Screenshots з App Store"
     },
     {
       "app_key": "snapport",

@@ -17,7 +17,7 @@ async function json(relative) {
   return JSON.parse(await readFile(new URL(relative, root), "utf8"));
 }
 
-test("snapshot covers 43 unique apps across all 50 Apple locales", async () => {
+test("snapshot covers 46 unique apps across all 50 Apple locales", async () => {
   const catalog = validateSnapshotCatalog(
     await json("server/catalog.json"),
   );
@@ -94,7 +94,7 @@ test("snapshot covers 43 unique apps across all 50 Apple locales", async () => {
   }
 });
 
-test("Agent Skill ships an offline 43-app catalog for every locale", async () => {
+test("Agent Skill ships an offline 46-app catalog for every locale", async () => {
   const [
     catalog,
     packageJson,

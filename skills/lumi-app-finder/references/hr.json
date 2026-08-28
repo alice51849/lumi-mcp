@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "hr",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "Ovo je materijal iz prve ruke koji je objavio Lumi Studio, razvojni tim svake navedene aplikacije.",
   "non_ranking_disclosure": "Upiti su urednički opisi predviđenih slučajeva korištenja, a ne podaci o volumenu pretraživanja, rangiranju, neovisnim recenzijama ili korisničkim preporukama.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/hr/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Preuzmite Aim990 Plus u App Storeu"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: Ocjena stanja baterije",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: Ocjena stanja baterije — Procijenjeno vrijeme do 80% | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • BattAI koristi pet vrijednosti iz javnih API-ja sustava iOS: razinu baterije, stanje punjenja, način niske potrošnje, toplinsko stanje cijelog uređaja i vrijeme. Ostali rezultati izračunavaju se iz tih očitanja ili ih dodajete vi. Svaki podatak prikazuje izvor i ograničenja. • BattAI nema račun, telemetriju, oglase ni mrežne zahtjeve. Podaci ostaju na ovom uređaju, osim minimalnog ograničenog sažetka koji se izravno šalje uparenom Apple Watchu. Uzorkovanje je ograničeno, analiza se pokreće najviše svakih pet minuta, procjene koriste raspone, a podaci koji nedostaju ostaju prazni.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Besplatno za početak · otključavanje jednokratnom kupnjom",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/hr/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/hr/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Preuzmite BattAI: Ocjena stanja baterije u App Storeu"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "Preuzmite PicClear u App Storeu →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: AI oznake",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: AI oznake — Spremi poveznice za poslije | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "Spremi sada. I ovaj put stvarno pročitaj.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Besplatno za početak · otključavanje jednokratnom kupnjom",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/hr/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/hr/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Preuzmite SaveTag: AI oznake u App Storeu"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/hr/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Preuzmite Sereno u App Storeu →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — Organizator snimki zaslona | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "Vaše snimke, uredno složene",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Besplatno za početak · otključavanje jednokratnom kupnjom",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/hr/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/hr/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Preuzmite ShotInbox AI: Sort Screenshots u App Storeu"
     },
     {
       "app_key": "snapport",

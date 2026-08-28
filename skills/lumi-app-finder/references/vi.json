@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "vi",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "Tài liệu này do Lumi Studio trực tiếp công bố; Lumi Studio là nhà phát triển của tất cả ứng dụng được liệt kê.",
   "non_ranking_disclosure": "Các truy vấn là phần mô tả biên tập về trường hợp sử dụng dự kiến, không phải dữ liệu lượng tìm kiếm đã đo, bảng xếp hạng, đánh giá độc lập hay lời chứng thực của người dùng.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/vn/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Tải Aim990 Plus trên App Store →"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: Điểm tình trạng pin",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: Điểm tình trạng pin — Thời gian ước tính đến 80% | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • BattAI dùng 5 giá trị từ API công khai của iOS: mức pin, trạng thái sạc, Chế độ nguồn điện thấp, trạng thái nhiệt của toàn thiết bị và thời gian. Các kết quả khác được tính từ dữ liệu này hoặc do bạn thêm. Mỗi mục đều nêu nguồn và giới hạn • BattAI không có tài khoản, dữ liệu đo từ xa, quảng cáo hay yêu cầu mạng. Dữ liệu ở trên thiết bị này, trừ ảnh chụp tối thiểu với tính năng giới hạn được gửi thẳng tới Apple Watch đã ghép đôi. Tần suất lấy mẫu có giới hạn, phân tích chạy nhiều nhất mỗi 5 phút, ước tính dùng khoảng và dữ liệu thiếu vẫn để thiếu",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Bắt đầu miễn phí · mở khóa bằng một lần mua",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/vi/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/vn/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Tải BattAI: Điểm tình trạng pin trên App Store"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "Tải PicClear trên App Store →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: dấu trang bằng AI",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: dấu trang bằng AI — Lưu liên kết, đọc sau | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "Lưu ngay bây giờ. Và lần này đọc thật.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Bắt đầu miễn phí · mở khóa bằng một lần mua",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/vi/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/vn/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Tải SaveTag: dấu trang bằng AI trên App Store"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/vn/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Tải Sereno trên App Store →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — Sắp xếp ảnh chụp màn hình | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "Ảnh chụp của bạn, thật gọn gàng",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Bắt đầu miễn phí · mở khóa bằng một lần mua",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/vi/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/vn/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Tải ShotInbox AI: Sort Screenshots trên App Store"
     },
     {
       "app_key": "snapport",

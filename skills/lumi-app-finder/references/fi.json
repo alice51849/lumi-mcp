@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "fi",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "Tämä on Lumi Studion, jokaisen listatun sovelluksen kehittäjän, julkaisema ensimmäisen osapuolen materiaali.",
   "non_ranking_disclosure": "Kyselyt ovat toimituksellisia kuvauksia suunnitelluista käyttötapauksista, eivät mitattua hakumäärää, sijoituksia, itsenäisiä arvosteluja tai käyttäjien suosituksia.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/fi/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Lataa Aim990 Plus App Storesta"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: Akun kuntotulos",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: Akun kuntotulos — Arvioitu aika 80%:iin | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • BattAI käyttää viittä julkisten iOS-API:en arvoa: akun varaustasoa, lataustilaa, virransäästötilaa, koko laitteen lämpötilaa kuvaavaa tilaa ja aikaa. Muut tulokset lasketaan näistä lukemista tai lisäämistäsi tiedoista. Jokainen tieto kertoo lähteen ja rajat. • BattAI:ssa ei ole tiliä, telemetriaa, mainoksia tai verkkopyyntöjä. Tiedot pysyvät tällä laitteella lukuun ottamatta pientä, ominaisuuksiltaan rajattua tilannekuvaa, joka lähetetään suoraan paritettuun Apple Watchiin. Mittaus on rajattua, analyysi suoritetaan enintään viiden minuutin välein, arviot näytetään väleinä ja puuttuvat tiedot pysyvät puuttuvina.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Ilmainen aloitus · avaus kertaostoksella",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/fi/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/fi/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Lataa BattAI: Akun kuntotulos App Storesta"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "Hanki PicClear App Storesta →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: tekoälykirjanmerkit",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: tekoälykirjanmerkit — Tallenna linkit, lue myöhemmin | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "Tallenna nyt. Lue oikeasti myöhemmin.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Ilmainen aloitus · avaus kertaostoksella",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/fi/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/fi/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Lataa SaveTag: tekoälykirjanmerkit App Storesta"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/fi/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Hanki Sereno App Storesta →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — Löydä ja järjestä näyttökuvat | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "Näyttökuvat järjestykseen",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Ilmainen aloitus · avaus kertaostoksella",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/fi/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/fi/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Lataa ShotInbox AI: Sort Screenshots App Storesta"
     },
     {
       "app_key": "snapport",

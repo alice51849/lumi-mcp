@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "en-GB",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "This is first-party material published by Lumi Studio, the developer of every listed app.",
   "non_ranking_disclosure": "The queries are editorial descriptions of intended use cases, not measured search-volume data, rankings, independent reviews, or user endorsements.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/gb/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Get Aim990 Plus on the App Store"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: Battery health score",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: Battery health score — Estimated time until 80% | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • BattAI uses five values from public iOS APIs: battery level, charge state, Low Power Mode, whole-device thermal state, and time. Other results are calculated from those readings or added by you. Each detail shows its source and limits. • BattAI has no account, telemetry, ads, or network requests. Data stays on this device, except for a minimal feature-limited snapshot sent directly to your paired Apple Watch. Sampling is limited, analysis runs at most every five minutes, estimates use ranges, and missing data stays missing.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Free to start · one-time unlock",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/en-GB/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/gb/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Get BattAI: Battery health score on the App Store"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "Get PicClear on the App Store →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: AI Social Bookmarks",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: AI Social Bookmarks — Save links, read them later | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "Save it now. Actually read it later.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Free to start · one-time unlock",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/en-GB/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/gb/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Get SaveTag: AI Social Bookmarks on the App Store"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/gb/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "Get Sereno on the App Store →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — OCR Search & Tidy Camera Roll | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "Your Screenshots, Sorted",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "Free to start · one-time unlock",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/en-GB/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/gb/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "Get ShotInbox AI: Sort Screenshots on the App Store"
     },
     {
       "app_key": "snapport",

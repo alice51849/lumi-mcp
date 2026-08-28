@@ -15,7 +15,7 @@ export const QUERY_ORIGIN =
 export const CATALOG_ORDERING =
   "official_locale_order_then_alphabetical_app_name";
 export const MCP_CAMPAIGN_TOKEN = "lumi_oci";
-export const EXPECTED_APP_COUNT = 43;
+export const EXPECTED_APP_COUNT = 46;
 export const OFFICIAL_LOCALES = Object.freeze([
   "ar-SA", "bn-BD", "ca", "cs", "da", "de-DE", "el", "en-AU",
   "en-CA", "en-GB", "en-US", "es-ES", "es-MX", "fi", "fr-CA",

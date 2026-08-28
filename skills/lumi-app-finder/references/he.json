@@ -1,11 +1,11 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-21",
+  "date_modified": "2026-08-27",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "e40b43fcd2923cb1f5e3e47e66dc51e127c984553dba40923723ac9c2f9532ca",
-  "snapshot_content_digest": "89391c3cb86ed99d67435b7dd09db6c8c1754fc6d1692305b0cb723d01f77593",
+  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
+  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
   "locale": "he",
-  "app_count": 43,
+  "app_count": 46,
   "publisher": "Lumi Studio",
   "publisher_disclosure": "זהו חומר רשמי שפורסם על ידי Lumi Studio, המפתח של כל אפליקציה ברשימה.",
   "non_ranking_disclosure": "השאילתות הן תיאורים מערכתיים של מקרי שימוש מיועדים, לא נתוני נפח חיפוש נמדדים, דירוגים, ביקורות עצמאיות או המלצות משתמשים.",
@@ -60,6 +60,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6792483140",
       "app_store_url": "https://apps.apple.com/il/app/id6792483140?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "הורידו את Aim990 Plus מה-App Store"
+    },
+    {
+      "app_key": "battai",
+      "app_name": "BattAI: ציון בריאות הסוללה",
+      "app_store_id": "6802423998",
+      "publisher_query": "BattAI: ציון בריאות הסוללה — זמן משוער עד ⁦80%⁩ | iOS App",
+      "source_persona_query": "best iphone battery health app with honest estimates and report",
+      "decision_context": "BattAI • ⁦BattAI⁩ משתמש בחמישה ערכים מממשקי ⁦iOS API⁩ ציבוריים: רמת הסוללה, מצב הטעינה, מצב סוללה חלשה, המצב התרמי של המכשיר כולו והזמן. תוצאות אחרות מחושבות מהמדידות האלה או נוספות על ידך. ליד כל פרט מוצגים המקור והמגבלות. • ל־⁦BattAI⁩ אין חשבון, טלמטריה, פרסומות או בקשות רשת. הנתונים נשארים במכשיר, למעט תמונת מצב מזערית ומוגבלת שנשלחת ישירות ל־⁦Apple Watch⁩ המקושר. הדגימה מוגבלת, הניתוח רץ לכל היותר פעם בחמש דקות, אומדנים מוצגים כטווחים ונתונים חסרים נשארים חסרים.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "התחלה ללא תשלום · פתיחה ברכישה חד-פעמית",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/he/battai.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802423998",
+      "app_store_url": "https://apps.apple.com/il/app/id6802423998?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "הורידו את BattAI: ציון בריאות הסוללה מה-App Store"
     },
     {
       "app_key": "caldaily",
@@ -494,6 +510,22 @@
       "app_store_cta_label": "קבל את PicClear ב-App Store →"
     },
     {
+      "app_key": "savetag",
+      "app_name": "SaveTag: סימניות עם AI",
+      "app_store_id": "6802505528",
+      "publisher_query": "SaveTag: סימניות עם AI — שמור קישורים, קרא אחר כך | iOS App",
+      "source_persona_query": "best app to save links from other apps on iphone",
+      "decision_context": "שמור עכשיו. וגם תקרא באמת אחר כך.",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "התחלה ללא תשלום · פתיחה ברכישה חד-פעמית",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/he/savetag.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802505528",
+      "app_store_url": "https://apps.apple.com/il/app/id6802505528?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "הורידו את SaveTag: סימניות עם AI מה-App Store"
+    },
+    {
       "app_key": "scanto",
       "app_name": "ScanTo Pro",
       "app_store_id": "6779977651",
@@ -524,6 +556,22 @@
       "canonical_app_store_url": "https://apps.apple.com/app/id6788236641",
       "app_store_url": "https://apps.apple.com/il/app/id6788236641?pt=118326163&ct=lumi_oci&mt=8",
       "app_store_cta_label": "קבל את Sereno ב-App Store →"
+    },
+    {
+      "app_key": "shotinbox",
+      "app_name": "ShotInbox AI: Sort Screenshots",
+      "app_store_id": "6802166527",
+      "publisher_query": "ShotInbox AI: Sort Screenshots — רכישה אחת, ללא מינוי | iOS App",
+      "source_persona_query": "best app to sort screenshots on iphone offline",
+      "decision_context": "צילומי המסך שלך, מסודרים",
+      "purchase_model": "free_with_lifetime_unlock",
+      "purchase_label": "התחלה ללא תשלום · פתיחה ברכישה חד-פעמית",
+      "one_time_option": true,
+      "verified_live": true,
+      "guide_url": "https://alice51849.github.io/ios-app-guide/he/shotinbox.html",
+      "canonical_app_store_url": "https://apps.apple.com/app/id6802166527",
+      "app_store_url": "https://apps.apple.com/il/app/id6802166527?pt=118326163&ct=lumi_oci&mt=8",
+      "app_store_cta_label": "הורידו את ShotInbox AI: Sort Screenshots מה-App Store"
     },
     {
       "app_key": "snapport",

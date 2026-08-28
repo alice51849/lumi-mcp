@@ -316,6 +316,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          apps="$(node -p "require('./server/catalog.json').app_count")"
+          locales="$(node -p "require('./server/catalog.json').locale_count")"
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
             gh release upload "$GITHUB_REF_NAME" \
               dist/lumi-app-finder.mcpb \
@@ -330,7 +332,7 @@ jobs:
               dist/lumi-app-finder.spdx.json \
               dist/SHA256SUMS \
               --title "Lumi App Finder $GITHUB_REF_NAME" \
-              --notes "First-party discovery for 43 verified iOS apps across all 50 Apple locales. OCI digest: ${DIGEST}. Includes MCPB, semver-pinned GHCR image, SBOM, provenance, and offline 50-locale smoke coverage."
+              --notes "First-party discovery for ${apps} verified iOS apps across all ${locales} Apple locales. OCI digest: ${DIGEST}. Includes MCPB, semver-pinned GHCR image, SBOM, provenance, and offline ${locales}-locale smoke coverage."
           fi
       - name: Install verified MCP Registry publisher
         run: |
