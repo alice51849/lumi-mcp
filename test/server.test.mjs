@@ -259,6 +259,33 @@ test("every admitted app is discoverable by exact App Store ID", async () => {
   });
 });
 
+test("newly admitted apps match their localized publisher intent", async () => {
+  await withClient(async (client) => {
+    const admitted = new Set(["battai", "savetag", "shotinbox"]);
+    const records = catalog.records.filter((record) =>
+      admitted.has(record.app_key)
+    );
+    assert.equal(records.length, admitted.size * OFFICIAL_LOCALES.length);
+    for (const expected of records) {
+      const response = await client.request("tools/call", {
+        name: "find_ios_apps",
+        arguments: {
+          query: expected.publisher_query,
+          locale: expected.locale,
+          limit: 5,
+        },
+      });
+      assert.equal(
+        response.result.structuredContent.results.some(
+          (record) => record.app_key === expected.app_key,
+        ),
+        true,
+        `${expected.app_key}/${expected.locale}`,
+      );
+    }
+  });
+});
+
 test("all 50 locales return deterministic contracts", async () => {
   await withClient(async (client) => {
     for (const locale of OFFICIAL_LOCALES) {
