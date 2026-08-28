@@ -309,6 +309,10 @@ test("container runs the zero-dependency stdio server as a non-root user", async
   );
   assert.match(
     dockerfile,
+    /org\.opencontainers\.image\.description="Private offline MCP discovery for verified live Lumi Studio iOS apps across 50 Apple locales"/u,
+  );
+  assert.match(
+    dockerfile,
     /org\.opencontainers\.image\.source="https:\/\/github\.com\/alice51849\/lumi-mcp"/u,
   );
   assert.match(

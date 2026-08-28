@@ -1,9 +1,9 @@
 {
   "schema_version": "1.1",
-  "date_modified": "2026-08-27",
+  "date_modified": "2026-08-28",
   "catalog_source": "https://alice51849.github.io/ios-app-guide/data/lumi-studio-publisher-search-intent-catalog.json",
-  "source_content_digest": "448c996c7eb848d403abf151c381023517ddb36938d9a02c6ee87149c0e154da",
-  "snapshot_content_digest": "d0cf111b8951dc35177da625158a927aedf8237e57f6ceac60ac8ba629a02b92",
+  "source_content_digest": "8fd2866c7f7d5683fd334a271a3e13c3616fccb9f26cdc66daf608d3dc968f89",
+  "snapshot_content_digest": "011d036b487c6224d6641fccc3e695a40cc26fc36b1bb7e52f465445b8fadf64",
   "locale": "kn-IN",
   "app_count": 46,
   "publisher": "Lumi Studio",

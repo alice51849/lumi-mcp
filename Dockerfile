@@ -5,7 +5,7 @@ ARG REVISION=unknown
 ARG CREATED=1970-01-01T00:00:00Z
 
 LABEL org.opencontainers.image.title="Lumi App Finder" \
-      org.opencontainers.image.description="Private offline MCP app discovery across 43 iOS apps and 50 Apple locales" \
+      org.opencontainers.image.description="Private offline MCP discovery for verified live Lumi Studio iOS apps across 50 Apple locales" \
       org.opencontainers.image.version="${VERSION}" \
       org.opencontainers.image.created="${CREATED}" \
       org.opencontainers.image.revision="${REVISION}" \
